@@ -3,7 +3,8 @@
 #' Fit a generalized additive model to a water quality time series
 #' 
 #' @param rawdat input raw data 
-#' @param mod chr string indicating one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam6}, see details
+#' @param mod chr string indicating one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam6}, see details, 
+#' @param ... additional arguments passed to other methods
 #' 
 #' @details 
 #' 
@@ -27,10 +28,9 @@
 #' library(dplyr)
 #' tomod <- rawdat %>% 
 #'   filter(station %in% 32) %>% 
-#'   filter(param %in% 'chl') %>% 
-#'   mutate(value = log10(value))
-#' anlz_gam(tomod, mod = 'gam2')
-anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6')){
+#'   filter(param %in% 'chl')
+#' anlz_gam(tomod, mod = 'gam2', trans = 'boxcox)
+anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
 
   if(length(unique(rawdat$param)) > 1)
     stop('More than one parameter found in input data')
@@ -39,7 +39,10 @@ anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6')){
     stop('More than one station found in input data')
   
   mod <- match.arg(mod)
-
+  
+  # get transformation
+  rawdat <- anlz_trans(rawdat, ...)
+  
   frms <- c(
     'gam0' = "value ~ dec_time + s(doy, bs = 'cc')",  
     'gam1' = "value ~ dec_time + s(dec_time) + s(doy, bs = 'cc')",
