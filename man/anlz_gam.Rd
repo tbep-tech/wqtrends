@@ -38,7 +38,7 @@ tomod <- rawdat \%>\%
 anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
 }
 \seealso{
-Other analyze: \code{\link{anlz_smooth}},
-  \code{\link{anlz_trans}}
+Other analyze: \code{\link{anlz_fit}},
+  \code{\link{anlz_smooth}}, \code{\link{anlz_trans}}
 }
 \concept{analyze}

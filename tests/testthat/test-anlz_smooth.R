@@ -1,8 +1,8 @@
 test_that("Checking anlz_smooth", {
   
   tomod <- rawdat %>%
-    filter(station %in% 32) %>%
-    filter(param %in% 'chl')
+    dplyr::filter(station %in% 32) %>%
+    dplyr::filter(param %in% 'chl')
   
   result <- anlz_smooth(tomod, trans = 'boxcox') %>% 
     pull(p.value)
@@ -21,8 +21,8 @@ test_that("Checking anlz_smooth error", {
 test_that("Checking anlz_smooth list input", {
   
   tomod <- rawdat %>%
-    filter(station %in% 32) %>%
-    filter(param %in% 'chl')
+    dplyr::filter(station %in% 32) %>%
+    dplyr::filter(param %in% 'chl')
   trans <- 'boxcox'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
