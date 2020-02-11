@@ -1,0 +1,18 @@
+Package: wqtrends
+Title: Assess Water Quality Trends with Generalized Additive Models
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Marcus",
+           family = "Beck",
+           role = c("aut", "cre"),
+           email = "mbeck@tbep.org",
+           comment = c(ORCID = "0000-0002-4996-0059"))
+Description: Assess water quality trends for long-term monitoring data in estuaries 
+  using Generalized Additive Models.  Builds extensively off of the baytrends R package 
+  developed by the Chesapeake Bay Program.
+Depends: 
+  R (>= 3.5)
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
