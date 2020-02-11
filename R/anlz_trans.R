@@ -2,7 +2,7 @@
 #' 
 #' Transform response variable prior to fitting GAM
 #' 
-#' @param rawdat input raw data
+#' @param rawdat input raw data, one station and paramater
 #' @param trans chr string indicating desired type of transformation, one of \code{boxcox}, \code{log10}, or \code{ident} (no transformation)
 #'
 #' @return \code{rawdat} with the \code{value} column transformed as indicated

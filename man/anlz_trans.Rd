@@ -7,7 +7,7 @@
 anlz_trans(rawdat, trans = c("boxcox", "log10", "ident"))
 }
 \arguments{
-\item{rawdat}{input raw data}
+\item{rawdat}{input raw data, one station and paramater}
 
 \item{trans}{chr string indicating desired type of transformation, one of \code{boxcox}, \code{log10}, or \code{ident} (no transformation)}
 }
@@ -25,6 +25,7 @@ tomod <- rawdat \%>\%
 anlz_trans(tomod, trans = 'boxcox')
 }
 \seealso{
-Other analyze: \code{\link{anlz_gam}}
+Other analyze: \code{\link{anlz_gam}},
+  \code{\link{anlz_smooth}}
 }
 \concept{analyze}

@@ -2,7 +2,7 @@
 #'
 #' Fit a generalized additive model to a water quality time series
 #' 
-#' @param rawdat input raw data 
+#' @param rawdat input raw data, one station and paramater 
 #' @param mod chr string indicating one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam6}, see details, 
 #' @param ... additional arguments passed to other methods
 #' 
@@ -29,7 +29,7 @@
 #' tomod <- rawdat %>% 
 #'   filter(station %in% 32) %>% 
 #'   filter(param %in% 'chl')
-#' anlz_gam(tomod, mod = 'gam2', trans = 'boxcox)
+#' anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
 anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
 
   if(length(unique(rawdat$param)) > 1)
