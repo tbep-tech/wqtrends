@@ -50,7 +50,7 @@ anlz_fit <- function(rawdat = NULL, mods = NULL, ...) {
   if(!is.null(mods))
     levnms <- names(mods)
 
-  out <- purrr::map(mods, ~ tibble(
+  out <- purrr::map(mods, ~ data.frame(
     AIC = AIC(.x), 
     GCV = .x$gcv.ubre,
     R2 = summary(.x)$r.sq, 

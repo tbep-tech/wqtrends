@@ -5,7 +5,7 @@ test_that("Checking anlz_smooth", {
     dplyr::filter(param %in% 'chl')
   
   result <- anlz_smooth(tomod, trans = 'boxcox') %>% 
-    pull(p.value)
+    dplyr::pull(p.value)
   
   expect_equal(result, c(1.32020868122307e-20, 1.99791202122216e-06, 3.9907884821717e-22, 
                          1.73830208627285e-06, 2.9035617099093e-22, 0.00499890176854272, 
@@ -31,7 +31,7 @@ test_that("Checking anlz_smooth list input", {
     )
   
   result <- anlz_smooth(mods = mods) %>% 
-    pull(p.value)
+    dplyr::pull(p.value)
   
   expect_equal(result, c(1.32020868122307e-20, 1.99791202122216e-06, 3.9907884821717e-22, 
                          1.73830208627285e-06, 2.9035617099093e-22, 0.00499890176854272)
