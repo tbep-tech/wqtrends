@@ -2,7 +2,7 @@
 #'
 #' Return summary statistics for smoothers of GAMs
 #' 
-#' @param rawdat input raw data, one station and paramater
+#' @param moddat input raw data, one station and paramater
 #' @param mods optional list of model objects
 #' @param ... additional arguments passed to other methods
 #'
@@ -29,18 +29,18 @@
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
 #' anlz_smooth(mods = mods)
-anlz_smooth <- function(rawdat = NULL, mods = NULL, ...) {
+anlz_smooth <- function(moddat = NULL, mods = NULL, ...) {
   
-  if(is.null(rawdat) & is.null(mods))
-    stop('Must supply one of rawdat or mods')
+  if(is.null(moddat) & is.null(mods))
+    stop('Must supply one of moddat or mods')
   
   if(is.null(mods)){
     
     mods <- list(
-      gam0 = anlz_gam(rawdat, mod = 'gam0', ...),
-      gam1 = anlz_gam(rawdat, mod = 'gam1', ...), 
-      gam2 = anlz_gam(rawdat, mod = 'gam2', ...), 
-      gam6 = anlz_gam(rawdat, mod = 'gam6', ...)
+      gam0 = anlz_gam(moddat, mod = 'gam0', ...),
+      gam1 = anlz_gam(moddat, mod = 'gam1', ...), 
+      gam2 = anlz_gam(moddat, mod = 'gam2', ...), 
+      gam6 = anlz_gam(moddat, mod = 'gam6', ...)
       ) 
     
    levnms <- c('gam0', 'gam1', 'gam2', 'gam6') 

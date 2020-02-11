@@ -4,10 +4,10 @@
 \alias{anlz_fit}
 \title{Return summary statistics for GAM fits}
 \usage{
-anlz_fit(rawdat = NULL, mods = NULL, ...)
+anlz_fit(moddat = NULL, mods = NULL, ...)
 }
 \arguments{
-\item{rawdat}{input raw data, one station and paramater}
+\item{moddat}{input raw data, one station and paramater}
 
 \item{mods}{optional list of model objects}
 

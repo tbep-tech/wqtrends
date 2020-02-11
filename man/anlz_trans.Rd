@@ -4,15 +4,15 @@
 \alias{anlz_trans}
 \title{Transform response variable}
 \usage{
-anlz_trans(rawdat, trans = c("boxcox", "log10", "ident"))
+anlz_trans(moddat, trans = c("boxcox", "log10", "ident"))
 }
 \arguments{
-\item{rawdat}{input raw data, one station and paramater}
+\item{moddat}{input raw data, one station and paramater}
 
 \item{trans}{chr string indicating desired type of transformation, one of \code{boxcox}, \code{log10}, or \code{ident} (no transformation)}
 }
 \value{
-\code{rawdat} with the \code{value} column transformed as indicated
+\code{moddat} with the \code{value} column transformed as indicated
 }
 \description{
 Transform response variable prior to fitting GAM

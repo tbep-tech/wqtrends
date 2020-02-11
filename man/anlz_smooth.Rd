@@ -4,10 +4,10 @@
 \alias{anlz_smooth}
 \title{Return summary statistics for smoothers of GAMs}
 \usage{
-anlz_smooth(rawdat = NULL, mods = NULL, ...)
+anlz_smooth(moddat = NULL, mods = NULL, ...)
 }
 \arguments{
-\item{rawdat}{input raw data, one station and paramater}
+\item{moddat}{input raw data, one station and paramater}
 
 \item{mods}{optional list of model objects}
 

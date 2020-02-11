@@ -4,10 +4,10 @@
 \alias{anlz_gam}
 \title{Fit a generalized additive model to a water quality time series}
 \usage{
-anlz_gam(rawdat, mod = c("gam0", "gam1", "gam2", "gam6"), ...)
+anlz_gam(moddat, mod = c("gam0", "gam1", "gam2", "gam6"), ...)
 }
 \arguments{
-\item{rawdat}{input raw data, one station and paramater}
+\item{moddat}{input raw data, one station and paramater}
 
 \item{mod}{chr string indicating one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam6}, see details,}
 

@@ -2,7 +2,7 @@
 #'
 #' Fit a generalized additive model to a water quality time series
 #' 
-#' @param rawdat input raw data, one station and paramater 
+#' @param moddat input raw data, one station and paramater 
 #' @param mod chr string indicating one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam6}, see details, 
 #' @param ... additional arguments passed to other methods
 #' 
@@ -30,18 +30,18 @@
 #'   filter(station %in% 32) %>% 
 #'   filter(param %in% 'chl')
 #' anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
-anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
+anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
 
-  if(length(unique(rawdat$param)) > 1)
+  if(length(unique(moddat$param)) > 1)
     stop('More than one parameter found in input data')
     
-  if(length(unique(rawdat$station)) > 1)
+  if(length(unique(moddat$station)) > 1)
     stop('More than one station found in input data')
   
   mod <- match.arg(mod)
   
   # get transformation
-  rawdat <- anlz_trans(rawdat, ...)
+  moddat <- anlz_trans(moddat, ...)
   
   frms <- c(
     'gam0' = "value ~ dec_time + s(doy, bs = 'cc')",  
@@ -57,7 +57,7 @@ anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
   if(mod %in% c('gam1', 'gam2')){
     
     # get upper bounds of knots
-    kts <- rawdat$yr %>%
+    kts <- moddat$yr %>%
       unique %>%
       length 
     kts <- round(kts * (2/3), 0)
@@ -74,7 +74,7 @@ anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
   if(mod %in% 'gam6'){
     
     # get upper bounds of knots
-    kts <- 12 * length(unique(rawdat$yr))
+    kts <- 12 * length(unique(moddat$yr))
     
     # # gpp have missing data in some months, so decrease upper k boundary
     # if(param == 'gpp')
@@ -89,10 +89,13 @@ anlz_gam <- function(rawdat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
 
   out <- gam(as.formula(frm),
              knots = list(doy = c(1, 366)),
-             data = rawdat,
+             data = moddat,
              na.action = na.exclude,
              select = T
   )
+  
+  # add transformation to gam object
+  out$trans <- unique(moddat$trans)
   
   return(out)
   
