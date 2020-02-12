@@ -7,13 +7,13 @@ test_that("Checking anlz_fit", {
   result <- anlz_fit(tomod, trans = 'boxcox') %>% 
     dplyr::pull(GCV)
   
-  expect_equal(result, c(146.622000066429, 141.353748534362, 139.048564782218, 125.559570930222))
+  expect_equal(result, c(0.20838139957666, 0.180024757476673, 0.165008005675826, 0.124750943243962))
   
 })
 
 test_that("Checking anlz_fit error", {
   
-  expect_error(anlz_fit(), 'Must supply one of rawdat or mods')
+  expect_error(anlz_fit(), 'Must supply one of moddat or mods')
   
 })
 
@@ -32,7 +32,7 @@ test_that("Checking anlz_fit list input", {
   result <- anlz_fit(mods = mods) %>% 
     dplyr::pull(GCV)
   
-  expect_equal(result, c(146.622000066429, 141.353748534362, 139.048564782218))
+  expect_equal(result, c(0.20838139957666, 0.180024757476673, 0.165008005675826))
   
 })
 

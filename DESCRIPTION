@@ -18,6 +18,7 @@ Imports:
   MASS,
   mgcv,
   mixmeta, 
+  purrr,
   tibble,
   tidyr
 License: CC0

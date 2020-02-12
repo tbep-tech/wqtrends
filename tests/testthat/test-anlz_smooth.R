@@ -7,14 +7,15 @@ test_that("Checking anlz_smooth", {
   result <- anlz_smooth(tomod, trans = 'boxcox') %>% 
     dplyr::pull(p.value)
   
-  expect_equal(result, c(1.32020868122307e-20, 1.99791202122216e-06, 3.9907884821717e-22, 
-                         1.73830208627285e-06, 2.9035617099093e-22, 0.00499890176854272, 
-                         1.47911288547221e-31, 1.54611825691792e-08))
+  expect_equal(result, c(4.00466782830621e-51, 9.53755596319021e-21, 2.03913127920902e-62, 
+                         6.36553689087831e-19, 8.6379180235765e-70, 4.21392912286391e-09, 
+                         2.08098119593359e-102, 6.36109749896328e-16))
+  
 })
 
 test_that("Checking anlz_smooth error", {
 
-  expect_error(anlz_smooth(), 'Must supply one of rawdat or mods')
+  expect_error(anlz_smooth(), 'Must supply one of moddat or mods')
   
 })
 
@@ -33,8 +34,8 @@ test_that("Checking anlz_smooth list input", {
   result <- anlz_smooth(mods = mods) %>% 
     dplyr::pull(p.value)
   
-  expect_equal(result, c(1.32020868122307e-20, 1.99791202122216e-06, 3.9907884821717e-22, 
-                         1.73830208627285e-06, 2.9035617099093e-22, 0.00499890176854272)
-               )
+  expect_equal(result, c(4.00466782830621e-51, 9.53755596319021e-21, 2.03913127920902e-62, 
+                         6.36553689087831e-19, 8.6379180235765e-70, 4.21392912286391e-09))
+  
 })
 
