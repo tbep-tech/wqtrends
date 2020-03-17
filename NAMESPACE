@@ -2,6 +2,7 @@
 
 export(anlz_fit)
 export(anlz_gam)
+export(anlz_pred)
 export(anlz_smooth)
 export(anlz_trans)
 import(mgcv)

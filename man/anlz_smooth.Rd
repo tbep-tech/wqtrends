@@ -40,6 +40,7 @@ anlz_smooth(mods = mods)
 }
 \seealso{
 Other analyze: \code{\link{anlz_fit}},
-  \code{\link{anlz_gam}}, \code{\link{anlz_trans}}
+  \code{\link{anlz_gam}}, \code{\link{anlz_pred}},
+  \code{\link{anlz_trans}}
 }
 \concept{analyze}

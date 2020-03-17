@@ -2,7 +2,7 @@
 #'
 #' Return summary statistics for GAM fits
 #' 
-#' @param moddat input raw data, one station and paramater
+#' @param moddat input raw data, one station and parameter
 #' @param mods optional list of model objects
 #' @param ... additional arguments passed to other methods
 #'
@@ -12,6 +12,7 @@
 #' @family analyze
 #'
 #' @examples
+#' \dontrun{
 #' library(dplyr)
 #' 
 #' # fit models with function
@@ -20,6 +21,7 @@
 #'   filter(param %in% 'chl')
 #' 
 #' anlz_fit(tomod, trans = 'boxcox')
+#' }
 #' 
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
