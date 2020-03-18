@@ -7,7 +7,7 @@ test_that("Checking anlz_fit", {
   result <- anlz_fit(tomod, trans = 'boxcox') %>% 
     dplyr::pull(GCV)
   
-  expect_equal(result, c(0.20838139957666, 0.180024757476673, 0.165008005675826, 0.124750943243962))
+  expect_equal(result, c(0.200444893755889, 0.173069880941896, 0.15855087967915, 0.119742850923618))
   
 })
 
@@ -32,7 +32,7 @@ test_that("Checking anlz_fit list input", {
   result <- anlz_fit(mods = mods) %>% 
     dplyr::pull(GCV)
   
-  expect_equal(result, c(0.20838139957666, 0.180024757476673, 0.165008005675826))
+  expect_equal(result, c(0.200444893755889, 0.173069880941896, 0.15855087967915))
   
 })
 

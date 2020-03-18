@@ -1,6 +1,6 @@
-#' Plot predictions for GAMs against day of year
+#' Plot predictions for GAMs over time series
 #'
-#' Plot predictions for GAMs against day of year
+#' Plot predictions for GAMs over time series
 #' 
 #' @param predin data frame input to plot, output from \code{\link{anlz_pred}}
 #' @param ylab chr string for y-axis label
@@ -40,7 +40,7 @@ show_prddoy <- function(predin, ylab, nfac = NULL){
       dplyr::pull(model) %>% 
       unique %>% 
       length
-
+  
   # back-transform
   prds <- anlz_backtrans(prds)
   
@@ -49,8 +49,8 @@ show_prddoy <- function(predin, ylab, nfac = NULL){
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
     ggplot2::theme(
       legend.position = 'top', 
-      legend.title = ggplot2::element_blank(), 
-      strip.background = ggplot2::element_blank()
+      legend.title = element_blank(), 
+      strip.background = element_blank()
     ) + 
     ggplot2::scale_color_viridis_c() + 
     ggplot2::facet_wrap(~ model, ncol = nfac) +

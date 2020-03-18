@@ -5,7 +5,7 @@ test_that("Checking anlz_backtrans, log10", {
     dplyr::filter(param %in% 'chl')
   dat <- anlz_trans(tomod, trans = 'log10')
   result <- anlz_backtrans(dat) %>% 
-    pull(value) %>% 
+    dplyr::pull(value) %>% 
     .[1:4]
   
   expect_equal(result, c(2.2, 7.2, 11.1, 7.3))
@@ -19,7 +19,7 @@ test_that("Checking anlz_backtrans, boxcox", {
     dplyr::filter(param %in% 'chl')
   dat <- anlz_trans(tomod, trans = 'boxcox')
   result <- anlz_backtrans(dat) %>% 
-    pull(value) %>% 
+    dplyr::pull(value) %>% 
     .[1:4]
   
   expect_equal(result, c(2.2, 7.2, 11.1, 7.3))
