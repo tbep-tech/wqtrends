@@ -12,14 +12,13 @@
 #' @family analyze
 #'
 #' @examples
-#' \dontrun{
 #' library(dplyr)
 #' 
 #' # fit models with function
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' 
+#' \dontrun{
 #' anlz_fit(tomod, trans = 'boxcox')
 #' }
 #' 

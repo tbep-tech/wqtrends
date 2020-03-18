@@ -22,14 +22,13 @@ a \code{data.frame} with predictions
 Get predicted data from fitted GAMs across period of observation
 }
 \examples{
-\dontrun{
 library(dplyr)
 
 # get predictions for all four gams
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-
+\dontrun{
 anlz_pred(tomod, trans = 'boxcox')
 }
 # use previously fitted list of models
