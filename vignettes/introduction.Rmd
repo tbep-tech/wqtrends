@@ -102,7 +102,7 @@ mods <- list(
   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans),
-  gam6 = anlz_gam(tomod, mod = 'gam2', trans = trans)
+  gam6 = anlz_gam(tomod, mod = 'gam6', trans = trans)
 )
 ```
 
