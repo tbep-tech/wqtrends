@@ -19,7 +19,7 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' anlz_pred(tomod, trans = 'boxcox')
+#' anlz_prd(tomod, trans = 'boxcox')
 #' }
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
@@ -28,8 +28,8 @@
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
-#' anlz_pred(mods = mods)
-anlz_pred <- function(moddat = NULL, mods = NULL, ...) {
+#' anlz_prd(mods = mods)
+anlz_prd <- function(moddat = NULL, mods = NULL, ...) {
 
   if(is.null(moddat) & is.null(mods))
     stop('Must supply one of moddat or mods')

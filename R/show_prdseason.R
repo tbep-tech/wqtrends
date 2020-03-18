@@ -47,8 +47,8 @@ show_prdseason <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
     
   }
  
-  # get daily predictions, differs from anlz_pred
-  prds <- anlz_predday(mods = mods)
+  # get daily predictions, differs from anlz_prd
+  prds <- anlz_prdday(mods = mods)
   
   # backtransform daily predictions
   prds <- anlz_backtrans(prds)

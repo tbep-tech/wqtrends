@@ -1,10 +1,10 @@
-test_that("Checking anlz_predday", {
+test_that("Checking anlz_prdday", {
   
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
   
-  result <- anlz_predday(tomod, trans = 'boxcox') %>% 
+  result <- anlz_prdday(tomod, trans = 'boxcox') %>% 
     dplyr::pull(value) %>% 
     .[1:4]
   
@@ -12,13 +12,13 @@ test_that("Checking anlz_predday", {
   
 })
 
-test_that("Checking anlz_predday error", {
+test_that("Checking anlz_prdday error", {
   
-  expect_error(anlz_predday(), 'Must supply one of moddat or mods')
+  expect_error(anlz_prdday(), 'Must supply one of moddat or mods')
   
 })
 
-test_that("Checking anlz_predday list input", {
+test_that("Checking anlz_prdday list input", {
   
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
@@ -30,7 +30,7 @@ test_that("Checking anlz_predday list input", {
     gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
   
-  result <- anlz_predday(mods = mods) %>% 
+  result <- anlz_prdday(mods = mods) %>% 
     dplyr::pull(value) %>% 
     .[1:4]
   

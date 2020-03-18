@@ -23,7 +23,7 @@ library(wqtrends)
 * `anlz_backtrans()`
 * `anlz_fit()`
 * `anlz_gam()`
-* `anlz_pred()`
+* `anlz_prd()`
 * `anlz_smooth()`
 * `anlz_trans()`
 

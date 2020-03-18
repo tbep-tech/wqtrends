@@ -20,9 +20,11 @@ Imports:
   MASS,
   mgcv,
   mixmeta, 
+  plotly,
   purrr,
   tibble,
-  tidyr
+  tidyr, 
+  viridisLite
 License: CC0
 Encoding: UTF-8
 LazyData: true

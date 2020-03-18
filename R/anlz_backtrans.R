@@ -7,7 +7,7 @@
 #' @return \code{dat} with the \code{value} column back-transformed using info from the \code{trans} column
 #' @export
 #' 
-#' @details \code{dat} can be output from \code{\link{anlz_trans}} or \code{\link{anlz_pred}}
+#' @details \code{dat} can be output from \code{\link{anlz_trans}} or \code{\link{anlz_prd}}
 #' 
 #' @family analyze
 #' 
@@ -26,7 +26,7 @@
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
-#' dat <- anlz_pred(mods = mods)
+#' dat <- anlz_prd(mods = mods)
 #' anlz_backtrans(dat)
 anlz_backtrans <- function(dat){
   

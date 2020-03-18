@@ -35,7 +35,7 @@
 show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
 
   # get predictions
-  prds <- anlz_pred(moddat = moddat, mods = mods, ...)
+  prds <- anlz_prd(moddat = moddat, mods = mods, ...)
   
   if(is.null(nfac))
     nfac <- prds %>%

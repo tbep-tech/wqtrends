@@ -2,7 +2,7 @@
 #'
 #' Get predicted data from fitted GAMs across period of observation, every day
 #' 
-#' @inheritParams anlz_pred
+#' @inheritParams anlz_prd
 #'
 #' @return a \code{data.frame} with predictions
 #' @export
@@ -17,7 +17,7 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' anlz_predday(tomod, trans = 'boxcox')
+#' anlz_prdday(tomod, trans = 'boxcox')
 #' }
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
@@ -26,8 +26,8 @@
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
-#' anlz_predday(mods = mods)
-anlz_predday <- function(moddat = NULL, mods = NULL, ...) {
+#' anlz_prdday(mods = mods)
+anlz_prdday <- function(moddat = NULL, mods = NULL, ...) {
   
   if(is.null(moddat) & is.null(mods))
     stop('Must supply one of moddat or mods')
@@ -48,10 +48,10 @@ anlz_predday <- function(moddat = NULL, mods = NULL, ...) {
   if(!is.null(mods))
     levnms <- names(mods)
   
-  # get daily predictions, differs from anlz_pred
+  # get daily predictions, differs from anlz_prd
   out <- mods %>%
     tibble::enframe('model', 'modv') %>% 
-    mutate(prddat = purrr::map(modv, function(modv){
+    dplyr::mutate(prddat = purrr::map(modv, function(modv){
 
       rng <- modv$model$dec_time %>%
         range(na.rm  = T) %>% 

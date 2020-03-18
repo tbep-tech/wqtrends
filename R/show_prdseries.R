@@ -38,7 +38,7 @@ show_prdseries <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
     nfac <- 1
   
   # get predictions
-  prds <- anlz_pred(moddat = moddat, mods = mods, ...)
+  prds <- anlz_prd(moddat = moddat, mods = mods, ...)
   
   # back-transform
   prds <- anlz_backtrans(prds)

@@ -16,7 +16,7 @@ anlz_backtrans(dat)
 Back-transform response variable after fitting GAM
 }
 \details{
-\code{dat} can be output from \code{\link{anlz_trans}} or \code{\link{anlz_pred}}
+\code{dat} can be output from \code{\link{anlz_trans}} or \code{\link{anlz_prd}}
 }
 \examples{
 library(dplyr)
@@ -33,13 +33,13 @@ mods <- list(
   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-dat <- anlz_pred(mods = mods)
+dat <- anlz_prd(mods = mods)
 anlz_backtrans(dat)
 }
 \seealso{
 Other analyze: \code{\link{anlz_fit}},
-  \code{\link{anlz_gam}}, \code{\link{anlz_predday}},
-  \code{\link{anlz_pred}}, \code{\link{anlz_smooth}},
+  \code{\link{anlz_gam}}, \code{\link{anlz_prdday}},
+  \code{\link{anlz_prd}}, \code{\link{anlz_smooth}},
   \code{\link{anlz_trans}}
 }
 \concept{analyze}
