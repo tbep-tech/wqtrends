@@ -40,8 +40,8 @@ mods <- list(
 anlz_fit(mods = mods)
 }
 \seealso{
-Other analyze: \code{\link{anlz_gam}},
-  \code{\link{anlz_pred}}, \code{\link{anlz_smooth}},
-  \code{\link{anlz_trans}}
+Other analyze: \code{\link{anlz_backtrans}},
+  \code{\link{anlz_gam}}, \code{\link{anlz_pred}},
+  \code{\link{anlz_smooth}}, \code{\link{anlz_trans}}
 }
 \concept{analyze}

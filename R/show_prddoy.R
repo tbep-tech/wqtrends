@@ -41,6 +41,9 @@ show_prddoy <- function(predin, ylab, nfac = NULL){
       unique %>% 
       length
 
+  # back-transform
+  prds <- anlz_backtrans(prds)
+  
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = doy, group = factor(yr), colour = yr)) + 
     ggplot2::geom_line(ggplot2::aes(y = value)) + 
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
@@ -52,8 +55,8 @@ show_prddoy <- function(predin, ylab, nfac = NULL){
     ggplot2::scale_color_viridis_c() + 
     ggplot2::facet_wrap(~ model, ncol = nfac) +
     ggplot2::guides(colour = ggplot2::guide_colourbar(barheight = 1, barwidth = 20)) +
+    scale_y_log10(ylab) + 
     ggplot2::labs(
-      y = ylab, 
       x = "Day of year"
     )
   

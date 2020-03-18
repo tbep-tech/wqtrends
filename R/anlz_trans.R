@@ -33,15 +33,16 @@ anlz_trans <- function(moddat, trans = c('boxcox', 'log10', 'ident')){
       dplyr::mutate(
         value = log10(value)
       )
-  
+
   if(trans == 'boxcox'){
-    bc <- boxcox(value ~ 1, data = moddat, lambda = seq(-4, 4, 1/10), plotit = FALSE)
+    bc <- boxcox(value ~ 1, data = moddat, lambda = seq(-4, 4, 1/100), plotit = FALSE)
     lamb <- bc$x[which.max(bc$y)]
   
     trans <- lamb
     moddat <- moddat %>% 
       dplyr::mutate(
-        value = (value ^ lamb - 1)/lamb
+        # value = (value ^ lamb - 1)/lamb,
+        value = forecast::BoxCox(value, lamb)
       )
     
   }

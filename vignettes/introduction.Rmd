@@ -20,8 +20,13 @@ library(wqtrends)
 
 # Analysis functions
 
+* `anlz_backtrans()`
 * `anlz_fit()`
 * `anlz_gam()`
 * `anlz_pred()`
 * `anlz_smooth()`
 * `anlz_trans()`
+
+# Show funcitons
+
+* `show_prddoy()`
