@@ -4,7 +4,6 @@
 #' 
 #' @param moddat input raw data, one station and parameter
 #' @param mods optional list of model objects
-#' @param length numeric indicating desired number of predictions
 #' @param ... additional arguments passed to other methods
 #'
 #' @return a \code{data.frame} with predictions
@@ -30,7 +29,7 @@
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
 #' anlz_pred(mods = mods)
-anlz_pred <- function(moddat = NULL, mods = NULL, length = 1000, ...) {
+anlz_pred <- function(moddat = NULL, mods = NULL, ...) {
 
   if(is.null(moddat) & is.null(mods))
     stop('Must supply one of moddat or mods')

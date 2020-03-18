@@ -4,14 +4,12 @@
 \alias{anlz_pred}
 \title{Get predicted data from fitted GAMs across period of observation}
 \usage{
-anlz_pred(moddat = NULL, mods = NULL, length = 1000, ...)
+anlz_pred(moddat = NULL, mods = NULL, ...)
 }
 \arguments{
 \item{moddat}{input raw data, one station and parameter}
 
 \item{mods}{optional list of model objects}
-
-\item{length}{numeric indicating desired number of predictions}
 
 \item{...}{additional arguments passed to other methods}
 }

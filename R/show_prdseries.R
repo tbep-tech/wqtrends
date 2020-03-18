@@ -2,10 +2,12 @@
 #'
 #' Plot predictions for GAMs over time series
 #' 
-#' @param predin data frame input to plot, output from \code{\link{anlz_pred}}
+#' @param moddat input raw data, one station and parameter
+#' @param mods optional list of model objects
 #' @param ylab chr string for y-axis label
-#' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}
-#'
+#' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to one
+#' @param ... additional arguments passed to other methods
+#' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
 #' 
@@ -19,8 +21,7 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' prds <- anlz_pred(tomod, trans = 'boxcox')
-#' show_prddoy(prds, ylab = 'Chlorophyll-a (ug/L)')
+#' show_prdseries(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'boxcox')
 #' }
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
@@ -30,35 +31,33 @@
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #' )
 #' 
-#' prds <- anlz_pred(mods = mods)
-#' 
-#' show_prddoy(prds, ylab = 'Chlorophyll-a (ug/L)')
-show_prddoy <- function(predin, ylab, nfac = NULL){
+#' show_prdseries(moddat = tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+show_prdseries <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
   
   if(is.null(nfac))
-    nfac <- predin %>%
-      dplyr::pull(model) %>% 
-      unique %>% 
-      length
+    nfac <- 1
+  
+  # get predictions
+  prds <- anlz_pred(moddat = moddat, mods = mods, ...)
   
   # back-transform
   prds <- anlz_backtrans(prds)
   
-  p <- ggplot2::ggplot(prds, ggplot2::aes(x = doy, group = factor(yr), colour = yr)) + 
-    ggplot2::geom_line(ggplot2::aes(y = value)) + 
+  p <- ggplot2::ggplot(prds, ggplot2::aes(x = date)) + 
+    ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
+    ggplot2::geom_line(ggplot2::aes(y = value, colour = factor(model)), size = 0.75, alpha = 0.8) + 
+    ggplot2::stat_smooth(ggplot2::aes(y = value, group = model), se = F, method = "loess", color = 'black', alpha = 0.7, formula = y ~x) +
+    ggplot2::facet_wrap(~model, ncol = nfac) +
+    ggplot2::scale_color_viridis_d() + 
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
     ggplot2::theme(
       legend.position = 'top', 
-      legend.title = element_blank(), 
-      strip.background = element_blank()
+      legend.title = ggplot2::element_blank(),
+      strip.text = ggplot2::element_blank(), 
+      strip.background = ggplot2::element_blank(), 
+      axis.title.x = ggplot2::element_blank()
     ) + 
-    ggplot2::scale_color_viridis_c() + 
-    ggplot2::facet_wrap(~ model, ncol = nfac) +
-    ggplot2::guides(colour = ggplot2::guide_colourbar(barheight = 1, barwidth = 20)) +
-    scale_y_log10(ylab) + 
-    ggplot2::labs(
-      x = "Day of year"
-    )
+    ggplot2::scale_y_log10(ylab)
   
   return(p)
   

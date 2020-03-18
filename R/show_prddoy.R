@@ -2,10 +2,12 @@
 #'
 #' Plot predictions for GAMs against day of year
 #' 
-#' @param predin data frame input to plot, output from \code{\link{anlz_pred}}
+#' @param moddat input raw data, one station and parameter
+#' @param mods optional list of model objects
 #' @param ylab chr string for y-axis label
 #' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}
-#'
+#' @param ... additional arguments passed to other methods
+#' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
 #' 
@@ -19,8 +21,7 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' prds <- anlz_pred(tomod, trans = 'boxcox')
-#' show_prddoy(prds, ylab = 'Chlorophyll-a (ug/L)')
+#' show_prddoy(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'boxcox')
 #' }
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
@@ -30,17 +31,18 @@
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #' )
 #' 
-#' prds <- anlz_pred(mods = mods)
-#' 
-#' show_prddoy(prds, ylab = 'Chlorophyll-a (ug/L)')
-show_prddoy <- function(predin, ylab, nfac = NULL){
+#' show_prddoy(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
+
+  # get predictions
+  prds <- anlz_pred(moddat = moddat, mods = mods, ...)
   
   if(is.null(nfac))
-    nfac <- predin %>%
+    nfac <- prds %>%
       dplyr::pull(model) %>% 
       unique %>% 
       length
-
+  
   # back-transform
   prds <- anlz_backtrans(prds)
   
@@ -55,7 +57,7 @@ show_prddoy <- function(predin, ylab, nfac = NULL){
     ggplot2::scale_color_viridis_c() + 
     ggplot2::facet_wrap(~ model, ncol = nfac) +
     ggplot2::guides(colour = ggplot2::guide_colourbar(barheight = 1, barwidth = 20)) +
-    scale_y_log10(ylab) + 
+    ggplot2::scale_y_log10(ylab) + 
     ggplot2::labs(
       x = "Day of year"
     )
