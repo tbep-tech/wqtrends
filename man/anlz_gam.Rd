@@ -39,7 +39,8 @@ anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
 }
 \seealso{
 Other analyze: \code{\link{anlz_backtrans}},
-  \code{\link{anlz_fit}}, \code{\link{anlz_pred}},
-  \code{\link{anlz_smooth}}, \code{\link{anlz_trans}}
+  \code{\link{anlz_fit}}, \code{\link{anlz_predday}},
+  \code{\link{anlz_pred}}, \code{\link{anlz_smooth}},
+  \code{\link{anlz_trans}}
 }
 \concept{analyze}
