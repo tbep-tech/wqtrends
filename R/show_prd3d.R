@@ -4,7 +4,7 @@
 #' 
 #' @inheritParams anlz_prd
 #' @param ylab chr string for y-axis label
-#' @param modi Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}
+#' @param gami Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}
 #'
 #' @return a \code{plotly} surface
 #' @export

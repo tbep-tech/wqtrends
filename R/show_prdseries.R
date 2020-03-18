@@ -31,8 +31,8 @@
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #' )
 #' 
-#' show_prdseries(moddat = tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseries <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
+#' show_prdseries(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   
   if(is.null(nfac))
     nfac <- 1
@@ -43,6 +43,24 @@ show_prdseries <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
   # back-transform
   prds <- anlz_backtrans(prds)
   
+  # get raw data from model if not provided
+  if(is.null(moddat)){
+    
+    stopifnot(!is.null(mods))
+    
+    tobacktrans <- mods[[1]]$model %>% 
+      dplyr::mutate(
+        trans = mods[[1]]$trans
+      )
+    
+    moddat <- anlz_backtrans(tobacktrans) %>% 
+      dplyr::mutate(
+        date = lubridate::date_decimal(dec_time), 
+        date = as.Date(date)
+      )
+
+  }
+
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = date)) + 
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
     ggplot2::geom_line(ggplot2::aes(y = value, colour = factor(model)), size = 0.75, alpha = 0.8) + 

@@ -20,7 +20,7 @@ test_that("Checking show_prdseason class, list input", {
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
     gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-  result <- show_prdseason(tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+  result <- show_prdseason(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
   
   expect_is(result, 'ggplot')
   

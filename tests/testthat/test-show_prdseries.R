@@ -9,7 +9,7 @@ test_that("Checking show_prdseries class", {
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
     gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-  result <- show_prdseries(tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+  result <- show_prdseries(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
   
   expect_is(result, 'ggplot')
   

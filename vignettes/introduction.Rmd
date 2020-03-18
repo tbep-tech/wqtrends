@@ -1,8 +1,12 @@
 ---
-title: "introduction"
-output: rmarkdown::html_vignette
+title: "Introduction"
+author: "Marcus Beck"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{Tidal Creek Assessment}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,23 +14,116 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = F, warning = F, 
+  fig.align = 'center'
+)
+
+library(dplyr)
+library(wqtrends)
+library(plotly)
+```
+
+This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models.  It builds extensively off of the [baytrends](https://cran.r-project.org/web/packages/baytrends/index.html) R package developed by the Chesapeake Bay Program.
+  
+# Analysis functions
+
+* `anlz_backtrans()`: Back-transform response variable after fitting GAM
+* `anlz_fit()`: Return summary statistics for GAM fits
+* `anlz_gam()`: Fit a generalized additive model to a water quality time series
+* `anlz_prd()`: Get predicted data from fitted GAMs across period of observation
+* `anlz_prdday()`: Get predicted data from fitted GAMs across period of observation, every day
+* `anlz_smooth()`: Return summary statistics for smoothers of GAMs
+* `anlz_trans()`: Transform response variable prior to fitting GAM
+
+# Show functions
+
+* `show_prd3d()`: Plot a 3-d surface of predictions
+* `show_prddoy()`: Plot predictions for GAMs against day of year
+* `show_prdseason()`: Plot predictions for GAMs over time, by season
+* `show_prdseries()`: Plot predictions for GAMs over time series
+
+# Basic usage
+
+## Individual model
+
+Start by fitting a GAM with the `anlz_gam()` function.  The sample dataset `rawdat` can be used for the example.  Here we fit the `gam2` model using a BoxCox power transformation of the response variable.  
+
+```{r}
+head(rawdat)
+
+tomod <- rawdat %>%
+ filter(station %in% 32) %>%
+ filter(param %in% 'chl')
+mod <- anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
+mod
+```
+
+The power transformation estimate is attached to the model object and is used in later functions for back-transformation. 
+
+```{r}
+mod$trans
+```
+
+The fit can be assessed using `anlz_fit()` and `anlz_smooth()`, where the former assesses overall fit and the latter assesses the individaul smoother functions.
+
+```{r}
+mod <- list(gam2 = mod)
+anlz_fit(mods = mod)
+anlz_smooth(mods = mod)
+```
+
+The plotting functions show the results in different formats.  The model predictions are back-transformed and the scales on each plot are show in log10-scale to preserve the values of the results.
+
+```{r, fig.height = 5, fig.width = 6}
+ylab <- 'Chlorophyll-a'
+show_prddoy(mods = mod, ylab = ylab)
+```
+
+```{r, fig.height = 4, fig.width = 6}
+show_prdseries(mods = mod, ylab = ylab)
+```
+
+```{r, fig.height = 4, fig.width = 6}
+show_prdseason(mods = mod, ylab = ylab)
+```
+
+```{r}
+show_prd3d(mods = mod, ylab = ylab)
+```
+
+## Multiple models
+
+The functions above also work with a list of different models. 
+
+```{r}
+trans <- 'boxcox'
+mods <- list(
+  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
+  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
+  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans),
+  gam6 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 )
 ```
 
-```{r setup}
-library(wqtrends)
+Compare fits of multiple models:
+
+```{r}
+anlz_fit(mods = mods)
+anlz_smooth(mods = mods)
 ```
 
-# Analysis functions
+The plotting functions work the same, with separate facets for each model. The `show_prd3d()` function does not work with multiple models. 
 
-* `anlz_backtrans()`
-* `anlz_fit()`
-* `anlz_gam()`
-* `anlz_prd()`
-* `anlz_smooth()`
-* `anlz_trans()`
+```{r, fig.height = 4, fig.width = 10}
+ylab <- 'Chlorophyll-a'
+show_prddoy(mods = mods, ylab = ylab)
+```
 
-# Show funcitons
+```{r, fig.height = 9, fig.width = 6}
+show_prdseries(mods = mods, ylab = ylab)
+```
 
-* `show_prddoy()`
+```{r, fig.height = 9, fig.width = 6}
+show_prdseason(mods = mods, ylab = ylab)
+```

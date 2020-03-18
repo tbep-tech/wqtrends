@@ -21,7 +21,7 @@ show_prdseason(moddat, mods = NULL, ylab, nfac = NULL, ...)
 A \code{\link[ggplot2]{ggplot}} object
 }
 \description{
-Plot predictions for GAMs over time,by season
+Plot predictions for GAMs over time, by season
 }
 \examples{
 library(dplyr)

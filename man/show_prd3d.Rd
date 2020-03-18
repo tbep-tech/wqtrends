@@ -14,9 +14,9 @@ show_prd3d(moddat = NULL, mods = NULL, ylab, gami = c("gam0", "gam1",
 
 \item{ylab}{chr string for y-axis label}
 
-\item{...}{additional arguments passed to other methods}
+\item{gami}{Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}}
 
-\item{modi}{Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}}
+\item{...}{additional arguments passed to other methods}
 }
 \value{
 a \code{plotly} surface

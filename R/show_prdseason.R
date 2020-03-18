@@ -1,6 +1,6 @@
 #' Plot predictions for GAMs over time, by season
 #'
-#' Plot predictions for GAMs over time,by season
+#' Plot predictions for GAMs over time, by season
 #' 
 #' @inheritParams show_prdseries
 #' 
@@ -28,7 +28,7 @@
 #' )
 #' 
 #' show_prdseason(moddat = tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseason <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
+show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   
   if(is.null(nfac))
     nfac <- 1
@@ -52,6 +52,24 @@ show_prdseason <- function(moddat, mods = NULL, ylab, nfac = NULL, ...){
   
   # backtransform daily predictions
   prds <- anlz_backtrans(prds)
+  
+  # get raw data from model if not provided
+  if(is.null(moddat)){
+    
+    stopifnot(!is.null(mods))
+    
+    tobacktrans <- mods[[1]]$model %>% 
+      dplyr::mutate(
+        trans = mods[[1]]$trans
+      )
+    
+    moddat <- anlz_backtrans(tobacktrans) %>% 
+      dplyr::mutate(
+        date = lubridate::date_decimal(dec_time), 
+        date = as.Date(date)
+      )
+    
+  }
   
   toplo <- prds %>% 
     dplyr::mutate(day = lubridate::day(date)) %>% 
