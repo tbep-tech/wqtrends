@@ -59,7 +59,7 @@ anlz_pred <- function(moddat = NULL, mods = NULL, length = 1000, ...) {
     prddat <- data.frame(
       dec_time = seq(min(prddat$dec_time), max(prddat$dec_time), length = 1000)
       ) %>%
-      mutate(
+      dplyr::mutate(
         date = lubridate::date_decimal(dec_time),
         date = as.Date(date),
         mo = lubridate::month(date, label = TRUE),
@@ -70,7 +70,7 @@ anlz_pred <- function(moddat = NULL, mods = NULL, length = 1000, ...) {
     prd <- predict(mod, newdata = prddat)
     
     prddat <- prddat %>% 
-      mutate(
+      dplyr::mutate(
         value = prd, 
         trans = trans
         )
