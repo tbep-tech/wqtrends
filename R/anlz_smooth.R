@@ -17,10 +17,10 @@
 #' # fit models with function
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
-#'   filter(param %in% 'chl')
-#' 
+#'   filter(param %in% 'chl') <- <- <- 
+#' \dontrun{
 #' anlz_smooth(tomod, trans = 'boxcox')
-#' 
+#' }
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
 #' mods <- list(
@@ -56,5 +56,5 @@ anlz_smooth <- function(moddat = NULL, mods = NULL, ...) {
       tidyr::unnest(value)
   
   return(out)
-
+  
 }

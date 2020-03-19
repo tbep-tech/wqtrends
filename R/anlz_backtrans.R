@@ -52,7 +52,7 @@ anlz_backtrans <- function(dat){
       )
     
   }
-
+  
   return(dat)
   
 }
