@@ -34,7 +34,6 @@ test_that("Checking anlz_prd list input", {
     dplyr::pull(value) %>% 
     .[1:4]
   
-  
   expect_equal(result, c(0.80529973011085, 0.854991329587398, 0.960502089820474, 1.13723410782409))
   
 })

@@ -61,6 +61,16 @@ anlz_prd <- function(moddat = NULL, mods = NULL, ...) {
       dplyr::mutate(
         date = lubridate::date_decimal(dec_time),
         date = as.Date(date),
+        mo = lubridate::month(date, label = TRUE),
+        doy = lubridate::yday(date),
+        yr = lubridate::year(date)
+      )
+    
+    prd <- predict(mod, newdata = prddat)
+    
+    prddat <- prddat %>% 
+      dplyr::mutate(
+        value = prd,
         trans = trans
         )
     
