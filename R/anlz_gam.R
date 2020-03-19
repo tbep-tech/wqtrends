@@ -81,9 +81,9 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
     p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
     p2 <- paste0('s(dec_time, k = ', kts, ')')
-    frm <- paste0(p1, p2, p3)
+    frmin <- paste0(p1, p2, p3)
     
-    out <- try(gam(as.formula(frm),
+    out <- try(gam(as.formula(frmin),
                knots = list(doy = c(1, 366)),
                data = moddat,
                na.action = na.exclude,
@@ -101,9 +101,9 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
       p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
       p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
       p2 <- paste0('s(dec_time, k = ', kts, ')')
-      frm <- paste0(p1, p2, p3)
+      frmin <- paste0(p1, p2, p3)
       
-      out <- try(gam(as.formula(frm),
+      out <- try(gam(as.formula(frmin),
                      knots = list(doy = c(1, 366)),
                      data = moddat,
                      na.action = na.exclude,
