@@ -5,9 +5,9 @@ test_that("Checking anlz_perchg", {
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
   result <- anlz_perchg(tomod, trans = 'log10', baseyr = 1990, testyr = 2016) %>% 
-    dplyr::pull(pval)
+    dplyr::pull(perchg)
   
-  expect_equal(result, c(1.23768398363824e-05, 0.00141257624554702, 0.590013237142406, 0.0531372755991334))
+  expect_equal(result, c(54.7196999767183, 49.9949209894315, 13.9865835003192, -72.9328417964074))
   
 })
 
@@ -25,9 +25,9 @@ test_that("Checking anlz_perchg, list input", {
     gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
     )
   result <- anlz_perchg(mods = mods, baseyr = 1990, testyr = 2016) %>% 
-    dplyr::pull(pval)
+    dplyr::pull(perchg)
   
-  expect_equal(result, c(1.08860890491265e-07, 0.00124610109460743, 0.489365441765695))
+  expect_equal(result, c(62.7065450923088, 43.8609266299847, 16.0772080789163))
   
 })
 

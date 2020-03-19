@@ -44,8 +44,8 @@ mods <- list(
 show_prddoy(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
-Other show: \code{\link{show_prd3d}},
-  \code{\link{show_prdseason}},
+Other show: \code{\link{show_perchg}},
+  \code{\link{show_prd3d}}, \code{\link{show_prdseason}},
   \code{\link{show_prdseries}}
 }
 \concept{show}

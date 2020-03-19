@@ -25,10 +25,10 @@ library(dplyr)
 # fit models with function
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
-  filter(param \%in\% 'chl')
-
+  filter(param \%in\% 'chl') <- <- <- 
+\dontrun{
 anlz_smooth(tomod, trans = 'boxcox')
-
+}
 # use previously fitted list of models
 trans <- 'boxcox'
 mods <- list(
@@ -41,7 +41,7 @@ anlz_smooth(mods = mods)
 \seealso{
 Other analyze: \code{\link{anlz_backtrans}},
   \code{\link{anlz_fit}}, \code{\link{anlz_gam}},
-  \code{\link{anlz_prdday}}, \code{\link{anlz_prd}},
-  \code{\link{anlz_trans}}
+  \code{\link{anlz_perchg}}, \code{\link{anlz_prdday}},
+  \code{\link{anlz_prd}}, \code{\link{anlz_trans}}
 }
 \concept{analyze}

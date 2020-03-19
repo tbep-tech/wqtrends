@@ -19,14 +19,14 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' show_prd3d(tomod, gami = 'gam2', trans = 'boxcox', ylab = 'Chlorophyll-a')
+#' show_prd3d(tomod, gami = 'gam2', trans = 'boxcox', ylab = 'Chlorophyll-a (ug/L)')
 #' }
 #' # use previously fitted list of models
 #' trans <- 'boxcox'
 #' mods <- list(
 #'   gam1 = anlz_gam(tomod, trans = trans)
 #'   )
-#' show_prd3d(mods = mods, ylab = 'Chlorophyll-a')
+#' show_prd3d(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
 show_prd3d <- function(moddat = NULL, mods = NULL, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
 
   if(is.null(moddat) & is.null(mods))

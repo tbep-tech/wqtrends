@@ -4,7 +4,7 @@
 \alias{show_prdseries}
 \title{Plot predictions for GAMs over time series}
 \usage{
-show_prdseries(moddat, mods = NULL, ylab, nfac = NULL, ...)
+show_prdseries(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...)
 }
 \arguments{
 \item{moddat}{input raw data, one station and parameter}
@@ -41,10 +41,11 @@ mods <- list(
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 )
 
-show_prdseries(moddat = tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+show_prdseries(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
-Other show: \code{\link{show_prd3d}},
-  \code{\link{show_prddoy}}, \code{\link{show_prdseason}}
+Other show: \code{\link{show_perchg}},
+  \code{\link{show_prd3d}}, \code{\link{show_prddoy}},
+  \code{\link{show_prdseason}}
 }
 \concept{show}

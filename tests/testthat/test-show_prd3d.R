@@ -18,7 +18,7 @@ test_that("Checking show_prd3d class, list input", {
   mods <- list(
     gam1 = anlz_gam(tomod, trans = trans)
     )
-  result <- show_prd3d(mods = mods, ylab = 'Chlorophyll-a')
+  result <- show_prd3d(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
 
   expect_is(result, 'plotly')
   
