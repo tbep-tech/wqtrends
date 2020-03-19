@@ -154,7 +154,8 @@
     <p>a <code>plotly</code> surface</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other show: <code><a href='show_prddoy.html'>show_prddoy</a></code>,
+    <div class='dont-index'><p>Other show: <code><a href='show_avgseason.html'>show_avgseason</a></code>,
+  <code><a href='show_perchg.html'>show_perchg</a></code>, <code><a href='show_prddoy.html'>show_prddoy</a></code>,
   <code><a href='show_prdseason.html'>show_prdseason</a></code>,
   <code><a href='show_prdseries.html'>show_prdseries</a></code></p></div>
 
@@ -166,14 +167,14 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>station</span> <span class='kw'>%in%</span> <span class='fl'>32</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>param</span> <span class='kw'>%in%</span> <span class='st'>'chl'</span>)
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>show_prd3d</span>(<span class='no'>tomod</span>, <span class='kw'>gami</span> <span class='kw'>=</span> <span class='st'>'gam2'</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>'boxcox'</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>'Chlorophyll-a'</span>)
+<span class='fu'>show_prd3d</span>(<span class='no'>tomod</span>, <span class='kw'>gami</span> <span class='kw'>=</span> <span class='st'>'gam2'</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>'boxcox'</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>'Chlorophyll-a (ug/L)'</span>)
 }
 <span class='co'># use previously fitted list of models</span>
 <span class='no'>trans</span> <span class='kw'>&lt;-</span> <span class='st'>'boxcox'</span>
 <span class='no'>mods</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   <span class='kw'>gam1</span> <span class='kw'>=</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='no'>tomod</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='no'>trans</span>)
   )
-<span class='fu'>show_prd3d</span>(<span class='kw'>mods</span> <span class='kw'>=</span> <span class='no'>mods</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>'Chlorophyll-a'</span>)</div></pre>
+<span class='fu'>show_prd3d</span>(<span class='kw'>mods</span> <span class='kw'>=</span> <span class='no'>mods</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>'Chlorophyll-a (ug/L)'</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

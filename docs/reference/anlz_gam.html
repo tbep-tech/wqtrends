@@ -155,8 +155,9 @@
 </dl><p>For all models, <code>year</code> is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and <code>doy</code> is the day of year as a numeric value from 1 to 366.  All models include <code>year</code> as a linear effect.  The functions <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></code> model either <code>year</code> or <code>doy</code> as a smoothed, non-linear variable and <code><a href='https://rdrr.io/pkg/mgcv/man/te.html'>ti</a></code> models the interaction between the two.  The fourth model, <code>gam6</code>, is the same as <code>gam1</code> with the exception that the optimal amount of smoothing on <code>year</code> is not constrained by increasing the theoretical upper limit on the number of knots for <code>k</code>.  The upper limit of <code>k</code> was chosen as 12 times the number of years for the input data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other analyze: <code><a href='anlz_backtrans.html'>anlz_backtrans</a></code>,
-  <code><a href='anlz_fit.html'>anlz_fit</a></code>, <code><a href='anlz_prdday.html'>anlz_prdday</a></code>,
+    <div class='dont-index'><p>Other analyze: <code><a href='anlz_avgseason.html'>anlz_avgseason</a></code>,
+  <code><a href='anlz_backtrans.html'>anlz_backtrans</a></code>, <code><a href='anlz_fit.html'>anlz_fit</a></code>,
+  <code><a href='anlz_perchg.html'>anlz_perchg</a></code>, <code><a href='anlz_prdday.html'>anlz_prdday</a></code>,
   <code><a href='anlz_prd.html'>anlz_prd</a></code>, <code><a href='anlz_smooth.html'>anlz_smooth</a></code>,
   <code><a href='anlz_trans.html'>anlz_trans</a></code></p></div>
 

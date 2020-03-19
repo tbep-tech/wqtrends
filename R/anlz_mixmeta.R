@@ -1,6 +1,6 @@
-#' Fit a mixed meta-analysis regresion model of trends
+#' Fit a mixed meta-analysis regression model of trends
 #' 
-#' Fit a mixed meta-analysis regresion model of trends
+#' Fit a mixed meta-analysis regression model of trends
 #' 
 #' @param avgseason output from \code{\link{anlz_avgseason}}
 #' @param yrstr numeric for starting year
