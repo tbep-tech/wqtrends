@@ -112,7 +112,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
       
     }
     
-    out$trans <- unique(modddat$trans)
+    out$trans <- unique(moddat$trans)
     
     return(out)
     
