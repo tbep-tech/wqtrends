@@ -10,6 +10,12 @@
 #' @export
 #'
 #' @examples
+#' library(dplyr)
+#' 
+#' # fit models with function
+#' tomod <- rawdat %>%
+#'   filter(station %in% 32) %>%
+#'   filter(param %in% 'chl')
 #' trans <- 'boxcox'
 #' mods <- list(
 #'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),

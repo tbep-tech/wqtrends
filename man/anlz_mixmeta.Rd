@@ -20,6 +20,12 @@ A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
 Fit a mixed meta-analysis regresion model of trends
 }
 \examples{
+library(dplyr)
+
+# fit models with function
+tomod <- rawdat \%>\%
+  filter(station \%in\% 32) \%>\%
+  filter(param \%in\% 'chl')
 trans <- 'boxcox'
 mods <- list(
   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
@@ -27,5 +33,5 @@ mods <- list(
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
 avgseason <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
-anlz_mixmeta(avgseason)
+anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2017)
 }

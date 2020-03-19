@@ -1,5 +1,9 @@
 test_that("Checking anlz_mixmeta", {
 
+  # fit models with function
+  tomod <- rawdat %>%
+    dplyr::filter(station %in% 32) %>%
+    dplyr::filter(param %in% 'chl')
   trans <- 'boxcox'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),

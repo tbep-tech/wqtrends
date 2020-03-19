@@ -28,16 +28,21 @@ This package can be used to assess water quality trends for long-term monitoring
   
 # Analysis functions
 
+* `anlz_avgseason()`: Extract period (seasonal) averages from fitted GAM
 * `anlz_backtrans()`: Back-transform response variable after fitting GAM
 * `anlz_fit()`: Return summary statistics for GAM fits
 * `anlz_gam()`: Fit a generalized additive model to a water quality time series
+* `anlz_mixmeta()`: Fit a mixed meta-analysis regresion model of trends
+* `anlz_perchg()`: Estimate percent change trends from GAM results for selected time periods
 * `anlz_prd()`: Get predicted data from fitted GAMs across period of observation
 * `anlz_prdday()`: Get predicted data from fitted GAMs across period of observation, every day
+* `anlz_pvalformat()`: Format p-values for show functions
 * `anlz_smooth()`: Return summary statistics for smoothers of GAMs
 * `anlz_trans()`: Transform response variable prior to fitting GAM
 
 # Show functions
 
+* `show_perchg()`: Plot percent change trends from GAM results for selected time periods
 * `show_prd3d()`: Plot a 3-d surface of predictions
 * `show_prddoy()`: Plot predictions for GAMs against day of year
 * `show_prdseason()`: Plot predictions for GAMs over time, by season
