@@ -24,10 +24,7 @@ test_that("Checking show_prd3d class, list input", {
   
 })
 
-
-
-
-test_that("Checking show_prd3d error", {
+test_that("Checking show_prd3d error, more than one model", {
   
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
@@ -39,5 +36,11 @@ test_that("Checking show_prd3d error", {
     )
   
   expect_error(show_prd3d(mods = mods, ylab = 'Chlorophyll-a (ug/L)'))
+  
+})
+
+test_that("Checking show_prd3d error, insufficient inputs", {
+  
+  expect_error(show_prd3d(ylab = 'Chlorophyll-a (ug/L)'))
   
 })
