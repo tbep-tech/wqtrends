@@ -73,17 +73,48 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
   # insert upper gamk1* rule for gamk1*
   if(mod %in% 'gam6'){
     
-    # get upper bounds of knots
-    kts <- 12 * length(unique(moddat$yr))
+    fct <- 12
     
-    # # gpp have missing data in some months, so decrease upper k boundary
-    # if(param == 'gpp')
-    #   kts <- round(0.9 * nrow(data))
+    # get upper bounds of knots
+    kts <- fct * length(unique(moddat$yr))
     
     p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
     p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
     p2 <- paste0('s(dec_time, k = ', kts, ')')
     frm <- paste0(p1, p2, p3)
+    
+    out <- try(gam(as.formula(frm),
+               knots = list(doy = c(1, 366)),
+               data = moddat,
+               na.action = na.exclude,
+               select = T
+    ))
+    
+    # drops upper limit on knots until it works
+    while(inherits(out, 'try-error')){
+      
+      fct <- fct -1
+      
+      # get upper bounds of knots
+      kts <- fct * length(unique(moddat$yr))
+      
+      p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
+      p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
+      p2 <- paste0('s(dec_time, k = ', kts, ')')
+      frm <- paste0(p1, p2, p3)
+      
+      out <- try(gam(as.formula(frm),
+                     knots = list(doy = c(1, 366)),
+                     data = moddat,
+                     na.action = na.exclude,
+                     select = T
+      ))
+      
+    }
+    
+    out$trans <- unique(modddat$trans)
+    
+    return(out)
     
   }
 
