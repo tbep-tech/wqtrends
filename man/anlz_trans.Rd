@@ -25,9 +25,10 @@ tomod <- rawdat \%>\%
 anlz_trans(tomod, trans = 'boxcox')
 }
 \seealso{
-Other analyze: \code{\link{anlz_backtrans}},
-  \code{\link{anlz_fit}}, \code{\link{anlz_gam}},
-  \code{\link{anlz_perchg}}, \code{\link{anlz_prdday}},
-  \code{\link{anlz_prd}}, \code{\link{anlz_smooth}}
+Other analyze: \code{\link{anlz_avgseason}},
+  \code{\link{anlz_backtrans}}, \code{\link{anlz_fit}},
+  \code{\link{anlz_gam}}, \code{\link{anlz_perchg}},
+  \code{\link{anlz_prdday}}, \code{\link{anlz_prd}},
+  \code{\link{anlz_smooth}}
 }
 \concept{analyze}

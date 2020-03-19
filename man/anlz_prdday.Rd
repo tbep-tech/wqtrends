@@ -39,9 +39,10 @@ mods <- list(
 anlz_prdday(mods = mods)
 }
 \seealso{
-Other analyze: \code{\link{anlz_backtrans}},
-  \code{\link{anlz_fit}}, \code{\link{anlz_gam}},
-  \code{\link{anlz_perchg}}, \code{\link{anlz_prd}},
-  \code{\link{anlz_smooth}}, \code{\link{anlz_trans}}
+Other analyze: \code{\link{anlz_avgseason}},
+  \code{\link{anlz_backtrans}}, \code{\link{anlz_fit}},
+  \code{\link{anlz_gam}}, \code{\link{anlz_perchg}},
+  \code{\link{anlz_prd}}, \code{\link{anlz_smooth}},
+  \code{\link{anlz_trans}}
 }
 \concept{analyze}
