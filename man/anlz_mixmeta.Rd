@@ -4,7 +4,7 @@
 \alias{anlz_mixmeta}
 \title{Fit a mixed meta-analysis regresion model of trends}
 \usage{
-anlz_mixmeta(avgseason, yrstr, yrend)
+anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2017)
 }
 \arguments{
 \item{avgseason}{output from \code{\link{anlz_avgseason}}}

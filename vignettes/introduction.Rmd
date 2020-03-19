@@ -42,6 +42,7 @@ This package can be used to assess water quality trends for long-term monitoring
 
 # Show functions
 
+* `show_avgseason()`: Plot period (seasonal) averages from fitted GAM
 * `show_perchg()`: Plot percent change trends from GAM results for selected time periods
 * `show_prd3d()`: Plot a 3-d surface of predictions
 * `show_prddoy()`: Plot predictions for GAMs against day of year

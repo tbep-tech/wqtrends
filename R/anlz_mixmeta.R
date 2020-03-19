@@ -24,7 +24,7 @@
 #'   )
 #' avgseason <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
 #' anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2017)
-anlz_mixmeta <- function(avgseason, yrstr, yrend){
+anlz_mixmeta <- function(avgseason, yrstr = 2000, yrend = 2017){
 
   # input
   totrnd <- avgseason %>% 

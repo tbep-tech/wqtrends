@@ -31,7 +31,7 @@
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
 #' anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
-anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 365, ...) {
+anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, ...) {
 
   if(is.null(moddat) & is.null(mods))
     stop('Must supply one of moddat or mods')

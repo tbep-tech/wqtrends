@@ -5,7 +5,7 @@
 \title{Extract period (seasonal) averages from fitted GAM}
 \usage{
 anlz_avgseason(moddat = NULL, mods = NULL, doystr = 1,
-  doyend = 365, ...)
+  doyend = 364, ...)
 }
 \arguments{
 \item{moddat}{input raw data, one station and paramater}
