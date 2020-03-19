@@ -17,7 +17,7 @@
 #' # fit models with function
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
-#'   filter(param %in% 'chl') <- <- <- 
+#'   filter(param %in% 'chl')
 #' \dontrun{
 #' anlz_smooth(tomod, trans = 'boxcox')
 #' }
