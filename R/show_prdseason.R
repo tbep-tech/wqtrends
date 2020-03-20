@@ -92,7 +92,7 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
       legend.title = ggplot2::element_blank()
     ) +
     ggplot2::guides(col = ggplot2::guide_legend(nrow = 2)) +
-    labs(
+    ggplot2::labs(
       y = ylab
     )
  

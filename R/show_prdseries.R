@@ -78,7 +78,7 @@ show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
       strip.background = ggplot2::element_blank(), 
       axis.title.x = ggplot2::element_blank()
     ) + 
-    labs(
+    ggplot2::labs(
       y = ylab
     )
   
