@@ -95,8 +95,9 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
     labs(
       y = ylab
     )
-  
-  ggplot2::scale_y_log10(ylab) + 
+ 
+  if(trans != 'ident')
+    p <- p + ggplot2::scale_y_log10()
 
   return(p)
   
