@@ -54,6 +54,9 @@ show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami =
   # get predictions
   prds <- anlz_prd(moddat = moddat, mods = mods, ...)
   
+  # get transformation
+  trans <- unique(prds$trans)
+  
   # back-transform
   prds <- anlz_backtrans(prds)
   
@@ -91,8 +94,10 @@ show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami =
     dplyr::select(xval, yr, bl, date) %>% 
     tidyr::spread(xval, date)
   
+  rctmn <- ifelse(trans == 'ident', -Inf, 0)
+  
   p <- ggplot2::ggplot() + 
-    ggplot2::geom_rect(data = trndswn, ggplot2::aes(xmin = xmin, xmax = xmax, ymin = 0, ymax = Inf, group = yr, fill = bl), alpha = 0.7) +
+    ggplot2::geom_rect(data = trndswn, ggplot2::aes(xmin = xmin, xmax = xmax, ymin = rctmn, ymax = Inf, group = yr, fill = bl), alpha = 0.7) +
     ggplot2::geom_point(data = moddat, ggplot2::aes(x = date, y = value), size = 0.5) +
     ggplot2::geom_line(data = prds, ggplot2::aes(x = date, y = value), size = 0.75, alpha = 0.8) + 
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
@@ -104,10 +109,13 @@ show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami =
       strip.background = ggplot2::element_blank(), 
       axis.title.x = ggplot2::element_blank()
     ) + 
-    ggplot2::scale_y_log10(ylab) +
     ggplot2::labs(
-      title = ttl
+      title = ttl, 
+      y = ylab
     )
+  
+  if(trans != 'ident')
+    p <- p + ggplot2::scale_y_log10()
   
   return(suppressWarnings(print(p)))
   

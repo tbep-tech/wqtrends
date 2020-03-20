@@ -50,6 +50,9 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   # get daily predictions, differs from anlz_prd
   prds <- anlz_prdday(mods = mods)
   
+  # get transformation
+  trans <- unique(prds$trans)
+  
   # backtransform daily predictions
   prds <- anlz_backtrans(prds)
   
@@ -88,8 +91,12 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
       strip.background = ggplot2::element_blank(), 
       legend.title = ggplot2::element_blank()
     ) +
-    ggplot2::scale_y_log10(ylab) + 
-    ggplot2::guides(col = ggplot2::guide_legend(nrow = 2))
+    ggplot2::guides(col = ggplot2::guide_legend(nrow = 2)) +
+    labs(
+      y = ylab
+    )
+  
+  ggplot2::scale_y_log10(ylab) + 
 
   return(p)
   

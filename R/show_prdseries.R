@@ -40,6 +40,9 @@ show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   # get predictions
   prds <- anlz_prd(moddat = moddat, mods = mods, ...)
   
+  # get transformation
+  trans <- unique(prds$trans)
+  
   # back-transform
   prds <- anlz_backtrans(prds)
   
@@ -75,7 +78,12 @@ show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
       strip.background = ggplot2::element_blank(), 
       axis.title.x = ggplot2::element_blank()
     ) + 
-    ggplot2::scale_y_log10(ylab)
+    labs(
+      y = ylab
+    )
+  
+  if(trans != 'ident')
+    p <- p + ggplot2::scale_y_log10()
   
   return(p)
   

@@ -37,6 +37,9 @@ show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   # get predictions
   prds <- anlz_prd(moddat = moddat, mods = mods, ...)
   
+  # get transformation
+  trans <- unique(prds$trans)
+  
   if(is.null(nfac))
     nfac <- prds %>%
       dplyr::pull(model) %>% 
@@ -57,10 +60,13 @@ show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
     ggplot2::scale_color_viridis_c() + 
     ggplot2::facet_wrap(~ model, ncol = nfac) +
     ggplot2::guides(colour = ggplot2::guide_colourbar(barheight = 1, barwidth = 20)) +
-    ggplot2::scale_y_log10(ylab) + 
     ggplot2::labs(
-      x = "Day of year"
+      x = "Day of year",
+      y = ylab
     )
+  
+  if(trans != 'ident')
+    p <- p + ggplot2::scale_y_log10()
   
   return(p)
   
