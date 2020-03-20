@@ -2,7 +2,7 @@
 % Please edit documentation in R/anlz_mixmeta.R
 \name{anlz_mixmeta}
 \alias{anlz_mixmeta}
-\title{Fit a mixed meta-analysis regresion model of trends}
+\title{Fit a mixed meta-analysis regression model of trends}
 \usage{
 anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2017)
 }
@@ -17,7 +17,7 @@ anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2017)
 A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
 }
 \description{
-Fit a mixed meta-analysis regresion model of trends
+Fit a mixed meta-analysis regression model of trends
 }
 \examples{
 library(dplyr)

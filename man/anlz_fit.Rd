@@ -19,6 +19,9 @@ a \code{data.frame} with summary statistics for GAM fits
 \description{
 Return summary statistics for GAM fits
 }
+\details{
+Results show the overall summary of the model as Akaike Information Criterion (\code{AIC}), the generalized cross-validation score (\code{GCV}), and the \code{R2} values.  Lower values for \code{AIC} and \code{GCV} and higher values for \code{R2} indicate improved model fit. The \code{k} column shows the upper limit for the number of knots on the \code{year} term, when appropriate (i.e., not gam0).
+}
 \examples{
 library(dplyr)
 
