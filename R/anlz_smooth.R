@@ -9,6 +9,8 @@
 #' @return a \code{data.frame} with summary statistics for smoothers in each GAM
 #' @export
 #' 
+#' @details Results show the individual effects of the modelled components of each model as the estimated degrees of freedom (\code{edf}), the reference degrees of freedom (\code{Ref.df}), the test statistic (\code{F}), and significance of the component (\code{p-value}).  The significance of the component is in part based on the difference between \code{edf} and \code{Ref.df}. 
+#' 
 #' @family analyze
 #'
 #' @examples

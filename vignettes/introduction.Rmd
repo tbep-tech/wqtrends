@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 library(dplyr)
 library(wqtrends)
 library(plotly)
+library(english)
 ```
 
 This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models.  It builds extensively off of the [baytrends](https://cran.r-project.org/web/packages/baytrends/index.html) R package developed by the Chesapeake Bay Program.
@@ -53,11 +54,29 @@ This package can be used to assess water quality trends for long-term monitoring
 
 ## Individual model
 
-Start by fitting a GAM with the `anlz_gam()` function.  The sample dataset `rawdat` can be used for the example.  Here we fit the `gam2` model using a BoxCox power transformation of the response variable.  
+The sample dataset `rawdat` is included in the package and is used for the examples below.  This dataset includes monthly time series data over ~30 years for nine stations in South Bay, San Francisco Estuary.  Data are available for `r english(length(unique(rawdat$param)))` water quality parameters.  All data are in long format with one observation per row.
+
+The data are pre-processed to work with the GAM fitting functions included in this package.  The columns include date, station number, parameter name, and value for the date.  Additional date columns are included that describe the day of year (`doy`), date in decimal time (`dec_time`), year (`yr`), and month (`mo` as character label).  These are required for model fitting.    
 
 ```{r}
 head(rawdat)
+```
 
+Four types of GAMs can be fit to the time series data. Each GAM fits additive smoothing functions to describe variation of the response variable (`value`) over time, where time is measured as an annual and seasonal effect.  The four models describe the time components differently and represent increasing levels of complexity to describe the response variable:
+
+* `gam0`: value ~ year + s(doy)
+
+* `gam1`: value ~ year + s(doy) + s(year)
+
+* `gam2`: value ~ year + s(doy) + s(year) + ti(doy, year)
+
+* `gam6`: value ~ year + s(doy) + s(year, k = *large*)
+
+For all models, `year` is measured as a continuous numeric variable (`dec_time`) for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and `doy` is the day of year as a numeric value from 1 to 366.  All models include `year` as a linear effect.  The functions `s()` model either `year` or `doy` as a smoothed, non-linear variable and `ti()` models the interaction between the two.  The fourth model, `gam6`, is the same as `gam1` with the exception that the optimal amount of smoothing on `year` is not constrained by increasing the theoretical upper limit on the number of knots for `k`.  The upper limit of `k` was chosen as 12 times the number of years of data at each station (~300).  If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased by the fitting function until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
+
+The `anlz_gam()` function is used to fit the models.  First, the raw data are filtered to select only station 32 and the chlorophyll parameter.  The `gam2` model is fit using a BoxCox power transformation of the response variable.  Available transformation options are BoxCox (`boxcox`), log10 (`log10`), or identity (`ident`). 
+
+```{r}
 tomod <- rawdat %>%
  filter(station %in% 32) %>%
  filter(param %in% 'chl')
@@ -71,28 +90,43 @@ The power transformation estimate is attached to the model object and is used in
 mod$trans
 ```
 
-The fit can be assessed using `anlz_fit()` and `anlz_smooth()`, where the former assesses overall fit and the latter assesses the individual smoother functions.
+All remaining functions use the model results to assess fit and plot results. The model must be passed as a named list with the model name to the `mods` argument, which is a common argument to most functions.  This convention is used to allow multiple models to be assessed by each function.  Specifically, a list of fitted models for each GAM type can be passed to each function.  This is shown below in the "Multiple models" section.  
+
+Before using the assessment and plotting functions, a list of the model results is created. 
 
 ```{r}
 mod <- list(gam2 = mod)
+```
+
+The fit can be assessed using `anlz_fit()` and `anlz_smooth()`, where the former assesses overall fit and the latter assesses the individual smoother functions. The `anlz_fit()` results show the individual effects of the modelled components of each model as the estimated degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and significance of the component (`p-value`).  The significance of the component is in part based on the difference between `edf` and `Ref.df`.  The `anlz_smooth()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate improved model fit. The `k` column shows the upper limit for the number of knots on the `year` term, when appropriate (i.e., not gam0). 
+
+```{r}
 anlz_fit(mods = mod)
 anlz_smooth(mods = mod)
 ```
 
-The plotting functions show the results in different formats.  The model predictions are back-transformed and the scales on each plot are show in log10-scale to preserve the values of the results.
+The plotting functions show the results in different formats.  If appropriate for the response variable, the model predictions are back-transformed and the scales on each plot are shown in log10-scale to preserve the values of the results.
+
+The `show_prddoy()` function shows estimated results by day of year with separate lines for each year.
 
 ```{r, fig.height = 5, fig.width = 6}
 ylab <- 'Chlorophyll-a'
 show_prddoy(mods = mod, ylab = ylab)
 ```
 
+The `show_prdseries()` function shows predictions for the model across the entire time series.  Points are the observed data and the lines are the predicted. The smoothed line through the predictions approximates an annual trend independent of season.
+
 ```{r, fig.height = 4, fig.width = 6}
 show_prdseries(mods = mod, ylab = ylab)
 ```
 
+The `show_prdseason()` function is similar except that the model predictions are grouped by month. This provides a visual depiction of seasonal trends over time.  The trend analysis functions below can be used to statistically test the seasonal changes.
+
 ```{r, fig.height = 4, fig.width = 6}
 show_prdseason(mods = mod, ylab = ylab)
 ```
+
+Finally, the `show_prd3d()` function shows a three-dimensional fit of the estimated trends across year and day of year with the z-axis showing the estimates for the response variable. 
 
 ```{r}
 show_prd3d(mods = mod, ylab = ylab)
@@ -100,7 +134,7 @@ show_prd3d(mods = mod, ylab = ylab)
 
 ## Multiple models
 
-The functions above also work with a list of different models. 
+The functions above also work with a list of different models. This is useful to compare how well the different GAM structures fit the selected time series.  
 
 ```{r}
 trans <- 'boxcox'
@@ -132,6 +166,12 @@ show_prdseries(mods = mods, ylab = ylab)
 
 ```{r, fig.height = 9, fig.width = 6}
 show_prdseason(mods = mods, ylab = ylab)
+```
+
+For all functions, the raw data can be passed to each function using the `moddat` argument.  If this is done, all four models are fit automatically and used to interpret the results for each function.  This is done for convenience, but can be computationally unnecessary because new models are fit with each function. For example, we can quickly assess the fit for all four GAMs to chlorophyll using a different transformation.
+
+```{r}
+anlz_fit(moddat = tomod, trans = 'ident')
 ```
 
 ## Trend testing
