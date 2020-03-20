@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -152,7 +152,7 @@
  <dt>gam2:</dt><dd><p>chl ~ year + s(doy) + s(year) + ti(doy, year)</p></dd>
  <dt>gam6:</dt><dd><p>chl ~ year + s(doy) + s(year, k = large)</p></dd>
 
-</dl><p>For all models, <code>year</code> is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and <code>doy</code> is the day of year as a numeric value from 1 to 366.  All models include <code>year</code> as a linear effect.  The functions <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></code> model either <code>year</code> or <code>doy</code> as a smoothed, non-linear variable and <code><a href='https://rdrr.io/pkg/mgcv/man/te.html'>ti</a></code> models the interaction between the two.  The fourth model, <code>gam6</code>, is the same as <code>gam1</code> with the exception that the optimal amount of smoothing on <code>year</code> is not constrained by increasing the theoretical upper limit on the number of knots for <code>k</code>.  The upper limit of <code>k</code> was chosen as 12 times the number of years for the input data.</p>
+</dl><p>For all models, <code>year</code> is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and <code>doy</code> is the day of year as a numeric value from 1 to 366.  All models include <code>year</code> as a linear effect.  The functions <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></code> model either <code>year</code> or <code>doy</code> as a smoothed, non-linear variable and <code><a href='https://rdrr.io/pkg/mgcv/man/te.html'>ti</a></code> models the interaction between the two.  The fourth model, <code>gam6</code>, is the same as <code>gam1</code> with the exception that the optimal amount of smoothing on <code>year</code> is not constrained by increasing the theoretical upper limit on the number of knots for <code>k</code>.  The upper limit of <code>k</code> was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified <code>k</code>, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other analyze: <code><a href='anlz_avgseason.html'>anlz_avgseason</a></code>,
