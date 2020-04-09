@@ -38,18 +38,14 @@ anlz_backtrans <- function(dat){
   # log
   if(trans == 'log10')
     dat <- dat %>% 
-      dplyr::mutate(
-        value = 10^(value)
-      )
-    
+      dplyr::mutateif(grepl('value', names(.)), ~10 ^ .)
+
   # boxcox
   if(is.numeric(trans)){
 
     lamb <- unique(trans)
     dat <- dat %>% 
-      dplyr::mutate(
-        value = forecast::InvBoxCox(value, lamb)
-      )
+      dplyr::mutate_if(grepl('value', names(.)), ~forecast::InvBoxCox(., lamb))
     
   }
   

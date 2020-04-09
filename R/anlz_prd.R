@@ -65,12 +65,18 @@ anlz_prd <- function(moddat = NULL, mods = NULL, ...) {
         doy = lubridate::yday(date),
         yr = lubridate::year(date)
       )
+
+    # get predictions from terms matrix, value is sum of all plus intercept, annvalue is same minus anything with doy
+    prd <- predict(mod, newdata = prddat, type = 'terms')
+    int <- attr(prd, 'constant')
+    value <- rowSums(prd) + int
+    annvalue <- rowSums(prd[, !grepl('doy', colnames(prd)), drop = FALSE]) + int
     
-    prd <- predict(mod, newdata = prddat)
-    
+    # get annual trend
     prddat <- prddat %>% 
       dplyr::mutate(
-        value = prd,
+        annvalue = annvalue,
+        value = value,
         trans = trans
         )
     
