@@ -67,7 +67,7 @@ show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = date)) + 
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
     ggplot2::geom_line(ggplot2::aes(y = value, colour = factor(model)), size = 0.75, alpha = 0.8) + 
-    ggplot2::geom_line(ggplot2::aes(y = annvalue, colour = factor(model)), alpha = 1, size = 0.75, colour = 'black') +
+    ggplot2::geom_line(ggplot2::aes(y = annvalue, group = factor(model)), alpha = 0.7, colour = 'black') +
     ggplot2::facet_wrap(~model, ncol = nfac) +
     ggplot2::scale_color_viridis_d() + 
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 

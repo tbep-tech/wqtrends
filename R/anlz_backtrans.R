@@ -38,7 +38,7 @@ anlz_backtrans <- function(dat){
   # log
   if(trans == 'log10')
     dat <- dat %>% 
-      dplyr::mutateif(grepl('value', names(.)), ~10 ^ .)
+      dplyr::mutate_if(grepl('value', names(.)), ~10 ^ .)
 
   # boxcox
   if(is.numeric(trans)){
