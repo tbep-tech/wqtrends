@@ -6,17 +6,17 @@ output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Tidal Creek Assessment}
+  %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
   comment = "#>",
   message = F, warning = F, 
-  fig.align = 'center'
+  fig.align = "center", 
+  echo = T
 )
 
 library(dplyr)
@@ -79,8 +79,8 @@ The `anlz_gam()` function is used to fit the models.  First, the raw data are fi
 ```{r}
 tomod <- rawdat %>%
  filter(station %in% 32) %>%
- filter(param %in% 'chl')
-mod <- anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
+ filter(param %in% "chl")
+mod <- anlz_gam(tomod, mod = "gam2", trans = "boxcox")
 mod
 ```
 
@@ -110,7 +110,7 @@ The plotting functions show the results in different formats.  If appropriate fo
 The `show_prddoy()` function shows estimated results by day of year with separate lines for each year.
 
 ```{r, fig.height = 5, fig.width = 6}
-ylab <- 'Chlorophyll-a'
+ylab <- "Chlorophyll-a"
 show_prddoy(mods = mod, ylab = ylab)
 ```
 
@@ -137,12 +137,12 @@ show_prd3d(mods = mod, ylab = ylab)
 The functions above also work with a list of different models. This is useful to compare how well the different GAM structures fit the selected time series.  
 
 ```{r}
-trans <- 'boxcox'
+trans <- "boxcox"
 mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans),
-  gam6 = anlz_gam(tomod, mod = 'gam6', trans = trans)
+  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
+  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
+  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans),
+  gam6 = anlz_gam(tomod, mod = "gam6", trans = trans)
 )
 ```
 
@@ -156,7 +156,7 @@ anlz_smooth(mods = mods)
 The plotting functions work the same, with separate facets for each model. The `show_prd3d()` function does not work with multiple models. 
 
 ```{r, fig.height = 4, fig.width = 10}
-ylab <- 'Chlorophyll-a'
+ylab <- "Chlorophyll-a"
 show_prddoy(mods = mods, ylab = ylab)
 ```
 
@@ -171,7 +171,7 @@ show_prdseason(mods = mods, ylab = ylab)
 For all functions, the raw data can be passed to each function using the `moddat` argument.  If this is done, all four models are fit automatically and used to interpret the results for each function.  This is done for convenience, but can be computationally unnecessary because new models are fit with each function. For example, we can quickly assess the fit for all four GAMs to chlorophyll using a different transformation.
 
 ```{r}
-anlz_fit(moddat = tomod, trans = 'ident')
+anlz_fit(moddat = tomod, trans = "ident")
 ```
 
 ## Trend testing
@@ -182,11 +182,11 @@ The `anlz_perchg()` and `show_perchg()` functions can be used to compare annual 
 
 ```{r}
 # use fitted list of models
-trans <- 'boxcox'
+trans <- "boxcox"
 mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
+  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
+  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
+  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
   )
 anlz_perchg(mods = mods, baseyr = 2006, testyr = 2017)
 ```
@@ -194,8 +194,8 @@ anlz_perchg(mods = mods, baseyr = 2006, testyr = 2017)
 To plot the results for one GAM, use the `show_perchg()` function. The plot title summarizes the results. 
 
 ```{r, fig.height = 4, fig.width = 9}
-show_perchg(tomod, trans = 'boxcox', gami = 'gam2', baseyr = 2006, testyr = 2017, 
-            ylab = 'Chlorophyll-a (ug/L)')
+show_perchg(tomod, trans = "boxcox", gami = "gam2", baseyr = 2006, testyr = 2017, 
+            ylab = "Chlorophyll-a (ug/L)")
 ```
 
 The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_avgseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages (`yrstr`, `yrend`).  
@@ -203,11 +203,11 @@ The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_avgseason()` functions evalu
 The `anlz_avgseason()` estimates the seasonal averages (including standard error) for results from the GAM fits.  Here, three models are evaluated. 
 
 ```{r}
-trans <- 'boxcox'
+trans <- "boxcox"
 mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
+  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
+  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
+  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
   )
 avgseason <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
 head(avgseason)
@@ -221,12 +221,12 @@ anlz_mixmeta(avgseason, yrstr = 2006, yrend = 2017)
 
 The `show_avgseason()` function plots the seasonal averages and trends over time for one GAM. The `anlz_avgseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
 
-```{r, fig.height = 4, fig.width = 9}
-trans <- 'boxcox'
+```{r, fig.height = 4, fig.width = 9, echo = T}
+trans <- "boxcox"
 mods <- list(
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
+  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
   )
-show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, 
-               ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
+show_avgseason(mods = mods, trans = "boxcox", doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, 
+               ylab = "Chlorophyll-a (ug/L)", gami = "gam2")
 ```
 
