@@ -4,8 +4,7 @@
 \alias{anlz_avgseason}
 \title{Extract period (seasonal) averages from fitted GAM}
 \usage{
-anlz_avgseason(moddat = NULL, mods = NULL, doystr = 1,
-  doyend = 364, ...)
+anlz_avgseason(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, ...)
 }
 \arguments{
 \item{moddat}{input raw data, one station and paramater}
@@ -44,10 +43,14 @@ mods <- list(
 anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
 }
 \seealso{
-Other analyze: \code{\link{anlz_backtrans}},
-  \code{\link{anlz_fit}}, \code{\link{anlz_gam}},
-  \code{\link{anlz_perchg}}, \code{\link{anlz_prdday}},
-  \code{\link{anlz_prd}}, \code{\link{anlz_smooth}},
-  \code{\link{anlz_trans}}
+Other analyze: 
+\code{\link{anlz_backtrans}()},
+\code{\link{anlz_fit}()},
+\code{\link{anlz_gam}()},
+\code{\link{anlz_perchg}()},
+\code{\link{anlz_prdday}()},
+\code{\link{anlz_prd}()},
+\code{\link{anlz_smooth}()},
+\code{\link{anlz_trans}()}
 }
 \concept{analyze}

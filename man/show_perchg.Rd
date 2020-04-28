@@ -4,8 +4,15 @@
 \alias{show_perchg}
 \title{Plot percent change trends from GAM results for selected time periods}
 \usage{
-show_perchg(moddat = NULL, mods = NULL, baseyr, testyr, ylab,
-  gami = c("gam0", "gam1", "gam2", "gam6"), ...)
+show_perchg(
+  moddat = NULL,
+  mods = NULL,
+  baseyr,
+  testyr,
+  ylab,
+  gami = c("gam0", "gam1", "gam2", "gam6"),
+  ...
+)
 }
 \arguments{
 \item{moddat}{input raw data, one station and paramater}
@@ -36,7 +43,8 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-show_perchg(tomod, gami = 'gam1', trans = 'boxcox', baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
+show_perchg(tomod, gami = 'gam1', trans = 'boxcox', baseyr = 1990, testyr = 2016, 
+     ylab = 'Chlorophyll-a (ug/L)')
 }
 # use previously fitted list of models
 trans <- 'boxcox'
@@ -46,9 +54,11 @@ mods <- list(
 show_perchg(mods = mods, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
-Other show: \code{\link{show_avgseason}},
-  \code{\link{show_prd3d}}, \code{\link{show_prddoy}},
-  \code{\link{show_prdseason}},
-  \code{\link{show_prdseries}}
+Other show: 
+\code{\link{show_avgseason}()},
+\code{\link{show_prd3d}()},
+\code{\link{show_prddoy}()},
+\code{\link{show_prdseason}()},
+\code{\link{show_prdseries}()}
 }
 \concept{show}

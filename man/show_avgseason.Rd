@@ -4,9 +4,17 @@
 \alias{show_avgseason}
 \title{Plot period (seasonal) averages from fitted GAM}
 \usage{
-show_avgseason(moddat = NULL, mods = NULL, doystr = 1,
-  doyend = 364, yrstr = 2000, yrend = 2017, ylab, gami = c("gam0",
-  "gam1", "gam2", "gam6"), ...)
+show_avgseason(
+  moddat = NULL,
+  mods = NULL,
+  doystr = 1,
+  doyend = 364,
+  yrstr = 2000,
+  yrend = 2017,
+  ylab,
+  gami = c("gam0", "gam1", "gam2", "gam6"),
+  ...
+)
 }
 \arguments{
 \item{moddat}{input raw data, one station and paramater}
@@ -41,19 +49,23 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
+show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, 
+     ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 }
 # use previously fitted list of models
 trans <- 'boxcox'
 mods <- list(
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
+show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, 
+     ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 }
 \seealso{
-Other show: \code{\link{show_perchg}},
-  \code{\link{show_prd3d}}, \code{\link{show_prddoy}},
-  \code{\link{show_prdseason}},
-  \code{\link{show_prdseries}}
+Other show: 
+\code{\link{show_perchg}()},
+\code{\link{show_prd3d}()},
+\code{\link{show_prddoy}()},
+\code{\link{show_prdseason}()},
+\code{\link{show_prdseries}()}
 }
 \concept{show}
