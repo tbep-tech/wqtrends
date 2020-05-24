@@ -49,6 +49,7 @@ Other show:
 \code{\link{show_perchg}()},
 \code{\link{show_prd3d}()},
 \code{\link{show_prdseason}()},
-\code{\link{show_prdseries}()}
+\code{\link{show_prdseries}()},
+\code{\link{show_trndseason}()}
 }
 \concept{show}

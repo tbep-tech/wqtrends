@@ -58,15 +58,15 @@ anlz_trndseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364
           yr <- tmp$yr[i]
    
           if(justify == 'left')
-            mixmet <- try(anlz_mixmeta(tmp, yrstr = yr, yrend = yr + win - 1)[[1]], silent = TRUE)
+            mixmet <- anlz_mixmeta(tmp, yrstr = yr, yrend = yr + win - 1)[[1]]
           
           if(justify == 'right')
-            mixmet <- try(anlz_mixmeta(tmp, yrstr = yr - win + 1, yrend = yr)[[1]], silent = TRUE)
+            mixmet <- anlz_mixmeta(tmp, yrstr = yr - win + 1, yrend = yr)[[1]]
           
           if(justify == 'center')
-            mixmet <- try(anlz_mixmeta(tmp, yrstr = round(yr - win / 2), yrend = round(yr + win / 2))[[1]], silent = TRUE)
+            mixmet <- anlz_mixmeta(tmp, yrstr = round(yr - win / 2), yrend = round(yr + win / 2))[[1]]
           
-          if(inherits(mixmet, 'try-error'))
+          if(inherits(mixmet, 'logical'))
             next
           
           tmp[i, 'yrcoef'] <- mixmet$coefficients['yr']
