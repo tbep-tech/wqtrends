@@ -124,13 +124,14 @@ anlz_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ...){
     alpha <- 0.05
     halpha    <- alpha/2
     diff.ci   <- c(diff.est - qnorm(1-halpha) * diff.se,diff.est + qnorm(1-halpha) *diff.se)
-    
+
     # observed units, backtransform
     per.mn.obs <- period.avg
+    sdval <- sd(resid(mod))
     if(trans == 'log10')
-      per.mn.obs <- 10^(per.mn.obs) 
+      per.mn.obs <- 10^(per.mn.obs + (sdval * sdval / 2)) 
     if(is.numeric(trans))
-      per.mn.obs <- forecast::InvBoxCox(per.mn.obs, trans)
+      per.mn.obs <- forecast::InvBoxCox(per.mn.obs, trans, biasadj = TRUE, fvar = sdval)
     
     # calculate percent change (03Nov)
     perchg <- 100*((per.mn.obs[2] - per.mn.obs[1])/per.mn.obs[1])

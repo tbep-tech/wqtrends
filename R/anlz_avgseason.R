@@ -96,12 +96,13 @@ anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
     avgs <- data.frame(predicted = means, se = ses, yr = yr)
     
     # backtransform
+    sdval <- sd(resid(mod))
     if(trans == 'log10'){
-      avgs$predicted <- 10^avgs$predicted
+      avgs$predicted <- 10^(avgs$predicted + (sdval * sdval / 2))
       avgs$se <- 10^avgs$se
     }
     if(is.numeric(trans)){
-      avgs$predicted <- forecast::InvBoxCox(avgs$predicted, trans)
+      avgs$predicted <- forecast::InvBoxCox(avgs$predicted, trans, biasadj = TRUE, fvar = sdval)
       avgs$se <- forecast::InvBoxCox(avgs$se, trans)
     }
     
