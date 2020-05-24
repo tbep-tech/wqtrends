@@ -51,6 +51,7 @@ Other analyze:
 \code{\link{anlz_prdday}()},
 \code{\link{anlz_prd}()},
 \code{\link{anlz_smooth}()},
-\code{\link{anlz_trans}()}
+\code{\link{anlz_trans}()},
+\code{\link{anlz_trndseason}()}
 }
 \concept{analyze}

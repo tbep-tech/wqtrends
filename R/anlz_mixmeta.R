@@ -37,6 +37,9 @@ anlz_mixmeta <- function(avgseason, yrstr = 2000, yrend = 2017){
     dplyr::mutate(
       mixmod = purrr::map(data, function(x){
         
+        if(nrow(x) != length(seq(yrstr, yrend)))
+          next()
+        
         mixmeta::mixmeta(predicted ~ yr, S = S, random = ~1|yr, data = x, method = 'reml')
         
       })
