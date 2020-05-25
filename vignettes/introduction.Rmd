@@ -40,6 +40,7 @@ This package can be used to assess water quality trends for long-term monitoring
 * `anlz_pvalformat()`: Format p-values for show functions
 * `anlz_smooth()`: Return summary statistics for smoothers of GAMs
 * `anlz_trans()`: Transform response variable prior to fitting GAM
+* `anlz_trndseason()`: Estimate seasonal rates of change based on average estimates
 
 # Show functions
 
@@ -49,6 +50,7 @@ This package can be used to assess water quality trends for long-term monitoring
 * `show_prddoy()`: Plot predictions for GAMs against day of year
 * `show_prdseason()`: Plot predictions for GAMs over time, by season
 * `show_prdseries()`: Plot predictions for GAMs over time series
+* `show_trndseason()`: Plot seasonal rates of change based on average estimates
 
 # Basic usage
 
@@ -176,7 +178,9 @@ anlz_fit(moddat = tomod, trans = "ident")
 
 ## Trend testing
 
-Two types of statistical tests are available in this package.  Both are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  Each test includes a plotting method to view the results.  As above, the functions work with multiple model inputs (i.e., a list of fitted GAMs for the same time series), whereas the plotting functions only plot one model at a time. 
+Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  Each test includes a plotting method to view the results.  As above, the functions work with multiple model inputs (i.e., a list of fitted GAMs for the same time series), whereas the plotting functions only plot one model at a time. 
+
+### Evalauting changes between time periods
 
 The `anlz_perchg()` and `show_perchg()` functions can be used to compare annual averages between two time periods of interest.  The functions require base and test year inputs that are used for comparison.  More than one year can be entered for the the base and test years, e.g., `baseyr = c(1990, 1992, 1993)` vs. `testyr = c(2014, 2015, 2016)`.  
 
@@ -197,6 +201,8 @@ To plot the results for one GAM, use the `show_perchg()` function. The plot titl
 show_perchg(tomod, trans = "boxcox", gami = "gam2", baseyr = 2006, testyr = 2017, 
             ylab = "Chlorophyll-a (ug/L)")
 ```
+
+### Evaluating seasonal changes over time 
 
 The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_avgseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages (`yrstr`, `yrend`).  
 
@@ -228,5 +234,27 @@ mods <- list(
   )
 show_avgseason(mods = mods, trans = "boxcox", doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, 
                ylab = "Chlorophyll-a (ug/L)", gami = "gam2")
+```
+
+The seasonal estimates and mixed-meta regression analyses can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal average, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_avgseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
+
+The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_avgseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
+
+```{r}
+trans <- "boxcox"
+mods <- list(
+  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
+  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
+  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
+  )
+trndseason <- anlz_trndseason(mods = mods, doystr = 90, doyend = 180, justify = 'left', win = 5)
+head(trndseason)
+```
+
+The `show_trndseason()` function can be used to plot the results directly, one model at a time. 
+
+```{r, fig.height = 5, fig.width = 9, echo = T}
+show_trndseason(moddat = tomod, gami = 'gam2', trans = 'boxcox', doystr = 90, doyend = 180, justify = 'left', 
+                win = 5, ylab = 'Chl. change/yr')
 ```
 

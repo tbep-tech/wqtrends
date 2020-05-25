@@ -1,7 +1,7 @@
 Package: wqtrends
 Title: Assess Water Quality Trends with Generalized Additive Models
 Version: 1.0.0
-Date: 2020-04-09
+Date: 2020-05-25
 Authors@R: 
     person(given = "Marcus",
            family = "Beck",
