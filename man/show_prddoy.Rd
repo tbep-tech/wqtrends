@@ -4,7 +4,15 @@
 \alias{show_prddoy}
 \title{Plot predictions for GAMs against day of year}
 \usage{
-show_prddoy(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...)
+show_prddoy(
+  moddat = NULL,
+  mods = NULL,
+  ylab,
+  nfac = NULL,
+  size = 0.5,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{moddat}{input raw data, one station and parameter}
@@ -14,6 +22,10 @@ show_prddoy(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...)
 \item{ylab}{chr string for y-axis label}
 
 \item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}}
+
+\item{size}{numeric indicating line size}
+
+\item{alpha}{numeric from 0 to 1 indicating line transparency}
 
 \item{...}{additional arguments passed to other methods}
 }

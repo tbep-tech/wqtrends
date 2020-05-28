@@ -6,6 +6,8 @@
 #' @param mods optional list of model objects
 #' @param ylab chr string for y-axis label
 #' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}
+#' @param size numeric indicating line size
+#' @param alpha numeric from 0 to 1 indicating line transparency
 #' @param ... additional arguments passed to other methods
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -32,7 +34,7 @@
 #' )
 #' 
 #' show_prddoy(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
+show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, size = 0.5, alpha = 1, ...){
 
   # get predictions
   prds <- anlz_prd(moddat = moddat, mods = mods, ...)
@@ -50,7 +52,7 @@ show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   prds <- anlz_backtrans(prds)
   
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = doy, group = factor(yr), colour = yr)) + 
-    ggplot2::geom_line(ggplot2::aes(y = value)) + 
+    ggplot2::geom_line(ggplot2::aes(y = value), size = size, alpha = alpha) + 
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
     ggplot2::theme(
       legend.position = 'top', 
