@@ -14,4 +14,7 @@
 #'   \item{mo}{Ord.factor}
 #' }
 #' @family utilities
+#' 
+#' @details 
+#' Data from \code{datprc} object in \url{https://github.com/fawda123/SFbaytrends}
 "rawdat"

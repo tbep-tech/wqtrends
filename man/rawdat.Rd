@@ -23,5 +23,8 @@ rawdat
 \description{
 Raw data from San Francisco Estuary (South Bay)
 }
+\details{
+Data from \code{datprc} object in \url{https://github.com/fawda123/SFbaytrends}
+}
 \concept{utilities}
 \keyword{datasets}
