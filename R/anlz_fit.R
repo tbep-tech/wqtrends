@@ -9,7 +9,7 @@
 #' @return A \code{data.frame} with summary statistics for GAM fits
 #' @export
 #' 
-#' @details Results show the overall summary of the model as Akaike Information Criterion (\code{AIC}), the generalized cross-validation score (\code{GCV}), and the \code{R2} values.  Lower values for \code{AIC} and \code{GCV} and higher values for \code{R2} indicate improved model fit. The \code{k} column shows the upper limit for the number of knots on the \code{year} term, when appropriate (i.e., not gam0).  ANOVA F-tests are also used to compare multiple models, where results are appended as \code{F} statistics and probability values in the final two columns.  The ANOVA comparisons are row-specific, where the values show a comparison between the current row and one preceeding.  See \code{\link[mgcv]{anova}} for additional info.
+#' @details Results show the overall summary of the model as Akaike Information Criterion (\code{AIC}), the generalized cross-validation score (\code{GCV}), and the \code{R2} values.  Lower values for \code{AIC} and \code{GCV} and higher values for \code{R2} indicate improved model fit. The \code{k} column shows the upper limit for the number of knots on the \code{year} term, when appropriate (i.e., not gam0).  ANOVA F-tests are also used to compare multiple models, where results are appended as \code{F} statistics and probability values in the final two columns.  The ANOVA comparisons are row-specific, where the values show a comparison between the current row and one preceeding.  See \code{\link[mgcv]{anova.gam}} for additional info.
 #'
 #' @family analyze
 #'
