@@ -118,12 +118,8 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     
   }
 
-  out <- gam(as.formula(frm),
-             knots = list(doy = c(1, 366)),
-             data = moddat,
-             na.action = na.exclude,
-             select = T
-  )
+  tomod <- paste0('gam(', frm, ', knots = list(doy = c(1, 366)), data = moddat, na.action = na.exclude, select = T)')
+  out <- eval(parse(text = tomod))
   
   # add transformation to gam object
   out$trans <- unique(moddat$trans)
