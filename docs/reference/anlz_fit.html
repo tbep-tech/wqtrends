@@ -148,7 +148,7 @@
     <p>a <code>data.frame</code> with summary statistics for GAM fits</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Results show the overall summary of the model as Akaike Information Criterion (<code>AIC</code>), the generalized cross-validation score (<code>GCV</code>), and the <code>R2</code> values.  Lower values for <code>AIC</code> and <code>GCV</code> and higher values for <code>R2</code> indicate improved model fit. The <code>k</code> column shows the upper limit for the number of knots on the <code>year</code> term, when appropriate (i.e., not gam0).</p>
+    <p>Results show the overall summary of the model as Akaike Information Criterion (<code>AIC</code>), the generalized cross-validation score (<code>GCV</code>), and the <code>R2</code> values.  Lower values for <code>AIC</code> and <code>GCV</code> and higher values for <code>R2</code> indicate improved model fit. The <code>k</code> column shows the upper limit for the number of knots on the <code>year</code> term, when appropriate (i.e., not gam0).  ANOVA F-tests are also used to compare multiple models, where results are appended as <code>F</code> statistics and probability values in the final two columns.  The ANOVA comparisons are row-specific, where the values show a comparison between the current row and one preceeding.  See <code>anova</code> for additional info.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other analyze: 
@@ -180,12 +180,12 @@
   <span class='kw'>gam1</span> <span class='kw'>=</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='no'>tomod</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>'gam1'</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='no'>trans</span>),
   <span class='kw'>gam2</span> <span class='kw'>=</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='no'>tomod</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>'gam2'</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='no'>trans</span>)
   )
-<span class='fu'>anlz_fit</span>(<span class='kw'>mods</span> <span class='kw'>=</span> <span class='no'>mods</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 5</span><span>
-#&gt;   model   AIC   GCV    R2     k
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> gam0   659. 0.200 0.338    </span><span style='color: #BB0000;'>NA</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> gam1   580. 0.173 0.431    19
-#&gt; </span><span style='color: #555555;'>3</span><span> gam2   532. 0.159 0.499    19</div></span></pre>
+<span class='fu'>anlz_fit</span>(<span class='kw'>mods</span> <span class='kw'>=</span> <span class='no'>mods</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 7</span><span>
+#&gt;   model   AIC   GCV    R2     k     F   p.value
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> gam0   659. 0.200 0.338    </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #555555;'> </span><span>   
+#&gt; </span><span style='color: #555555;'>2</span><span> gam1   580. 0.173 0.431    19 26.3   3.03</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-19</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> gam2   532. 0.159 0.499    19  3.98  3.79</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 9</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

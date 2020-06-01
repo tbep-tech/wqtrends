@@ -100,11 +100,11 @@ Before using the assessment and plotting functions, a list of the model results 
 mod <- list(gam2 = mod)
 ```
 
-The fit can be assessed using `anlz_fit()` and `anlz_smooth()`, where the former assesses overall fit and the latter assesses the individual smoother functions. The `anlz_fit()` results show the individual effects of the modelled components of each model as the estimated degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and significance of the component (`p-value`).  The significance of the component is in part based on the difference between `edf` and `Ref.df`.  The `anlz_smooth()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate improved model fit. The `k` column shows the upper limit for the number of knots on the `year` term, when appropriate (i.e., not gam0). 
+The fit can be assessed using `anlz_smooth()` and `anlz_fit()`, where the former assesses the individual smoother functions and the latter assesses overall fit. The `anlz_smooth()` results show the individual effects of the modelled components of each model as the estimated degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and significance of the component (`p-value`).  The significance of the component is in part based on the difference between `edf` and `Ref.df`.  The `anlz_fit()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate improved model fit. The `k` column shows the upper limit for the number of knots on the `year` term, when appropriate (i.e., not gam0).  If multiple models are provided as a list to the `mods` argument of `anlz_fit()`, ANOVA F-tests are used to compare models.  The results are appended as F statistics and probability values in the final two columns. The ANOVA comparisons are row-specific, where the values show a comparison between the current row and one preceeding.  
 
 ```{r}
-anlz_fit(mods = mod)
 anlz_smooth(mods = mod)
+anlz_fit(mods = mod)
 ```
 
 The plotting functions show the results in different formats.  If appropriate for the response variable, the model predictions are back-transformed and the scales on each plot are shown in log10-scale to preserve the values of the results.

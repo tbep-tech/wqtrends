@@ -26,13 +26,26 @@ test_that("Checking anlz_fit list input", {
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-    gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
+    gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans),
+    gam6 = anlz_gam(tomod, mod = 'gam6', trans = trans)
   )
   
   result <- anlz_fit(mods = mods) %>% 
     dplyr::pull(GCV)
   
+  expect_equal(result, c(0.200444893755889, 0.173069880941896, 0.15855087967915, 0.119742850923618))
+  
+  result <- anlz_fit(mods = mods[1:3]) %>% 
+    dplyr::pull(GCV)
+  
   expect_equal(result, c(0.200444893755889, 0.173069880941896, 0.15855087967915))
   
+  result <- anlz_fit(mods = mods[1:2]) %>% 
+    dplyr::pull(GCV)
+  
+  expect_equal(result, c(0.200444893755889, 0.173069880941896))
+  
 })
+
+
 
