@@ -118,6 +118,7 @@ show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami =
   if(trans != 'ident')
     p <- p + ggplot2::scale_y_log10()
   
-  return(suppressWarnings(print(p)))
-  
+  # return(suppressWarnings(print(p))
+  return(p)
+         
 }
