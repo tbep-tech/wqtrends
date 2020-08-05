@@ -62,7 +62,7 @@ show_prddoy <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, size = 0.
   # back-transform
   prds <- anlz_backtrans(prds) %>% 
     dplyr::mutate(
-      model = factor(model, levls = faclev)
+      model = factor(model, levels = faclev, labels = faclab)
     )
   
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = doy, group = factor(yr), colour = yr)) + 
