@@ -4,7 +4,15 @@
 \alias{show_prdseason}
 \title{Plot predictions for GAMs over time, by season}
 \usage{
-show_prdseason(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...)
+show_prdseason(
+  moddat = NULL,
+  mods = NULL,
+  ylab,
+  nfac = NULL,
+  faclev = NULL,
+  faclab = NULL,
+  ...
+)
 }
 \arguments{
 \item{moddat}{input raw data, one station and parameter}
@@ -14,6 +22,10 @@ show_prdseason(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...)
 \item{ylab}{chr string for y-axis label}
 
 \item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to one}
+
+\item{faclev}{optional chr string of factor levels for the model names, this affects the facet order}
+
+\item{faclab}{optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL}
 
 \item{...}{additional arguments passed to other methods}
 }

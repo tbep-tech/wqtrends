@@ -28,7 +28,7 @@
 #' )
 #' 
 #' show_prdseason(moddat = tomod, mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
+show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, faclev = NULL, faclab = NULL, ...){
   
   if(is.null(nfac))
     nfac <- 1
@@ -50,11 +50,23 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   # get daily predictions, differs from anlz_prd
   prds <- anlz_prdday(mods = mods)
   
+  # changing model factors
+  if(is.null(faclev))
+    faclev <- prds %>% 
+      dplyr::pull(model) %>% 
+      unique
+    
+  if(is.null(faclab))
+    faclab <- faclev
+  
   # get transformation
   trans <- unique(prds$trans)
   
   # backtransform daily predictions
-  prds <- anlz_backtrans(prds)
+  prds <- anlz_backtrans(prds) %>% 
+    dplyr::mutate(
+      model = factor(model, levels = faclev, labels = faclab)
+    )
   
   # get raw data from model if not provided
   if(is.null(moddat)){
@@ -69,7 +81,8 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
     moddat <- anlz_backtrans(tobacktrans) %>% 
       dplyr::mutate(
         date = lubridate::date_decimal(dec_time), 
-        date = as.Date(date)
+        date = as.Date(date),
+        model = factor(model, levels = faclev, labels = faclab)
       )
     
   }

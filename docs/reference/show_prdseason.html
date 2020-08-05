@@ -124,7 +124,15 @@
     <p>Plot predictions for GAMs over time, by season</p>
     </div>
 
-    <pre class="usage"><span class='fu'>show_prdseason</span>(<span class='kw'>moddat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mods</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>ylab</span>, <span class='kw'>nfac</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>show_prdseason</span>(
+  <span class='kw'>moddat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mods</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>ylab</span>,
+  <span class='kw'>nfac</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>faclev</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>faclab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,6 +152,14 @@
     <tr>
       <th>nfac</th>
       <td><p>numeric indicating column number for facets, passed to <code>ncol</code> argument of <code><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></code>, defaults to one</p></td>
+    </tr>
+    <tr>
+      <th>faclev</th>
+      <td><p>optional chr string of factor levels for the model names, this affects the facet order</p></td>
+    </tr>
+    <tr>
+      <th>faclab</th>
+      <td><p>optional chr string of factor labels for the model names, defaults to <code>faclev</code> if NULL</p></td>
     </tr>
     <tr>
       <th>...</th>

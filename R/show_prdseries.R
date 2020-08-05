@@ -6,6 +6,9 @@
 #' @param mods optional list of model objects
 #' @param ylab chr string for y-axis label
 #' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to one
+#' @param alpha numeric from 0 to 1 indicating line transparency
+#' @param faclev optional chr string of factor levels for the model names, this affects the facet order
+#' @param faclab optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL
 #' @param ... additional arguments passed to other methods
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -32,7 +35,7 @@
 #' )
 #' 
 #' show_prdseries(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
+show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, faclev = NULL, faclab = NULL, ...){
   
   if(is.null(nfac))
     nfac <- 1
@@ -40,11 +43,23 @@ show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
   # get predictions
   prds <- anlz_prd(moddat = moddat, mods = mods, ...)
   
+  # changing model factors
+  if(is.null(faclev))
+    faclev <- prds %>% 
+    dplyr::pull(model) %>% 
+    unique
+  
+  if(is.null(faclab))
+    faclab <- faclev
+  
   # get transformation
   trans <- unique(prds$trans)
 
   # back-transform
-  prds <- anlz_backtrans(prds)
+  prds <- anlz_backtrans(prds) %>% 
+    dplyr::mutate(
+      model = factor(model, levels = faclev, labels = faclab)
+    )
   
   # get raw data from model if not provided
   if(is.null(moddat)){
@@ -59,7 +74,8 @@ show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, ...){
     moddat <- anlz_backtrans(tobacktrans) %>% 
       dplyr::mutate(
         date = lubridate::date_decimal(dec_time), 
-        date = as.Date(date)
+        date = as.Date(date), 
+        model = factor(model, levels = faclev, labels = faclab)
       )
 
   }

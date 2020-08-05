@@ -11,6 +11,8 @@ show_prddoy(
   nfac = NULL,
   size = 0.5,
   alpha = 1,
+  faclev = NULL,
+  faclab = NULL,
   ...
 )
 }
@@ -26,6 +28,10 @@ show_prddoy(
 \item{size}{numeric indicating line size}
 
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
+
+\item{faclev}{optional chr string of factor levels for the model names, this affects the facet order}
+
+\item{faclab}{optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL}
 
 \item{...}{additional arguments passed to other methods}
 }

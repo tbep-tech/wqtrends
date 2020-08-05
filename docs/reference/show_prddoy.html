@@ -131,6 +131,8 @@
   <span class='kw'>nfac</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>faclev</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>faclab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -160,6 +162,14 @@
     <tr>
       <th>alpha</th>
       <td><p>numeric from 0 to 1 indicating line transparency</p></td>
+    </tr>
+    <tr>
+      <th>faclev</th>
+      <td><p>optional chr string of factor levels for the model names, this affects the facet order</p></td>
+    </tr>
+    <tr>
+      <th>faclab</th>
+      <td><p>optional chr string of factor labels for the model names, defaults to <code>faclev</code> if NULL</p></td>
     </tr>
     <tr>
       <th>...</th>
