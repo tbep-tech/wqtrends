@@ -1,3 +1,4 @@
+language: r
 sudo: false
 cache: packages
 git:
@@ -9,7 +10,7 @@ apt_packages:
   - libgeos-dev
   - libproj-dev
 script:
-  - R -e 'install.packages("devtools")'
+  - sudo apt-get install r-cran-devtools
   - R -e 'devtools::install_deps(dep = T)'
   - R -e 'devtools::install_github("r-lib/pkgdown", upgrade = "never")'
   - R CMD build .
