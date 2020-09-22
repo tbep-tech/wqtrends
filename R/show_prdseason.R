@@ -81,8 +81,7 @@ show_prdseason <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, faclev
     moddat <- anlz_backtrans(tobacktrans) %>% 
       dplyr::mutate(
         date = lubridate::date_decimal(dec_time), 
-        date = as.Date(date),
-        model = factor(model, levels = faclev, labels = faclab)
+        date = as.Date(date)
       )
     
   }
