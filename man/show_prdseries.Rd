@@ -9,6 +9,7 @@ show_prdseries(
   mods = NULL,
   ylab,
   nfac = NULL,
+  alpha = 0.7,
   faclev = NULL,
   faclab = NULL,
   ...
@@ -23,13 +24,13 @@ show_prdseries(
 
 \item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to one}
 
+\item{alpha}{numeric from 0 to 1 indicating line transparency}
+
 \item{faclev}{optional chr string of factor levels for the model names, this affects the facet order}
 
 \item{faclab}{optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL}
 
 \item{...}{additional arguments passed to other methods}
-
-\item{alpha}{numeric from 0 to 1 indicating line transparency}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
