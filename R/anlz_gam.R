@@ -87,7 +87,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
                knots = list(doy = c(1, 366)),
                data = moddat,
                na.action = na.exclude,
-               select = T
+               select = F
     ))
     
     # drops upper limit on knots until it works
@@ -107,7 +107,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
                      knots = list(doy = c(1, 366)),
                      data = moddat,
                      na.action = na.exclude,
-                     select = T
+                     select = F
       ))
       
     }
@@ -118,7 +118,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     
   }
 
-  tomod <- paste0('gam(', frm, ', knots = list(doy = c(1, 366)), data = moddat, na.action = na.exclude, select = T)')
+  tomod <- paste0('gam(', frm, ', knots = list(doy = c(1, 366)), data = moddat, na.action = na.exclude, select = F)')
   out <- eval(parse(text = tomod))
   
   # add transformation to gam object
