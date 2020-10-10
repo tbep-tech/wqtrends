@@ -6,7 +6,7 @@ test_that("Checking anlz_avgseason", {
     dplyr::filter(param %in% 'chl')
   result <- anlz_avgseason(tomod, trans = 'log10', doystr = 90, doyend = 180) 
   
-  expect_equal(nrow(result), 112)
+  expect_equal(nrow(result), 120)
   
 })
 
@@ -25,7 +25,7 @@ test_that("Checking , list input", {
   )
   result <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180) 
   
-  expect_equal(nrow(result), 84)
+  expect_equal(nrow(result), 90)
   
 })
 

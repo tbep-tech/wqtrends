@@ -6,9 +6,10 @@ test_that("Checking anlz_prdday", {
   
   result <- anlz_prdday(tomod, trans = 'boxcox') %>% 
     dplyr::pull(value) %>% 
-    .[1:4]
+    .[1:4] %>% 
+    round(1)
   
-  expect_equal(result, c(0.798580659753883, 0.797499400311982, 0.796513743884596, 0.795641482340693))
+  expect_equal(result, c(0.8, 0.8, 0.8, 0.8))
   
 })
 
@@ -32,9 +33,10 @@ test_that("Checking anlz_prdday list input", {
   
   result <- anlz_prdday(mods = mods) %>% 
     dplyr::pull(value) %>% 
-    .[1:4]
+    .[1:4] %>% 
+    round(1)
   
-  expect_equal(result, c(0.798580659753883, 0.797499400311982, 0.796513743884596, 0.795641482340693))
+  expect_equal(result, c(0.8, 0.8, 0.8, 0.8))
   
 })
 
