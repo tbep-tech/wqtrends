@@ -51,7 +51,7 @@ anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
   
   if(!is.null(mods))
     levnms <- names(mods)
-  
+
   out <- purrr::map(mods, function(mod){
 
     # gam model data
@@ -96,7 +96,7 @@ anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
     avgs <- data.frame(predicted = means, se = ses, yr = yr)
     
     # backtransform
-    sdval <- sd(resid(mod))
+    sdval <- sd(resid(mod), na.rm = TRUE)
     if(trans == 'log10'){
       avgs$predicted <- 10^(avgs$predicted + (sdval * sdval / 2))
       avgs$se <- 10^avgs$se

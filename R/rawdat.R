@@ -2,7 +2,7 @@
 #'
 #' Raw data from San Francisco Estuary (South Bay)
 #'
-#' @format A \code{data.frame} object with 12942 rows and 8 columns
+#' @format A \code{data.frame} object with 12411 rows and 8 columns
 #' \describe{
 #'   \item{date}{Date}
 #'   \item{station}{int}

@@ -21,7 +21,7 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, 
+#' show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 #' }
 #' # use previously fitted list of models
@@ -29,13 +29,13 @@
 #' mods <- list(
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
-#' show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, 
+#' show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
-show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2017, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
+show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
   
   if(is.null(moddat) & is.null(mods))
     stop('Must supply one of moddat or mods')
-  
+
   if(is.null(mods)){
     
     # gam to fit
@@ -54,9 +54,9 @@ show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
   
   # get mixmeta models
   mixmet <- anlz_mixmeta(avgseason, yrstr = yrstr, yrend = yrend)[[1]]
-  
+
   # title
-  dts <- as.Date(c(doystr, doyend), origin = as.Date("2017-12-31"))
+  dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
   strt <- paste(lubridate::month(dts[1], label = T, abbr = T), lubridate::day(dts[1]))
   ends <- paste(lubridate::month(dts[2], label = T, abbr = T), lubridate::day(dts[2]))
   ttl <- paste0('Fitted averages with 95% confidence intervals: ', strt, '-',  ends)

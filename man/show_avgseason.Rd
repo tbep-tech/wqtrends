@@ -10,7 +10,7 @@ show_avgseason(
   doystr = 1,
   doyend = 364,
   yrstr = 2000,
-  yrend = 2017,
+  yrend = 2019,
   ylab,
   gami = c("gam0", "gam1", "gam2", "gam6"),
   ...
@@ -49,7 +49,7 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, 
+show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 }
 # use previously fitted list of models
@@ -57,7 +57,7 @@ trans <- 'boxcox'
 mods <- list(
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, 
+show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 }
 \seealso{

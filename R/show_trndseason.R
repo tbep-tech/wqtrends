@@ -53,7 +53,7 @@ show_trndseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364
   trndseason <- anlz_trndseason(moddat = moddat, mods = mods, doystr = doystr, doyend = doyend, justify = justify, win = win) 
 
   # title
-  dts <- as.Date(c(doystr, doyend), origin = as.Date("2017-12-31"))
+  dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
   strt <- paste(lubridate::month(dts[1], label = T, abbr = T), lubridate::day(dts[1]))
   ends <- paste(lubridate::month(dts[2], label = T, abbr = T), lubridate::day(dts[2]))
   ttl <- paste0('Annual Slope estimates for seasonal trends: ', strt, '-',  ends)
