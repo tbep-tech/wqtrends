@@ -5,7 +5,7 @@
 \alias{rawdat}
 \title{Raw data from San Francisco Estuary (South Bay)}
 \format{
-A \code{data.frame} object with 37301 rows and 8 columns
+A \code{data.frame} object with 12942 rows and 8 columns
 \describe{
   \item{date}{Date}
   \item{station}{int}
