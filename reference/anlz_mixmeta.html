@@ -118,7 +118,7 @@
     <p>Fit a mixed meta-analysis regression model of trends</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_mixmeta</span>(<span class='kw'>avgseason</span>, yrstr = <span class='fl'>2000</span>, yrend = <span class='fl'>2017</span>)</pre>
+    <pre class="usage"><span class='fu'>anlz_mixmeta</span>(<span class='kw'>avgseason</span>, yrstr = <span class='fl'>2000</span>, yrend = <span class='fl'>2019</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,18 +155,18 @@
   gam2 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='kw'>trans</span>)
   )
 <span class='kw'>avgseason</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_avgseason.html'>anlz_avgseason</a></span>(mods = <span class='kw'>mods</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>)
-<span class='fu'>anlz_mixmeta</span>(<span class='kw'>avgseason</span>, yrstr = <span class='fl'>2000</span>, yrend = <span class='fl'>2017</span>)
+<span class='fu'>anlz_mixmeta</span>(<span class='kw'>avgseason</span>, yrstr = <span class='fl'>2000</span>, yrend = <span class='fl'>2019</span>)
 </div><div class='output co'>#&gt; $gam0
 #&gt; Call:  mixmeta::mixmeta(formula = predicted ~ yr, S = S, data = x, random = ~1 | 
 #&gt;     yr, method = "reml")
 #&gt; 
 #&gt; Fixed-effects coefficients:
 #&gt; (Intercept)           yr  
-#&gt;   -563.4602       0.2866  
+#&gt;   -427.1945       0.2186  
 #&gt; 
-#&gt; 18 units, 1 outcome, 18 observations, 2 fixed and 1 random-effects parameters
+#&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
 #&gt;   logLik       AIC       BIC  
-#&gt; -15.4100   36.8200   39.1378  
+#&gt; -17.2259   40.4519   43.1230  
 #&gt; 
 #&gt; 
 #&gt; $gam1
@@ -175,11 +175,11 @@
 #&gt; 
 #&gt; Fixed-effects coefficients:
 #&gt; (Intercept)           yr  
-#&gt;    632.5137      -0.3081  
+#&gt;    699.8117      -0.3414  
 #&gt; 
-#&gt; 18 units, 1 outcome, 18 observations, 2 fixed and 1 random-effects parameters
+#&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
 #&gt;   logLik       AIC       BIC  
-#&gt; -35.9966   77.9933   80.3110  
+#&gt; -40.5263   87.0527   89.7238  
 #&gt; 
 #&gt; 
 #&gt; $gam2
@@ -188,11 +188,11 @@
 #&gt; 
 #&gt; Fixed-effects coefficients:
 #&gt; (Intercept)           yr  
-#&gt;     76.2882      -0.0318  
+#&gt;    130.6601      -0.0589  
 #&gt; 
-#&gt; 18 units, 1 outcome, 18 observations, 2 fixed and 1 random-effects parameters
+#&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
 #&gt;   logLik       AIC       BIC  
-#&gt; -37.6321   81.2643   83.5820  
+#&gt; -35.3801   76.7602   79.4314  
 #&gt; 
 #&gt; </div></pre>
   </div>
