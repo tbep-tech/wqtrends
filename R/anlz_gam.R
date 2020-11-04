@@ -63,8 +63,8 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     kts <- round(kts * (2/3), 0)
     kts <- pmax(10, kts)
     
-    p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
-    p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
+    p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
+    p3 <-  gsub('^.*s\\(cont\\_year\\)(.*)$', '\\1', frm)
     p2 <- paste0('s(cont_year, k = ', kts, ')')
     frm <- paste0(p1, p2, p3)
     
@@ -78,8 +78,8 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     # get upper bounds of knots
     kts <- fct * length(unique(moddat$yr))
     
-    p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
-    p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
+    p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
+    p3 <-  gsub('^.*s\\(cont\\_year\\)(.*)$', '\\1', frm)
     p2 <- paste0('s(cont_year, k = ', kts, ')')
     frmin <- paste0(p1, p2, p3)
     
@@ -98,8 +98,8 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
       # get upper bounds of knots
       kts <- fct * length(unique(moddat$yr))
       
-      p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
-      p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
+      p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
+      p3 <-  gsub('^.*s\\(cont\\_year\\)(.*)$', '\\1', frm)
       p2 <- paste0('s(cont_year, k = ', kts, ')')
       frmin <- paste0(p1, p2, p3)
       
