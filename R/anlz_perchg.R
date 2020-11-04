@@ -77,12 +77,12 @@ anlz_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ...){
     # create a data frame with Nrow rows where Nrow= (nbase*Ndoy) + (ntest*Ndoy)...
     # nbase yrs of Ndoy baseline dates and ntest-yrs
     # of Ndoy current dates. Include: doy, year, logical field (bl) indicating baseline
-    # and current, and centered decimal year (dec_time) using same centering value
+    # and current, and centered decimal year (cont_year) using same centering value
     # computed from data set (centerYear)
     pdat <- expand.grid(doyset, yrset)       # make df with all comb. of doyset and yrset
     names(pdat) <- c('doy','year')                   # rename variables
     pdat$bl <- pdat$year <= baseyr[nbaseyr] # create logical field indicating baseline
-    pdat$dec_time <- (pdat$year + (pdat$doy-1)/366) # compute dec_time
+    pdat$cont_year <- (pdat$year + (pdat$doy-1)/366) # compute cont_year
     
     # JBH(24Nov2017): extension of above xa and avg.per.mat
     #   keeping weight the same--just extending number of values by "*nrow(pdatWgt)"

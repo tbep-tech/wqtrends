@@ -12,7 +12,7 @@ A \code{data.frame} object with 12411 rows and 8 columns
   \item{param}{chr}
   \item{value}{num}
   \item{doy}{num}
-  \item{dec_time}{num}
+  \item{cont_year}{num}
   \item{yr}{num}
   \item{mo}{Ord.factor}
 }

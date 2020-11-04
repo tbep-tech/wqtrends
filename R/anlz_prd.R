@@ -56,10 +56,10 @@ anlz_prd <- function(moddat = NULL, mods = NULL, ...) {
     trans <- mod$trans
     
     prddat <- data.frame(
-      dec_time = seq(min(prddat$dec_time), max(prddat$dec_time), length = 1000)
+      cont_year = seq(min(prddat$cont_year), max(prddat$cont_year), length = 1000)
       ) %>%
       dplyr::mutate(
-        date = lubridate::date_decimal(dec_time),
+        date = lubridate::date_decimal(cont_year),
         date = as.Date(date),
         mo = lubridate::month(date, label = TRUE),
         doy = lubridate::yday(date),

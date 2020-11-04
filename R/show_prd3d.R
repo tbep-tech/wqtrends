@@ -52,7 +52,7 @@ show_prd3d <- function(moddat = NULL, mods = NULL, ylab, gami = c('gam0', 'gam1'
   prds <- anlz_backtrans(prds)
   
   toplo <- prds %>% 
-    dplyr::select(-date, -dec_time, -trans, -model) %>% 
+    dplyr::select(-date, -cont_year, -trans, -model) %>% 
     dplyr::filter(!yr %in% 2018) %>% 
     tidyr::spread(yr, value) %>% 
     dplyr::select(-doy) %>% 

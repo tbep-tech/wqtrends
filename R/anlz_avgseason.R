@@ -57,7 +57,7 @@ anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
     # gam model data
     gamdat <- mod$model %>% 
       dplyr::mutate(
-        date = lubridate::date_decimal(dec_time), 
+        date = lubridate::date_decimal(cont_year), 
         date = as.Date(date)
       )
     
@@ -72,9 +72,9 @@ anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
     fillData$yr <- lubridate::year(fillData$date)
     fillData$fyr <- factor(fillData$yr)
     fillData$doy <- fillData$julian - julian(update(fillData$date, month = 1, mday = 1))
-    fillData$dec_time <- fillData$yr + (fillData$doy - 1)/366
-    centerYear <- mean(range(fillData$dec_time, na.rm=FALSE))
-    fillData$cyr <- fillData$dec_time - centerYear
+    fillData$cont_year <- fillData$yr + (fillData$doy - 1)/366
+    centerYear <- mean(range(fillData$cont_year, na.rm=FALSE))
+    fillData$cyr <- fillData$cont_year - centerYear
     
     ## Exclude days not in the desired range
     fillData <- subset(fillData, doy >= doystr & doy <= doyend)

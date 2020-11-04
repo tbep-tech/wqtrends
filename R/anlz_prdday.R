@@ -53,7 +53,7 @@ anlz_prdday <- function(moddat = NULL, mods = NULL, ...) {
     tibble::enframe('model', 'modv') %>% 
     dplyr::mutate(prddat = purrr::map(modv, function(modv){
 
-      rng <- modv$model$dec_time %>%
+      rng <- modv$model$cont_year %>%
         range(na.rm  = T) %>% 
         lubridate::date_decimal() %>% 
         as.Date
@@ -61,7 +61,7 @@ anlz_prdday <- function(moddat = NULL, mods = NULL, ...) {
         tibble::tibble(date = .) %>%
         dplyr::mutate(
           doy = lubridate::yday(date),
-          dec_time = lubridate::decimal_date(date),
+          cont_year = lubridate::decimal_date(date),
           yr = lubridate::year(date)
         )
       prd <- predict(modv, newdata = data)

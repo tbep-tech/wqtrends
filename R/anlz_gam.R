@@ -44,10 +44,10 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
   moddat <- anlz_trans(moddat, ...)
   
   frms <- c(
-    'gam0' = "value ~ dec_time + s(doy, bs = 'cc')",  
-    'gam1' = "value ~ dec_time + s(dec_time) + s(doy, bs = 'cc')",
-    'gam2' = "value ~ dec_time + s(dec_time) + s(doy, bs = 'cc') + ti(dec_time, doy, bs = c('tp', 'cc'))",
-    'gam6' = "value ~ dec_time + s(dec_time) + s(doy, bs = 'cc')"
+    'gam0' = "value ~ cont_year + s(doy, bs = 'cc')",  
+    'gam1' = "value ~ cont_year + s(cont_year) + s(doy, bs = 'cc')",
+    'gam2' = "value ~ cont_year + s(cont_year) + s(doy, bs = 'cc') + ti(cont_year, doy, bs = c('tp', 'cc'))",
+    'gam6' = "value ~ cont_year + s(cont_year) + s(doy, bs = 'cc')"
   ) 
 
   frm <- frms[mod]
@@ -65,7 +65,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     
     p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
     p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
-    p2 <- paste0('s(dec_time, k = ', kts, ')')
+    p2 <- paste0('s(cont_year, k = ', kts, ')')
     frm <- paste0(p1, p2, p3)
     
   }
@@ -80,7 +80,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
     
     p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
     p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
-    p2 <- paste0('s(dec_time, k = ', kts, ')')
+    p2 <- paste0('s(cont_year, k = ', kts, ')')
     frmin <- paste0(p1, p2, p3)
     
     out <- try(gam(as.formula(frmin),
@@ -100,7 +100,7 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
       
       p1 <- gsub('(^.*)s\\(dec\\_time\\).*$', '\\1', frm)
       p3 <-  gsub('^.*s\\(dec\\_time\\)(.*)$', '\\1', frm)
-      p2 <- paste0('s(dec_time, k = ', kts, ')')
+      p2 <- paste0('s(cont_year, k = ', kts, ')')
       frmin <- paste0(p1, p2, p3)
       
       out <- try(gam(as.formula(frmin),
