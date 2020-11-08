@@ -9,6 +9,8 @@ apt_packages:
   - libgdal-dev
   - libgeos-dev
   - libproj-dev
+  - libharfbuzz-dev
+  - libfribidi-dev
 script:
   - sudo apt-get install r-cran-devtools
   - R -e 'devtools::install_deps(dep = T)'
