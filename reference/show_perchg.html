@@ -182,11 +182,11 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>show_perchg</span>(<span class='kw'>tomod</span>, gami = <span class='st'>'gam1'</span>, trans = <span class='st'>'boxcox'</span>, baseyr = <span class='fl'>1990</span>, testyr = <span class='fl'>2016</span>, 
+<span class='fu'>show_perchg</span>(<span class='kw'>tomod</span>, gami = <span class='st'>'gam1'</span>, trans = <span class='st'>'log10'</span>, baseyr = <span class='fl'>1990</span>, testyr = <span class='fl'>2016</span>, 
      ylab = <span class='st'>'Chlorophyll-a (ug/L)'</span>)
 }
 <span class='co'># use previously fitted list of models</span>
-<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'boxcox'</span>
+<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'log10'</span>
 <span class='kw'>mods</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   gam2 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='kw'>trans</span>)
   )

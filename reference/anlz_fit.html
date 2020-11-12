@@ -164,11 +164,11 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>anlz_fit</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'boxcox'</span>)
+<span class='fu'>anlz_fit</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
 }
 
 <span class='co'># use previously fitted list of models</span>
-<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'boxcox'</span>
+<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'log10'</span>
 <span class='kw'>mods</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   gam0 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam0'</span>, trans = <span class='kw'>trans</span>),
   gam1 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam1'</span>, trans = <span class='kw'>trans</span>), 
@@ -176,11 +176,11 @@
   )
 <span class='fu'>anlz_fit</span>(mods = <span class='kw'>mods</span>)
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 7</span><span>
-#&gt;   model   AIC   GCV    R2     k     F   p.value
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> gam0   675. 0.183 0.337    </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #555555;'> </span><span>   
-#&gt; </span><span style='color: #555555;'>2</span><span> gam1   588. 0.158 0.432    20 24.8   1.46</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> gam2   540. 0.146 0.484    20  6.02  1.62</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 9</span><span></div></span></pre>
+#&gt;   model   AIC    GCV    R2     k     F   p.value
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> gam0   273. 0.092</span><span style='text-decoration: underline;'>7</span><span> 0.322    </span><span style='color: #BB0000;'>NA</span><span> </span><span style='color: #BB0000;'>NA</span><span>    </span><span style='color: #BB0000;'>NA</span><span>   </span><span style='color: #555555;'> </span><span>   
+#&gt; </span><span style='color: #555555;'>2</span><span> gam1   199. 0.081</span><span style='text-decoration: underline;'>8</span><span> 0.405    20 24.1   1.53</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-17</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> gam2   161. 0.076</span><span style='text-decoration: underline;'>7</span><span> 0.451    20  5.22  6.96</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 8</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

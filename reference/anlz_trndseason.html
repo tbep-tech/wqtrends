@@ -188,30 +188,30 @@
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
 <span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>anlz_trndseason</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'boxcox'</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'left'</span>, win = <span class='fl'>5</span>)
+<span class='fu'>anlz_trndseason</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'left'</span>, win = <span class='fl'>5</span>)
 }
 <span class='co'># use previously fitted list of models</span>
-<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'boxcox'</span>
+<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'log10'</span>
 <span class='kw'>mods</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
   gam0 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam0'</span>, trans = <span class='kw'>trans</span>),
   gam1 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam1'</span>, trans = <span class='kw'>trans</span>), 
   gam2 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='kw'>trans</span>)
   )
-<span class='fu'>anlz_trndseason</span>(mods = <span class='kw'>mods</span>, trans = <span class='st'>'boxcox'</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'left'</span>, win = <span class='fl'>5</span>)
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 90 x 6</span><span>
+<span class='fu'>anlz_trndseason</span>(mods = <span class='kw'>mods</span>, trans = <span class='st'>'log10'</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'left'</span>, win = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 90 x 9</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   model [3]</span><span>
-#&gt;    model predicted    se    yr yrcoef  pval
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> gam0       8.50  1.05  </span><span style='text-decoration: underline;'>1</span><span>990  0.149 0.652
-#&gt; </span><span style='color: #555555;'> 2</span><span> gam0       8.64  1.04  </span><span style='text-decoration: underline;'>1</span><span>991  0.152 0.645
-#&gt; </span><span style='color: #555555;'> 3</span><span> gam0       8.79  1.04  </span><span style='text-decoration: underline;'>1</span><span>992  0.155 0.637
-#&gt; </span><span style='color: #555555;'> 4</span><span> gam0       8.94  1.04  </span><span style='text-decoration: underline;'>1</span><span>993  0.158 0.630
-#&gt; </span><span style='color: #555555;'> 5</span><span> gam0       9.09  1.04  </span><span style='text-decoration: underline;'>1</span><span>994  0.162 0.622
-#&gt; </span><span style='color: #555555;'> 6</span><span> gam0       9.25  1.04  </span><span style='text-decoration: underline;'>1</span><span>995  0.165 0.614
-#&gt; </span><span style='color: #555555;'> 7</span><span> gam0       9.41  1.04  </span><span style='text-decoration: underline;'>1</span><span>996  0.169 0.606
-#&gt; </span><span style='color: #555555;'> 8</span><span> gam0       9.57  1.04  </span><span style='text-decoration: underline;'>1</span><span>997  0.172 0.598
-#&gt; </span><span style='color: #555555;'> 9</span><span> gam0       9.74  1.04  </span><span style='text-decoration: underline;'>1</span><span>998  0.176 0.590
-#&gt; </span><span style='color: #555555;'>10</span><span> gam0       9.91  1.03  </span><span style='text-decoration: underline;'>1</span><span>999  0.180 0.582
+#&gt;    model   avg     se    yr bt_avg bt_lwr bt_upr  yrcoef  pval
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> gam0  0.776 0.031</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>990   7.60   6.60   8.75 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.595
+#&gt; </span><span style='color: #555555;'> 2</span><span> gam0  0.781 0.030</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>991   7.69   6.71   8.81 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.583
+#&gt; </span><span style='color: #555555;'> 3</span><span> gam0  0.786 0.029</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>992   7.77   6.81   8.87 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.571
+#&gt; </span><span style='color: #555555;'> 4</span><span> gam0  0.790 0.028</span><span style='text-decoration: underline;'>3</span><span>  </span><span style='text-decoration: underline;'>1</span><span>993   7.86   6.92   8.93 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.560
+#&gt; </span><span style='color: #555555;'> 5</span><span> gam0  0.795 0.027</span><span style='text-decoration: underline;'>5</span><span>  </span><span style='text-decoration: underline;'>1</span><span>994   7.95   7.02   9.00 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.549
+#&gt; </span><span style='color: #555555;'> 6</span><span> gam0  0.800 0.026</span><span style='text-decoration: underline;'>6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>995   8.04   7.13   9.07 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.538
+#&gt; </span><span style='color: #555555;'> 7</span><span> gam0  0.805 0.025</span><span style='text-decoration: underline;'>9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>996   8.13   7.24   9.14 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.528
+#&gt; </span><span style='color: #555555;'> 8</span><span> gam0  0.810 0.025</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>997   8.23   7.34   9.22 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.519
+#&gt; </span><span style='color: #555555;'> 9</span><span> gam0  0.815 0.024</span><span style='text-decoration: underline;'>6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>998   8.32   7.45   9.30 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.511
+#&gt; </span><span style='color: #555555;'>10</span><span> gam0  0.820 0.024</span><span style='text-decoration: underline;'>0</span><span>  </span><span style='text-decoration: underline;'>1</span><span>999   8.42   7.55   9.38 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.504
 #&gt; </span><span style='color: #555555;'># … with 80 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

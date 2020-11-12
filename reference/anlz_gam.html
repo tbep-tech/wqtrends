@@ -168,7 +168,7 @@
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
-<span class='fu'>anlz_gam</span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='st'>'boxcox'</span>)
+<span class='fu'>anlz_gam</span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='st'>'log10'</span>)
 </div><div class='output co'>#&gt; 
 #&gt; Family: gaussian 
 #&gt; Link function: identity 
@@ -178,9 +178,9 @@
 #&gt;     ti(cont_year, doy, bs = c("tp", "cc"))
 #&gt; 
 #&gt; Estimated degrees of freedom:
-#&gt; 4.68 7.09 9.31  total = 22.08 
+#&gt; 4.15 7.13 8.95  total = 21.23 
 #&gt; 
-#&gt; GCV score: 0.145756     rank: 40/41</div></pre>
+#&gt; GCV score: 0.07670887     rank: 40/41</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
