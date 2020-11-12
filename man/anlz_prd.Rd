@@ -4,7 +4,7 @@
 \alias{anlz_prd}
 \title{Get predicted data from fitted GAMs across period of observation}
 \usage{
-anlz_prd(moddat = NULL, mods = NULL, ...)
+anlz_prd(mod)
 }
 \arguments{
 \item{moddat}{input raw data, one station and parameter}
@@ -22,21 +22,13 @@ Get predicted data from fitted GAMs across period of observation
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_prd(tomod, trans = 'log10')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_prd(mods = mods)
+  
+mod <- anlz_gam(tomod, trans = 'log10')
+anlz_prd(mod)
 }
 \seealso{
 Other analyze: 

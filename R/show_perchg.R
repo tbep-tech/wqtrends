@@ -4,7 +4,6 @@
 #' 
 #' @inheritParams anlz_perchg
 #' @param ylab chr string for y-axis label
-#' @param gami Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -14,46 +13,24 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' # get predictions for all four gams
+#' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' \dontrun{
-#' show_perchg(tomod, gami = 'gam1', trans = 'log10', baseyr = 1990, testyr = 2016, 
-#'      ylab = 'Chlorophyll-a (ug/L)')
-#' }
-#' # use previously fitted list of models
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-#'   )
-#' show_perchg(mods = mods, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
-show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
-  
-  if(is.null(moddat) & is.null(mods))
-    stop('Must supply one of moddat or mods')
-  
-  if(is.null(mods)){
-    
-    # gam to fit
-    gami <- match.arg(gami)
-    
-    mods <- list(anlz_gam(moddat, mod = gami, ...))
-    names(mods) <- gami
-    
-  }
-  
-  if(!is.null(mods))
-    stopifnot(length(mods) == 1)
+#'   
+#' mod <- anlz_gam(tomod, trans = 'log10')
+#' 
+#' show_perchg(mod, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
+show_perchg <- function(mod, baseyr, testyr, ylab) {
   
   # get change estimates
-  chg <- anlz_perchg(moddat = moddat, mods = mods, baseyr = baseyr, testyr = testyr) %>% 
+  chg <- anlz_perchg(mod, baseyr = baseyr, testyr = testyr) %>% 
     dplyr::mutate(pval = anlz_pvalformat(pval)) %>% 
     dplyr::mutate_if(is.numeric, round, 2)
   ttl <- paste0('Base: ', chg$baseval, ', Test: ', chg$testval, ', Change: ', chg$perchg, '%, ', chg$pval)
   
   # get predictions
-  prds <- anlz_prd(moddat = moddat, mods = mods, ...)
+  prds <- anlz_prd(mod)
   
   # get transformation
   trans <- unique(prds$trans)
@@ -61,23 +38,17 @@ show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami =
   # back-transform
   prds <- anlz_backtrans(prds)
   
-  # get raw data from model if not provided
-  if(is.null(moddat)){
-    
-    stopifnot(!is.null(mods))
-    
-    tobacktrans <- mods[[1]]$model %>% 
-      dplyr::mutate(
-        trans = mods[[1]]$trans
-      )
-    
-    moddat <- anlz_backtrans(tobacktrans) %>% 
-      dplyr::mutate(
-        date = lubridate::date_decimal(cont_year), 
-        date = as.Date(date)
-      )
-    
-  }
+  # get raw data from model
+  tobacktrans <- mod$model %>% 
+    dplyr::mutate(
+      trans = mod$trans
+    )
+  
+  moddat <- anlz_backtrans(tobacktrans) %>% 
+    dplyr::mutate(
+      date = lubridate::date_decimal(cont_year), 
+      date = as.Date(date)
+    )
   
   # boundaries for base, test years
   trndswn <- prds %>% 
@@ -106,8 +77,6 @@ show_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ylab, gami =
     ggplot2::theme(
       legend.position = 'none', 
       legend.title = ggplot2::element_blank(),
-      strip.text = ggplot2::element_blank(), 
-      strip.background = ggplot2::element_blank(), 
       axis.title.x = ggplot2::element_blank()
     ) + 
     ggplot2::labs(

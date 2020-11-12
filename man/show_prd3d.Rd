@@ -4,24 +4,10 @@
 \alias{show_prd3d}
 \title{Plot a 3-d surface of predictions}
 \usage{
-show_prd3d(
-  moddat = NULL,
-  mods = NULL,
-  ylab,
-  gami = c("gam0", "gam1", "gam2", "gam6"),
-  ...
-)
+show_prd3d(mod, ylab)
 }
 \arguments{
-\item{moddat}{input raw data, one station and parameter}
-
-\item{mods}{optional list of model objects}
-
 \item{ylab}{chr string for y-axis label}
-
-\item{gami}{Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 a \code{plotly} surface
@@ -32,19 +18,14 @@ Plot a 3-d surface of predictions
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-show_prd3d(tomod, gami = 'gam2', trans = 'log10', ylab = 'Chlorophyll-a (ug/L)')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam1 = anlz_gam(tomod, trans = trans)
-  )
-show_prd3d(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+  
+mod <- anlz_gam(tomod, trans = 'log10')
+
+show_prd3d(mod, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
 Other show: 

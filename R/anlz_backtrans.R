@@ -20,12 +20,7 @@
 #' dat <- anlz_trans(tomod, trans = 'log10')
 #' anlz_backtrans(dat)
 #' 
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-#'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-#'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-#'   )
+#' mods <- anlz_gam(tomod, trans = 'log10')
 #' dat <- anlz_prd(mods = mods)
 #' anlz_backtrans(dat)
 anlz_backtrans <- function(dat){

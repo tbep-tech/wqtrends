@@ -4,18 +4,14 @@
 \alias{anlz_avgseason}
 \title{Extract period (seasonal) averages from fitted GAM}
 \usage{
-anlz_avgseason(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, ...)
+anlz_avgseason(mod, doystr = 1, doyend = 364)
 }
 \arguments{
-\item{moddat}{input raw data, one station and paramater}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
 \item{doyend}{numeric indicating ending Julian day for extracting averages}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 A data frame of period averages
@@ -26,21 +22,13 @@ Extract period (seasonal) averages from fitted GAM
 \examples{
 library(dplyr)
 
-# fit models with function
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_avgseason(tomod, trans = 'log10', doystr = 90, doyend = 180)
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
+
+mod <- anlz_gam(tomod, trans = 'log10')
+anlz_avgseason(mod, doystr = 90, doyend = 180)
 }
 \seealso{
 Other analyze: 

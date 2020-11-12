@@ -22,16 +22,12 @@ Fit a mixed meta-analysis regression model of trends
 \examples{
 library(dplyr)
 
-# fit models with function
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-avgseason <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
+
+mod <- anlz_gam(tomod, trans = 'log10')
+avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
 anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2019)
 }

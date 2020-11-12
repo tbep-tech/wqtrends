@@ -4,14 +4,10 @@
 \alias{anlz_fit}
 \title{Return summary statistics for GAM fits}
 \usage{
-anlz_fit(moddat = NULL, mods = NULL, ...)
+anlz_fit(mod)
 }
 \arguments{
-\item{moddat}{input raw data, one station and parameter}
-
-\item{mods}{optional list of model objects}
-
-\item{...}{additional arguments passed to other methods}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 }
 \value{
 A \code{data.frame} with summary statistics for GAM fits
@@ -20,27 +16,18 @@ A \code{data.frame} with summary statistics for GAM fits
 Return summary statistics for GAM fits
 }
 \details{
-Results show the overall summary of the model as Akaike Information Criterion (\code{AIC}), the generalized cross-validation score (\code{GCV}), and the \code{R2} values.  Lower values for \code{AIC} and \code{GCV} and higher values for \code{R2} indicate improved model fit. The \code{k} column shows the upper limit for the number of knots on the \code{year} term, when appropriate (i.e., not gam0).  ANOVA F-tests are also used to compare multiple models, where results are appended as \code{F} statistics and probability values in the final two columns.  The ANOVA comparisons are row-specific, where the values show a comparison between the current row and one preceeding.  See \code{\link[mgcv]{anova.gam}} for additional info.
+Results show the overall summary of the model as Akaike Information Criterion (\code{AIC}), the generalized cross-validation score (\code{GCV}), and the \code{R2} values.  Lower values for \code{AIC} and \code{GCV} and higher values for \code{R2} indicate improved model fit.
 }
 \examples{
 library(dplyr)
 
-# fit models with function
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_fit(tomod, trans = 'log10')
-}
-
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_fit(mods = mods)
+  
+mod <-  anlz_gam(tomod, trans = 'log10')
+anlz_fit(mod)
 }
 \seealso{
 Other analyze: 

@@ -4,7 +4,6 @@
 #' 
 #' @inheritParams anlz_prd
 #' @param ylab chr string for y-axis label
-#' @param gami Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}
 #'
 #' @return a \code{plotly} surface
 #' @export
@@ -14,45 +13,24 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' # get predictions for all four gams
+#' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' \dontrun{
-#' show_prd3d(tomod, gami = 'gam2', trans = 'log10', ylab = 'Chlorophyll-a (ug/L)')
-#' }
-#' # use previously fitted list of models
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam1 = anlz_gam(tomod, trans = trans)
-#'   )
-#' show_prd3d(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prd3d <- function(moddat = NULL, mods = NULL, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
-
-  if(is.null(moddat) & is.null(mods))
-    stop('Must supply one of moddat or mods')
-
-  if(is.null(mods)){
-
-    # gam to fit
-    gami <- match.arg(gami)
-    
-    mods <- list(anlz_gam(moddat, mod = gami, ...))
-    names(mods) <- gami
-    
-  }
-  
-  if(!is.null(mods))
-    stopifnot(length(mods) == 1)
+#'   
+#' mod <- anlz_gam(tomod, trans = 'log10')
+#' 
+#' show_prd3d(mod, ylab = 'Chlorophyll-a (ug/L)')
+show_prd3d <- function(mod, ylab) {
   
   # get daily predictions, differs from anlz_prd
-  prds <- anlz_prdday(mods = mods)
+  prds <- anlz_prdday(mod)
   
   # backtransform daily predictions
   prds <- anlz_backtrans(prds)
   
   toplo <- prds %>% 
-    dplyr::select(-date, -cont_year, -trans, -model) %>% 
+    dplyr::select(-date, -cont_year, -trans) %>% 
     dplyr::filter(!yr %in% 2018) %>% 
     tidyr::spread(yr, value) %>% 
     dplyr::select(-doy) %>% 

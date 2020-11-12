@@ -4,36 +4,18 @@
 \alias{show_prddoy}
 \title{Plot predictions for GAMs against day of year}
 \usage{
-show_prddoy(
-  moddat = NULL,
-  mods = NULL,
-  ylab,
-  nfac = NULL,
-  size = 0.5,
-  alpha = 1,
-  faclev = NULL,
-  faclab = NULL,
-  ...
-)
+show_prddoy(mod, ylab, size = 0.5, alpha = 1)
 }
 \arguments{
-\item{moddat}{input raw data, one station and parameter}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{ylab}{chr string for y-axis label}
-
-\item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}}
 
 \item{size}{numeric indicating line size}
 
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
 
-\item{faclev}{optional chr string of factor levels for the model names, this affects the facet order}
-
-\item{faclab}{optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL}
-
-\item{...}{additional arguments passed to other methods}
+\item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
@@ -44,22 +26,14 @@ Plot predictions for GAMs against day of year
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-show_prddoy(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'log10')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-)
 
-show_prddoy(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+mod <- anlz_gam(tomod, trans = 'log10')
+
+show_prddoy(mod, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
 Other show: 

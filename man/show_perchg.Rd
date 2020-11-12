@@ -4,30 +4,16 @@
 \alias{show_perchg}
 \title{Plot percent change trends from GAM results for selected time periods}
 \usage{
-show_perchg(
-  moddat = NULL,
-  mods = NULL,
-  baseyr,
-  testyr,
-  ylab,
-  gami = c("gam0", "gam1", "gam2", "gam6"),
-  ...
-)
+show_perchg(mod, baseyr, testyr, ylab)
 }
 \arguments{
-\item{moddat}{input raw data, one station and paramater}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{baseyr}{numeric vector of starting years}
 
 \item{testyr}{numeric vector of ending years}
 
 \item{ylab}{chr string for y-axis label}
-
-\item{gami}{Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
@@ -38,20 +24,14 @@ Plot percent change trends from GAM results for selected time periods
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-show_perchg(tomod, gami = 'gam1', trans = 'log10', baseyr = 1990, testyr = 2016, 
-     ylab = 'Chlorophyll-a (ug/L)')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-show_perchg(mods = mods, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
+  
+mod <- anlz_gam(tomod, trans = 'log10')
+
+show_perchg(mod, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
 Other show: 

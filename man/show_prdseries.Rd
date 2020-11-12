@@ -4,33 +4,14 @@
 \alias{show_prdseries}
 \title{Plot predictions for GAMs over time series}
 \usage{
-show_prdseries(
-  moddat = NULL,
-  mods = NULL,
-  ylab,
-  nfac = NULL,
-  alpha = 0.7,
-  faclev = NULL,
-  faclab = NULL,
-  ...
-)
+show_prdseries(mod, ylab, alpha = 0.7)
 }
 \arguments{
-\item{moddat}{input raw data, one station and parameter}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{ylab}{chr string for y-axis label}
 
-\item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to one}
-
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
-
-\item{faclev}{optional chr string of factor levels for the model names, this affects the facet order}
-
-\item{faclab}{optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
@@ -41,22 +22,14 @@ Plot predictions for GAMs over time series
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-show_prdseries(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'log10')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-)
 
-show_prdseries(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
+mod <- anlz_gam(tomod, trans = 'log10')
+
+show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
 Other show: 

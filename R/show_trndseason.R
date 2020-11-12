@@ -4,7 +4,6 @@
 #' 
 #' @inheritParams anlz_trndseason
 #' @param ylab chr string for y-axis label
-#' @param gami Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -14,43 +13,20 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' # get predictions for all four gams
+#' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' \dontrun{
-#' show_trndseason(tomod, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5,
-#'      ylab = 'Slope chlorophyll-a (ug/L)', gami = 'gam2')
-#' }
-#' # use previously fitted list of models
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-#'   )
-#' show_trndseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5,
-#'      ylab = 'Slope Chlorophyll-a (ug/L)', gami = 'gam2')
-show_trndseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, justify = c('left', 'right', 'center'), win = 5, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
-  
-  if(is.null(moddat) & is.null(mods))
-    stop('Must supply one of moddat or mods')
-  
-  if(is.null(mods)){
-    
-    # gam to fit
-    gami <- match.arg(gami)
-    
-    mods <- list(anlz_gam(moddat, mod = gami, ...))
-    names(mods) <- gami
-    
-  }
-  
-  if(!is.null(mods))
-    stopifnot(length(mods) == 1)
+#'
+#' mod <- anlz_gam(tomod, trans = 'log10')
+#' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
+#'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
+show_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('left', 'right', 'center'), win = 5, ylab) {
   
   justify <- match.arg(justify)
   
   # get slope trends
-  trndseason <- anlz_trndseason(moddat = moddat, mods = mods, doystr = doystr, doyend = doyend, justify = justify, win = win) 
+  trndseason <- anlz_trndseason(mod = mod, doystr = doystr, doyend = doyend, justify = justify, win = win) 
 
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))

@@ -4,14 +4,7 @@
 \alias{anlz_prdday}
 \title{Get predicted data from fitted GAMs across period of observation, every day}
 \usage{
-anlz_prdday(moddat = NULL, mods = NULL, ...)
-}
-\arguments{
-\item{moddat}{input raw data, one station and parameter}
-
-\item{mods}{optional list of model objects}
-
-\item{...}{additional arguments passed to other methods}
+anlz_prdday(mod)
 }
 \value{
 a \code{data.frame} with predictions
@@ -22,21 +15,13 @@ Get predicted data from fitted GAMs across period of observation, every day
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_prdday(tomod, trans = 'log10')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_prdday(mods = mods)
+
+mod <- anlz_gam(tomod, trans = 'log10')
+anlz_prdday(mod)
 }
 \seealso{
 Other analyze: 

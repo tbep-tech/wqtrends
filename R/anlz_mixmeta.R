@@ -12,17 +12,13 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' # fit models with function
+#' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-#'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-#'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-#'   )
-#' avgseason <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
+#' 
+#' mod <- anlz_gam(tomod, trans = 'log10')
+#' avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
 #' anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2019)
 anlz_mixmeta <- function(avgseason, yrstr = 2000, yrend = 2019){
 
@@ -31,21 +27,10 @@ anlz_mixmeta <- function(avgseason, yrstr = 2000, yrend = 2019){
     dplyr::mutate(S = se^2) %>% 
     dplyr::filter(yr %in% seq(yrstr, yrend))
 
-  out <- totrnd %>%
-    dplyr::group_by(model) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(
-      mixmod = purrr::map(data, function(x){
-        
-        if(nrow(x) != length(seq(yrstr, yrend)))
-          return(NA)
-        
-        mixmeta::mixmeta(avg ~ yr, S = S, random = ~1|yr, data = x, method = 'reml')
-        
-      })
-    ) %>% 
-    dplyr::select(-data) %>% 
-    tibble::deframe()
+  if(nrow(totrnd) != length(seq(yrstr, yrend)))
+    return(NA)
+  
+  out <- mixmeta::mixmeta(avg ~ yr, S = S, random = ~1|yr, data = totrnd, method = 'reml')
     
   return(out)
 

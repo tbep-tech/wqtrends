@@ -2,14 +2,9 @@
 #'
 #' Plot predictions for GAMs over time series
 #' 
-#' @param moddat input raw data, one station and parameter
-#' @param mods optional list of model objects
+#' @param mod input model object as returned by \code{\link{anlz_gam}}
 #' @param ylab chr string for y-axis label
-#' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to one
 #' @param alpha numeric from 0 to 1 indicating line transparency
-#' @param faclev optional chr string of factor levels for the model names, this affects the facet order
-#' @param faclab optional chr string of factor labels for the model names, defaults to \code{faclev} if NULL
-#' @param ... additional arguments passed to other methods
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -19,78 +14,45 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' # get predictions for all four gams
+#' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' \dontrun{
-#' show_prdseries(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'log10')
-#' }
-#' # use previously fitted list of models
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-#'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
-#'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-#' )
+#'
+#' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
-#' show_prdseries(mods = mods, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseries <- function(moddat = NULL, mods = NULL, ylab, nfac = NULL, alpha = 0.7, faclev = NULL, faclab = NULL, ...){
-  
-  if(is.null(nfac))
-    nfac <- 1
+#' show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)')
+show_prdseries <- function(mod, ylab, alpha = 0.7){
 
   # get predictions
-  prds <- anlz_prd(moddat = moddat, mods = mods, ...)
-  
-  # changing model factors
-  if(is.null(faclev))
-    faclev <- prds %>% 
-    dplyr::pull(model) %>% 
-    unique
-  
-  if(is.null(faclab))
-    faclab <- faclev
+  prds <- anlz_prd(mod)
   
   # get transformation
   trans <- unique(prds$trans)
 
   # back-transform
-  prds <- anlz_backtrans(prds) %>% 
+  prds <- anlz_backtrans(prds) 
+  
+  # raw data
+  tobacktrans <- mod$model %>% 
     dplyr::mutate(
-      model = factor(model, levels = faclev, labels = faclab)
+      trans = mod$trans
     )
   
-  # get raw data from model if not provided
-  if(is.null(moddat)){
-    
-    stopifnot(!is.null(mods))
-    
-    tobacktrans <- mods[[1]]$model %>% 
-      dplyr::mutate(
-        trans = mods[[1]]$trans
-      )
-    
-    moddat <- anlz_backtrans(tobacktrans) %>% 
-      dplyr::mutate(
-        date = lubridate::date_decimal(cont_year), 
-        date = as.Date(date)
-      )
-
-  }
+  moddat <- anlz_backtrans(tobacktrans) %>% 
+    dplyr::mutate(
+      date = lubridate::date_decimal(cont_year), 
+      date = as.Date(date)
+    )
 
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = date)) + 
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
-    ggplot2::geom_line(ggplot2::aes(y = value, colour = factor(model)), size = 0.75, alpha = alpha) + 
-    ggplot2::geom_line(ggplot2::aes(y = annvalue, group = factor(model)), alpha = alpha, colour = 'black') +
-    ggplot2::facet_wrap(~model, ncol = nfac) +
-    ggplot2::scale_color_viridis_d() + 
+    ggplot2::geom_line(ggplot2::aes(y = value), size = 0.75, alpha = alpha) + 
+    ggplot2::geom_line(ggplot2::aes(y = annvalue), alpha = alpha, colour = 'tomato1') +
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
     ggplot2::theme(
       legend.position = 'top', 
       legend.title = ggplot2::element_blank(),
-      strip.text = ggplot2::element_blank(), 
-      strip.background = ggplot2::element_blank(), 
       axis.title.x = ggplot2::element_blank()
     ) + 
     ggplot2::labs(

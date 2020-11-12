@@ -14,77 +14,42 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' # get predictions for all four gams
+#' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' \dontrun{
-#' anlz_prd(tomod, trans = 'log10')
-#' }
-#' # use previously fitted list of models
-#' trans <- 'log10'
-#' mods <- list(
-#'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-#'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-#'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-#'   )
-#' anlz_prd(mods = mods)
-anlz_prd <- function(moddat = NULL, mods = NULL, ...) {
+#'   
+#' mod <- anlz_gam(tomod, trans = 'log10')
+#' anlz_prd(mod)
+anlz_prd <- function(mod) {
 
-  if(is.null(moddat) & is.null(mods))
-    stop('Must supply one of moddat or mods')
+  prddat <- mod$model
+  trans <- mod$trans
   
-  if(is.null(mods)){
-    
-    mods <- list(
-      gam0 = anlz_gam(moddat, mod = 'gam0', ...),
-      gam1 = anlz_gam(moddat, mod = 'gam1', ...), 
-      gam2 = anlz_gam(moddat, mod = 'gam2', ...), 
-      gam6 = anlz_gam(moddat, mod = 'gam6', ...)
-    ) 
-    
-    levnms <- c('gam0', 'gam1', 'gam2', 'gam6') 
-    
-  }
+  prddat <- data.frame(
+    cont_year = seq(min(prddat$cont_year), max(prddat$cont_year), length = 1000)
+    ) %>%
+    dplyr::mutate(
+      date = lubridate::date_decimal(cont_year),
+      date = as.Date(date),
+      mo = lubridate::month(date, label = TRUE),
+      doy = lubridate::yday(date),
+      yr = lubridate::year(date)
+    )
+
+  # get predictions from terms matrix, value is sum of all plus intercept, annvalue is same minus anything with doy
+  prd <- predict(mod, newdata = prddat, type = 'terms')
+  int <- attr(prd, 'constant')
+  value <- rowSums(prd) + int
+  annvalue <- rowSums(prd[, !grepl('doy', colnames(prd)), drop = FALSE]) + int
   
-  if(!is.null(mods))
-    levnms <- names(mods)
-  
-  out <- purrr::map(mods, function(mod){
-    
-    prddat <- mod$model
-    trans <- mod$trans
-    
-    prddat <- data.frame(
-      cont_year = seq(min(prddat$cont_year), max(prddat$cont_year), length = 1000)
-      ) %>%
-      dplyr::mutate(
-        date = lubridate::date_decimal(cont_year),
-        date = as.Date(date),
-        mo = lubridate::month(date, label = TRUE),
-        doy = lubridate::yday(date),
-        yr = lubridate::year(date)
+  # get annual trend
+  out <- prddat %>% 
+    dplyr::mutate(
+      annvalue = annvalue,
+      value = value,
+      trans = trans
       )
-
-    # get predictions from terms matrix, value is sum of all plus intercept, annvalue is same minus anything with doy
-    prd <- predict(mod, newdata = prddat, type = 'terms')
-    int <- attr(prd, 'constant')
-    value <- rowSums(prd) + int
-    annvalue <- rowSums(prd[, !grepl('doy', colnames(prd)), drop = FALSE]) + int
-    
-    # get annual trend
-    prddat <- prddat %>% 
-      dplyr::mutate(
-        annvalue = annvalue,
-        value = value,
-        trans = trans
-        )
-    
-    return(prddat)
-    
-    }) %>% 
-    tibble::enframe('model', 'data') %>% 
-    tidyr::unnest('data')
     
   return(out)
   

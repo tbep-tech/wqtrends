@@ -4,22 +4,10 @@
 \alias{show_avgseason}
 \title{Plot period (seasonal) averages from fitted GAM}
 \usage{
-show_avgseason(
-  moddat = NULL,
-  mods = NULL,
-  doystr = 1,
-  doyend = 364,
-  yrstr = 2000,
-  yrend = 2019,
-  ylab,
-  gami = c("gam0", "gam1", "gam2", "gam6"),
-  ...
-)
+show_avgseason(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab)
 }
 \arguments{
-\item{moddat}{input raw data, one station and paramater}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
@@ -30,10 +18,6 @@ show_avgseason(
 \item{yrend}{numeric for ending year for trend model}
 
 \item{ylab}{chr string for y-axis label}
-
-\item{gami}{Character indicating which GAM to plot, one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam3}}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
@@ -44,21 +28,15 @@ Plot period (seasonal) averages from fitted GAM
 \examples{
 library(dplyr)
 
-# get predictions for all four gams
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-show_avgseason(tomod, trans = 'log10', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
-     ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-show_avgseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
-     ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
+  
+mod <- anlz_gam(tomod, trans = 'log10')
+
+show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+     ylab = 'Chlorophyll-a (ug/L)')
 }
 \seealso{
 Other show: 

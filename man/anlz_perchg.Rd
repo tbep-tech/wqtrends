@@ -4,18 +4,14 @@
 \alias{anlz_perchg}
 \title{Estimate percent change trends from GAM results for selected time periods}
 \usage{
-anlz_perchg(moddat = NULL, mods = NULL, baseyr, testyr, ...)
+anlz_perchg(mod, baseyr, testyr)
 }
 \arguments{
-\item{moddat}{input raw data, one station and paramater}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{baseyr}{numeric vector of starting years}
 
 \item{testyr}{numeric vector of ending years}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 A data frame of summary results for change between the years.
@@ -29,21 +25,13 @@ Working components of this function were taken from the \code{\link[baytrends]{g
 \examples{
 library(dplyr)
 
-# fit models with function
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_perchg(tomod, trans = 'log10', baseyr = 1990, testyr = 2016)
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_perchg(mods = mods, baseyr = 1990, testyr = 2016)
+  
+mod <- anlz_gam(tomod, trans = 'log10')
+anlz_perchg(mod, baseyr = 1990, testyr = 2016)
 }
 \seealso{
 Other analyze: 

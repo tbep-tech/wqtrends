@@ -4,14 +4,10 @@
 \alias{anlz_smooth}
 \title{Return summary statistics for smoothers of GAMs}
 \usage{
-anlz_smooth(moddat = NULL, mods = NULL, ...)
+anlz_smooth(mod)
 }
 \arguments{
-\item{moddat}{input raw data, one station and paramater}
-
-\item{mods}{optional list of model objects}
-
-\item{...}{additional arguments passed to other methods}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 }
 \value{
 a \code{data.frame} with summary statistics for smoothers in each GAM
@@ -25,21 +21,13 @@ Results show the individual effects of the modelled components of each model as 
 \examples{
 library(dplyr)
 
-# fit models with function
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_smooth(tomod, trans = 'log10')
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_smooth(mods = mods)
+  
+mod <- anlz_gam(tomod, trans = 'log10')
+anlz_smooth(mod)
 }
 \seealso{
 Other analyze: 

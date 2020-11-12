@@ -3,20 +3,17 @@
 #' Fit a generalized additive model to a water quality time series
 #' 
 #' @param moddat input raw data, one station and paramater 
-#' @param mod chr string indicating one of \code{gam0}, \code{gam1}, \code{gam2}, or \code{gam6}, see details, 
+#' @param kts optional numeric vector for the upper limit for the number of knots in the term \code{s(cont_year)}, see details
 #' @param ... additional arguments passed to other methods
 #' 
 #' @details 
 #' 
-#' One of four forms for the Generalized additive models (GAMs) can be selected to describes trends at the stations of interest.  The four models descibe the time components differently and represent increasing levels of complexity to describe the chlorophyll trend:
+#' The model structure is as follows:
 #'
 #'\describe{
-#'  \item{gam0:}{chl ~ year + s(doy)}
-#'  \item{gam1:}{chl ~ year + s(doy) + s(year)}
-#'  \item{gam2:}{chl ~ year + s(doy) + s(year) + ti(doy, year)}
-#'  \item{gam6:}{chl ~ year + s(doy) + s(year, k = large)}
+#'  \item{model S:}{chl ~ s(cont_year, k = large)}
 #'}
-#' For all models, \code{year} is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and \code{doy} is the day of year as a numeric value from 1 to 366.  All models include \code{year} as a linear effect.  The functions \code{\link[mgcv]{s}} model either \code{year} or \code{doy} as a smoothed, non-linear variable and \code{\link[mgcv]{ti}} models the interaction between the two.  The fourth model, \code{gam6}, is the same as \code{gam1} with the exception that the optimal amount of smoothing on \code{year} is not constrained by increasing the theoretical upper limit on the number of knots for \code{k}.  The upper limit of \code{k} was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified \code{k}, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
+#' The \code{cont_year} vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and \code{doy} is the day of year as a numeric value from 1 to 366.  The function \code{\link[mgcv]{s}} models \code{cont_year} as a smoothed, non-linear variable. The optimal amount of smoothing on \code{cont_year} is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for \code{k} should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of \code{k} was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified \code{k}, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
 #' 
 #' @return a \code{\link[mgcv]{gam}} model object
 #' @import mgcv
@@ -29,8 +26,8 @@
 #' tomod <- rawdat %>% 
 #'   filter(station %in% 32) %>% 
 #'   filter(param %in% 'chl')
-#' anlz_gam(tomod, mod = 'gam2', trans = 'log10')
-anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
+#' anlz_gam(tomod, trans = 'log10')
+anlz_gam <- function(moddat, kts = NULL, ...){
 
   if(length(unique(moddat$param)) > 1)
     stop('More than one parameter found in input data')
@@ -38,92 +35,50 @@ anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
   if(length(unique(moddat$station)) > 1)
     stop('More than one station found in input data')
   
-  mod <- match.arg(mod)
-  
   # get transformation
   moddat <- anlz_trans(moddat, ...)
   
-  frms <- c(
-    'gam0' = "value ~ cont_year + s(doy, bs = 'cc')",  
-    'gam1' = "value ~ cont_year + s(cont_year) + s(doy, bs = 'cc')",
-    'gam2' = "value ~ cont_year + s(cont_year) + s(doy, bs = 'cc') + ti(cont_year, doy, bs = c('tp', 'cc'))",
-    'gam6' = "value ~ cont_year + s(cont_year) + s(doy, bs = 'cc')"
-  ) 
+  frm <- "value ~ s(cont_year)"
 
-  frm <- frms[mod]
-  kts <- NA
+  fct <- 12
   
-  # insert upper gamk1 rule for gam1
-  if(mod %in% c('gam1', 'gam2')){
+  # get upper bounds of knots
+  if(is.null(kts))
+    kts <- fct * length(unique(moddat$yr))
+  
+  p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
+  p2 <- paste0('s(cont_year, k = ', kts, ')')
+  frmin <- paste0(p1, p2)
+  
+  out <- try(gam(as.formula(frmin),
+             data = moddat,
+             na.action = na.exclude,
+             select = F
+  ))
+  
+  # drops upper limit on knots until it works
+  while(inherits(out, 'try-error')){
     
-    # get upper bounds of knots
-    kts <- moddat$yr %>%
-      unique %>%
-      length 
-    kts <- round(kts * (2/3), 0)
-    kts <- pmax(10, kts)
-    
-    p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
-    p3 <-  gsub('^.*s\\(cont\\_year\\)(.*)$', '\\1', frm)
-    p2 <- paste0('s(cont_year, k = ', kts, ')')
-    frm <- paste0(p1, p2, p3)
-    
-  }
-
-  # insert upper gamk1* rule for gamk1*
-  if(mod %in% 'gam6'){
-    
-    fct <- 12
+    fct <- fct -1
     
     # get upper bounds of knots
     kts <- fct * length(unique(moddat$yr))
     
     p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
-    p3 <-  gsub('^.*s\\(cont\\_year\\)(.*)$', '\\1', frm)
     p2 <- paste0('s(cont_year, k = ', kts, ')')
-    frmin <- paste0(p1, p2, p3)
+    frmin <- paste0(p1, p2)
     
     out <- try(gam(as.formula(frmin),
-               knots = list(doy = c(1, 366)),
-               data = moddat,
-               na.action = na.exclude,
-               select = F
+                   data = moddat,
+                   na.action = na.exclude,
+                   select = F
     ))
     
-    # drops upper limit on knots until it works
-    while(inherits(out, 'try-error')){
-      
-      fct <- fct -1
-      
-      # get upper bounds of knots
-      kts <- fct * length(unique(moddat$yr))
-      
-      p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
-      p3 <-  gsub('^.*s\\(cont\\_year\\)(.*)$', '\\1', frm)
-      p2 <- paste0('s(cont_year, k = ', kts, ')')
-      frmin <- paste0(p1, p2, p3)
-      
-      out <- try(gam(as.formula(frmin),
-                     knots = list(doy = c(1, 366)),
-                     data = moddat,
-                     na.action = na.exclude,
-                     select = F
-      ))
-      
-    }
-    
-    out$trans <- unique(moddat$trans)
-    
-    return(out)
-    
   }
-
-  tomod <- paste0('gam(', frm, ', knots = list(doy = c(1, 366)), data = moddat, na.action = na.exclude, select = F)')
-  out <- eval(parse(text = tomod))
-  
-  # add transformation to gam object
+    
   out$trans <- unique(moddat$trans)
-  
+    
   return(out)
+
   
 }

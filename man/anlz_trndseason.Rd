@@ -5,19 +5,15 @@
 \title{Estimate seasonal rates of change based on average estimates}
 \usage{
 anlz_trndseason(
-  moddat = NULL,
-  mods = NULL,
+  mod,
   doystr = 1,
   doyend = 364,
-  justify = c("left", "right", "center"),
-  win = 5,
-  ...
+  justify = c("center", "left", "right"),
+  win = 5
 )
 }
 \arguments{
-\item{moddat}{input raw data, one station and paramater}
-
-\item{mods}{optional list of model objects}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
@@ -26,8 +22,6 @@ anlz_trndseason(
 \item{justify}{chr string indicating the justification for the trend window}
 
 \item{win}{numeric indicating number of years to use for the trend window}
-
-\item{...}{additional arguments passed to other methods}
 }
 \value{
 A data frame of slope estimates and p-values for each year
@@ -41,21 +35,13 @@ Trends are based on the slope of the fitted linear trend within the window, wher
 \examples{
 library(dplyr)
 
-# fit models with function
+# data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
-\dontrun{
-anlz_trndseason(tomod, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5)
-}
-# use previously fitted list of models
-trans <- 'log10'
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
-  gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
-  gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
-  )
-anlz_trndseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5)
+
+mod <- anlz_gam(tomod, trans = 'log10')
+anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5)
 }
 \seealso{
 Other analyze: 
