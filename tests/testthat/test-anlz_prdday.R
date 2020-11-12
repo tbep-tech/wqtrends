@@ -1,15 +1,15 @@
+tomod <- rawdat %>%
+  dplyr::filter(station %in% 32) %>%
+  dplyr::filter(param %in% 'chl')
+
 test_that("Checking anlz_prdday", {
   
-  tomod <- rawdat %>%
-    dplyr::filter(station %in% 32) %>%
-    dplyr::filter(param %in% 'chl')
-  
-  result <- anlz_prdday(tomod, trans = 'boxcox') %>% 
+  result <- anlz_prdday(tomod, trans = 'log10') %>% 
     dplyr::pull(value) %>% 
     .[1:4] %>% 
     round(1)
   
-  expect_equal(result, c(0.8, 0.8, 0.8, 0.8))
+  expect_equal(result, c(0.4, 0.4, 0.4, 0.4))
   
 })
 
@@ -20,11 +20,8 @@ test_that("Checking anlz_prdday error", {
 })
 
 test_that("Checking anlz_prdday list input", {
-  
-  tomod <- rawdat %>%
-    dplyr::filter(station %in% 32) %>%
-    dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),
@@ -36,7 +33,7 @@ test_that("Checking anlz_prdday list input", {
     .[1:4] %>% 
     round(1)
   
-  expect_equal(result, c(0.8, 0.8, 0.8, 0.8))
+  expect_equal(result, c(0.4, 0.4, 0.4, 0.4))
   
 })
 

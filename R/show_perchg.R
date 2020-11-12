@@ -19,11 +19,11 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' show_perchg(tomod, gami = 'gam1', trans = 'boxcox', baseyr = 1990, testyr = 2016, 
+#' show_perchg(tomod, gami = 'gam1', trans = 'log10', baseyr = 1990, testyr = 2016, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
 #' }
 #' # use previously fitted list of models
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )

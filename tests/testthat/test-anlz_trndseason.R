@@ -5,7 +5,7 @@ test_that("Checking anlz_trndseason, left window", {
     dplyr::filter(param %in% 'chl')
   
   # use previously fitted list of models
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans)
   )
@@ -24,7 +24,7 @@ test_that("Checking anlz_trndseason, center window", {
     dplyr::filter(param %in% 'chl')
   
   # use previously fitted list of models
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans)
   )
@@ -43,7 +43,7 @@ test_that("Checking anlz_trndseason, right window", {
     dplyr::filter(param %in% 'chl')
   
   # use previously fitted list of models
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans)
   )

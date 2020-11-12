@@ -19,15 +19,15 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' show_trndseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, justify = 'left', win = 5,
+#' show_trndseason(tomod, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5,
 #'      ylab = 'Slope chlorophyll-a (ug/L)', gami = 'gam2')
 #' }
 #' # use previously fitted list of models
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
-#' show_trndseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, justify = 'left', win = 5,
+#' show_trndseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5,
 #'      ylab = 'Slope Chlorophyll-a (ug/L)', gami = 'gam2')
 show_trndseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, justify = c('left', 'right', 'center'), win = 5, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
   

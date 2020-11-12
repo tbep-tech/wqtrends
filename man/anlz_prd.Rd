@@ -27,10 +27,10 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-anlz_prd(tomod, trans = 'boxcox')
+anlz_prd(tomod, trans = 'log10')
 }
 # use previously fitted list of models
-trans <- 'boxcox'
+trans <- 'log10'
 mods <- list(
   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 

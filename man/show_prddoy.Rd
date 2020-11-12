@@ -49,10 +49,10 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-show_prddoy(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'boxcox')
+show_prddoy(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'log10')
 }
 # use previously fitted list of models
-trans <- 'boxcox'
+trans <- 'log10'
 mods <- list(
   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),

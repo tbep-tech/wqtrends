@@ -4,12 +4,12 @@
 \alias{anlz_trans}
 \title{Transform response variable}
 \usage{
-anlz_trans(moddat, trans = c("boxcox", "log10", "ident"))
+anlz_trans(moddat, trans = c("log10", "ident"))
 }
 \arguments{
 \item{moddat}{input raw data, one station and paramater}
 
-\item{trans}{chr string indicating desired type of transformation, one of \code{boxcox}, \code{log10}, or \code{ident} (no transformation)}
+\item{trans}{chr string indicating desired type of transformation, one of \code{log10} or \code{ident} (no transformation)}
 }
 \value{
 \code{moddat} with the \code{value} column transformed as indicated
@@ -22,7 +22,7 @@ library(dplyr)
 tomod <- rawdat \%>\% 
   filter(station \%in\% 32) \%>\% 
   filter(param \%in\% 'chl')
-anlz_trans(tomod, trans = 'boxcox')
+anlz_trans(tomod, trans = 'log10')
 }
 \seealso{
 Other analyze: 

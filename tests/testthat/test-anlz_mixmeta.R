@@ -4,7 +4,7 @@ test_that("Checking anlz_mixmeta", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),

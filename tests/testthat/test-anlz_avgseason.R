@@ -17,7 +17,7 @@ test_that("Checking , list input", {
     dplyr::filter(param %in% 'chl')
   
   # use previously fitted list of models
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),

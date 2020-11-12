@@ -29,7 +29,7 @@
 #' tomod <- rawdat %>% 
 #'   filter(station %in% 32) %>% 
 #'   filter(param %in% 'chl')
-#' anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
+#' anlz_gam(tomod, mod = 'gam2', trans = 'log10')
 anlz_gam <- function(moddat, mod = c('gam0', 'gam1', 'gam2', 'gam6'), ...){
 
   if(length(unique(moddat$param)) > 1)

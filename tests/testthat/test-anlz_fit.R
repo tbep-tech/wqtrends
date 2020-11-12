@@ -4,7 +4,7 @@ test_that("Checking anlz_fit", {
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
   
-  result <- anlz_fit(tomod, trans = 'boxcox') %>% 
+  result <- anlz_fit(tomod, trans = 'log10') %>% 
     dplyr::pull(GCV)
   
   expect_is(result, 'numeric')
@@ -22,7 +22,7 @@ test_that("Checking anlz_fit list input", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),

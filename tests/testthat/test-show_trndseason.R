@@ -3,7 +3,7 @@ test_that("Checking show_trndseason class", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  result <- show_trndseason(moddat = tomod, gami = 'gam1', doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Slope chlorophyll-a (ug/L)', trans = 'boxcox')
+  result <- show_trndseason(moddat = tomod, gami = 'gam1', doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Slope chlorophyll-a (ug/L)', trans = 'log10')
   
   expect_is(result, 'ggplot')
   
@@ -14,7 +14,7 @@ test_that("Checking show_trndseason class, list input", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam1 = anlz_gam(tomod, trans = trans)
   )
@@ -29,7 +29,7 @@ test_that("Checking show_trndseason error, more than one model", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans)

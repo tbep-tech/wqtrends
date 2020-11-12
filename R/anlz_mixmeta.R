@@ -16,7 +16,7 @@
 #' tomod <- rawdat %>%
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
@@ -40,7 +40,7 @@ anlz_mixmeta <- function(avgseason, yrstr = 2000, yrend = 2019){
         if(nrow(x) != length(seq(yrstr, yrend)))
           return(NA)
         
-        mixmeta::mixmeta(predicted ~ yr, S = S, random = ~1|yr, data = x, method = 'reml')
+        mixmeta::mixmeta(avg ~ yr, S = S, random = ~1|yr, data = x, method = 'reml')
         
       })
     ) %>% 

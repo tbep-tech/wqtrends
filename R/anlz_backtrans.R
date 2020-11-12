@@ -20,7 +20,7 @@
 #' dat <- anlz_trans(tomod, trans = 'log10')
 #' anlz_backtrans(dat)
 #' 
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
@@ -39,15 +39,6 @@ anlz_backtrans <- function(dat){
   if(trans == 'log10')
     dat <- dat %>% 
       dplyr::mutate_if(grepl('value', names(.)), ~10 ^ .)
-
-  # boxcox
-  if(is.numeric(trans)){
-
-    lamb <- unique(trans)
-    dat <- dat %>% 
-      dplyr::mutate_if(grepl('value', names(.)), ~forecast::InvBoxCox(., lamb))
-    
-  }
   
   return(dat)
   

@@ -46,16 +46,16 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-anlz_trndseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, justify = 'left', win = 5)
+anlz_trndseason(tomod, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5)
 }
 # use previously fitted list of models
-trans <- 'boxcox'
+trans <- 'log10'
 mods <- list(
   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-anlz_trndseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, justify = 'left', win = 5)
+anlz_trndseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, justify = 'left', win = 5)
 }
 \seealso{
 Other analyze: 

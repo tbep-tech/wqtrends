@@ -49,15 +49,15 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+show_avgseason(tomod, trans = 'log10', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 }
 # use previously fitted list of models
-trans <- 'boxcox'
+trans <- 'log10'
 mods <- list(
   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
   )
-show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+show_avgseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 }
 \seealso{

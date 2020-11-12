@@ -21,10 +21,10 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' anlz_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180)
+#' anlz_avgseason(tomod, trans = 'log10', doystr = 90, doyend = 180)
 #' }
 #' # use previously fitted list of models
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
@@ -93,17 +93,20 @@ anlz_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
     Xs <- A %*% Xp
     means <- as.numeric(Xs %*% coefs)
     ses <- sqrt(diag(Xs %*% mod$Vp %*% t(Xs)))
-    avgs <- data.frame(predicted = means, se = ses, yr = yr)
+    avgs <- data.frame(avg = means, se = ses, yr = yr)
+
+    # backtransform, add lwr/upr confidence intervals
+    dispersion <- summary(mod)$dispersion
     
-    # backtransform
-    sdval <- sd(resid(mod), na.rm = TRUE)
     if(trans == 'log10'){
-      avgs$predicted <- 10^(avgs$predicted + (sdval * sdval / 2))
-      avgs$se <- 10^avgs$se
+      avgs$bt_avg <- 10^(avgs$avg + log(10) * dispersion / 2)
+      avgs$bt_lwr <- 10^((avgs$avg - 1.96 * avgs$se) + log(10) * dispersion / 2)
+      avgs$bt_upr <- 10^((avgs$avg + 1.96 * avgs$se) + log(10) * dispersion / 2)
     }
-    if(is.numeric(trans)){
-      avgs$predicted <- forecast::InvBoxCox(avgs$predicted, trans, biasadj = TRUE, fvar = sdval)
-      avgs$se <- forecast::InvBoxCox(avgs$se, trans)
+    if(trans == 'ident'){
+      avgs$bt_avg<- avgs$avg
+      avgs$bt_lwr <- avgs$avg - 1.96 * avgs$se
+      avgs$bt_upr <- avgs$avg + 1.96 * avgs$se
     }
     
     return(avgs)

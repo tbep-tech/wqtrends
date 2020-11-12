@@ -3,7 +3,7 @@ test_that("Checking show_prd3d class", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  result <- show_prd3d(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'boxcox')
+  result <- show_prd3d(moddat = tomod, ylab = 'Chlorophyll-a (ug/L)', trans = 'log10')
   
   expect_is(result, 'plotly')
   
@@ -14,7 +14,7 @@ test_that("Checking show_prd3d class, list input", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam1 = anlz_gam(tomod, trans = trans)
     )
@@ -29,7 +29,7 @@ test_that("Checking show_prd3d error, more than one model", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans)

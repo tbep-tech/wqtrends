@@ -35,7 +35,7 @@ library(dplyr)
 tomod <- rawdat \%>\% 
   filter(station \%in\% 32) \%>\% 
   filter(param \%in\% 'chl')
-anlz_gam(tomod, mod = 'gam2', trans = 'boxcox')
+anlz_gam(tomod, mod = 'gam2', trans = 'log10')
 }
 \seealso{
 Other analyze: 

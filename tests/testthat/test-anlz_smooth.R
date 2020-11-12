@@ -4,7 +4,7 @@ test_that("Checking anlz_smooth", {
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
   
-  result <- anlz_smooth(tomod, trans = 'boxcox') %>% 
+  result <- anlz_smooth(tomod, trans = 'log10') %>% 
     dplyr::pull(p.value)
   
   expect_equal(result, c(4.00466782830621e-51, 9.53755596319021e-21, 2.03913127920902e-62, 
@@ -24,7 +24,7 @@ test_that("Checking anlz_smooth list input", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  trans <- 'boxcox'
+  trans <- 'log10'
   mods <- list(
     gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
     gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans),

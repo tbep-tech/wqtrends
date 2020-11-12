@@ -21,15 +21,15 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' show_avgseason(tomod, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+#' show_avgseason(tomod, trans = 'log10', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 #' }
 #' # use previously fitted list of models
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam2 = anlz_gam(tomod, mod = 'gam2', trans = trans)
 #'   )
-#' show_avgseason(mods = mods, trans = 'boxcox', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+#' show_avgseason(mods = mods, trans = 'log10', doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)', gami = 'gam2')
 show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, gami = c('gam0', 'gam1', 'gam2', 'gam6'), ...) {
   
@@ -49,6 +49,9 @@ show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
   if(!is.null(mods))
     stopifnot(length(mods) == 1)
   
+  # transformation used
+  trans <- mods[[1]]$trans
+  
   # get seasonal averages
   avgseason <- anlz_avgseason(moddat = moddat, mods = mods, doystr = doystr, doyend = doyend) 
   
@@ -60,7 +63,7 @@ show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
   strt <- paste(lubridate::month(dts[1], label = T, abbr = T), lubridate::day(dts[1]))
   ends <- paste(lubridate::month(dts[2], label = T, abbr = T), lubridate::day(dts[2]))
   ttl <- paste0('Fitted averages with 95% confidence intervals: ', strt, '-',  ends)
- 
+
   # subtitle
   yrcoef <- mixmet$coefficients['yr'] %>% round(., 2)
   pval <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4] %>% anlz_pvalformat()
@@ -72,14 +75,17 @@ show_avgseason <- function(moddat = NULL, mods = NULL, doystr = 1, doyend = 364,
     ) %>% 
     dplyr::mutate( 
       predicted = predict(mixmet, newdata = data.frame(yr = yr)), 
-      se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2]
+      se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2], 
+      bt_avg = 10 ^ predicted,
+      bt_lwr = 10 ^ predicted - 1.96 * se, 
+      bt_upr = 10 ^ predicted + 1.96 * se
     )
   
   # plot output
-  p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = predicted)) + 
+  p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_avg)) + 
     ggplot2::geom_point(colour = 'deepskyblue3') +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = predicted - (1.96 * se), ymax = predicted + (1.96 * se)), colour = 'deepskyblue3') +
-    ggplot2::geom_ribbon(data = toplo2, ggplot2::aes(ymin = predicted - (1.96 * se), ymax = predicted + (1.96 * se)), fill = 'pink', alpha = 0.4) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3') +
+    ggplot2::geom_ribbon(data = toplo2, ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), fill = 'pink', alpha = 0.4) +
     ggplot2::geom_line(data = toplo2, color = 'pink') +
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
     ggplot2::theme(

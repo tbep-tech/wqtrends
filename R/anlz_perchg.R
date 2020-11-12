@@ -23,10 +23,10 @@
 #'   filter(station %in% 32) %>%
 #'   filter(param %in% 'chl')
 #' \dontrun{
-#' anlz_perchg(tomod, trans = 'boxcox', baseyr = 1990, testyr = 2016)
+#' anlz_perchg(tomod, trans = 'log10', baseyr = 1990, testyr = 2016)
 #' }
 #' # use previously fitted list of models
-#' trans <- 'boxcox'
+#' trans <- 'log10'
 #' mods <- list(
 #'   gam0 = anlz_gam(tomod, mod = 'gam0', trans = trans),
 #'   gam1 = anlz_gam(tomod, mod = 'gam1', trans = trans), 
@@ -130,9 +130,7 @@ anlz_perchg <- function(moddat = NULL, mods = NULL, baseyr, testyr, ...){
     sdval <- sd(resid(mod))
     if(trans == 'log10')
       per.mn.obs <- 10^(per.mn.obs + (sdval * sdval / 2)) 
-    if(is.numeric(trans))
-      per.mn.obs <- forecast::InvBoxCox(per.mn.obs, trans, biasadj = TRUE, fvar = sdval)
-    
+
     # calculate percent change (03Nov)
     perchg <- 100*((per.mn.obs[2] - per.mn.obs[1])/per.mn.obs[1])
     

@@ -37,10 +37,10 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 32) \%>\%
   filter(param \%in\% 'chl')
 \dontrun{
-show_prd3d(tomod, gami = 'gam2', trans = 'boxcox', ylab = 'Chlorophyll-a (ug/L)')
+show_prd3d(tomod, gami = 'gam2', trans = 'log10', ylab = 'Chlorophyll-a (ug/L)')
 }
 # use previously fitted list of models
-trans <- 'boxcox'
+trans <- 'log10'
 mods <- list(
   gam1 = anlz_gam(tomod, trans = trans)
   )

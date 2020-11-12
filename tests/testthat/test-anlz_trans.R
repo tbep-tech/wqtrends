@@ -17,16 +17,6 @@ test_that("Checkout output of anlz_trans", {
   tomod <- rawdat %>%
     dplyr::filter(station %in% 32) %>%
     dplyr::filter(param %in% 'chl')
-  result <- anlz_trans(tomod, trans = 'boxcox')
-  expect_is(result, 'data.frame')
-  
-})
-
-test_that("Checkout output of anlz_trans", {
-  
-  tomod <- rawdat %>%
-    dplyr::filter(station %in% 32) %>%
-    dplyr::filter(param %in% 'chl')
   result <- anlz_trans(tomod, trans = 'log10')
   expect_is(result, 'data.frame')
   
