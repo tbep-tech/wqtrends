@@ -4,7 +4,6 @@
 #' 
 #' @param mod input model object as returned by \code{\link{anlz_gam}}
 #' @param ylab chr string for y-axis label
-#' @param nfac numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}
 #' @param size numeric indicating line size
 #' @param alpha numeric from 0 to 1 indicating line transparency
 #' 

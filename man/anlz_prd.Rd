@@ -7,11 +7,7 @@
 anlz_prd(mod)
 }
 \arguments{
-\item{moddat}{input raw data, one station and parameter}
-
-\item{mods}{optional list of model objects}
-
-\item{...}{additional arguments passed to other methods}
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 }
 \value{
 a \code{data.frame} with predictions

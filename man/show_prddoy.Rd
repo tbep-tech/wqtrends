@@ -14,8 +14,6 @@ show_prddoy(mod, ylab, size = 0.5, alpha = 1)
 \item{size}{numeric indicating line size}
 
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
-
-\item{nfac}{numeric indicating column number for facets, passed to \code{ncol} argument of \code{\link[ggplot2]{facet_wrap}}, defaults to number of model outputs in \code{predin}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

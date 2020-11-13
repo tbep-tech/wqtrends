@@ -6,6 +6,9 @@
 \usage{
 anlz_prdday(mod)
 }
+\arguments{
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
+}
 \value{
 a \code{data.frame} with predictions
 }

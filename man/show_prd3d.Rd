@@ -7,6 +7,8 @@
 show_prd3d(mod, ylab)
 }
 \arguments{
+\item{mod}{input model object as returned by \code{\link{anlz_gam}}}
+
 \item{ylab}{chr string for y-axis label}
 }
 \value{

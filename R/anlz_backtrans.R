@@ -18,11 +18,13 @@
 #'   filter(station %in% 32) %>% 
 #'   filter(param %in% 'chl')
 #' dat <- anlz_trans(tomod, trans = 'log10')
-#' anlz_backtrans(dat)
+#' backtrans <- anlz_backtrans(dat)
+#' head(backtrans)
 #' 
-#' mods <- anlz_gam(tomod, trans = 'log10')
-#' dat <- anlz_prd(mods = mods)
-#' anlz_backtrans(dat)
+#' mod <- anlz_gam(tomod, trans = 'log10')
+#' dat <- anlz_prd(mod)
+#' backtrans <- anlz_backtrans(dat)
+#' head(backtrans)
 anlz_backtrans <- function(dat){
   
   if(!'trans' %in% names(dat))

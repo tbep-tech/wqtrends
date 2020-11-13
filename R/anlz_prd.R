@@ -2,9 +2,7 @@
 #'
 #' Get predicted data from fitted GAMs across period of observation
 #' 
-#' @param moddat input raw data, one station and parameter
-#' @param mods optional list of model objects
-#' @param ... additional arguments passed to other methods
+#' @param mod input model object as returned by \code{\link{anlz_gam}}
 #'
 #' @return a \code{data.frame} with predictions
 #' @export

@@ -25,7 +25,7 @@ library(plotly)
 library(english)
 ```
 
-This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models.  It builds extensively off of the [baytrends](https://cran.r-project.org/web/packages/baytrends/index.html) R package developed by the Chesapeake Bay Program.
+This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models.
   
 # Analysis functions
 
@@ -54,57 +54,37 @@ This package can be used to assess water quality trends for long-term monitoring
 
 # Basic usage
 
-## Individual model
-
 The sample dataset `rawdat` is included in the package and is used for the examples below.  This dataset includes monthly time series data over ~30 years for nine stations in South Bay, San Francisco Estuary.  Data are available for `r english(length(unique(rawdat$param)))` water quality parameters.  All data are in long format with one observation per row.
 
-The data are pre-processed to work with the GAM fitting functions included in this package.  The columns include date, station number, parameter name, and value for the date.  Additional date columns are included that describe the day of year (`doy`), date in decimal time (`cont_year`), year (`yr`), and month (`mo` as character label).  These are required for model fitting.    
+The data are pre-processed to work with the GAM fitting functions included in this package.  The columns include date, station number, parameter name, and value for the date.  Additional date columns are included that describe the day of year (`doy`), date in decimal time (`cont_year`), year (`yr`), and month (`mo` as character label).  These are required for model fitting or use with the analysis/plotting functions.    
 
 ```{r}
 head(rawdat)
 ```
 
-Four types of GAMs can be fit to the time series data. Each GAM fits additive smoothing functions to describe variation of the response variable (`value`) over time, where time is measured as an annual and seasonal effect.  The four models describe the time components differently and represent increasing levels of complexity to describe the response variable:
+One GAM model can be fit to the time series data. Each GAM fits additive smoothing functions to describe variation of the response variable (`value`) over time, where time is measured as an annual and seasonal effect.  The four models describe the time components differently and represent increasing levels of complexity to describe the response variable:
 
-* `gam0`: value ~ year + s(doy)
+* `S`: value ~ s(year, k = *large*)
 
-* `gam1`: value ~ year + s(doy) + s(year)
+The `cont_year` vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and `doy` is the day of year as a numeric value from 1 to 366.  The function `s()` models `cont_year` as a smoothed, non-linear variable. The optimal amount of smoothing on `cont_year` is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for `k` should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of `k` was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
 
-* `gam2`: value ~ year + s(doy) + s(year) + ti(doy, year)
-
-* `gam6`: value ~ year + s(doy) + s(year, k = *large*)
-
-For all models, `year` is measured as a continuous numeric variable (`cont_year`) for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and `doy` is the day of year as a numeric value from 1 to 366.  All models include `year` as a linear effect.  The functions `s()` model either `year` or `doy` as a smoothed, non-linear variable and `ti()` models the interaction between the two.  The fourth model, `gam6`, is the same as `gam1` with the exception that the optimal amount of smoothing on `year` is not constrained by increasing the theoretical upper limit on the number of knots for `k`.  The upper limit of `k` was chosen as 12 times the number of years of data at each station (~300).  If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased by the fitting function until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
-
-The `anlz_gam()` function is used to fit the models.  First, the raw data are filtered to select only station 32 and the chlorophyll parameter.  The `gam2` model is fit using a log-10r transformation of the response variable.  Available transformation options are log10 (`log10`) or identity (`ident`). 
+The `anlz_gam()` function is used to fit the model.  First, the raw data are filtered to select only station 32 and the chlorophyll parameter.  The model is fit using a log-10 transformation of the response variable.  Available transformation options are log10 (`log10`) or identity (`ident`). 
 
 ```{r}
 tomod <- rawdat %>%
  filter(station %in% 32) %>%
  filter(param %in% "chl")
-mod <- anlz_gam(tomod, mod = "gam2", trans = "log10")
+mod <- anlz_gam(tomod, trans = "log10")
 mod
 ```
 
-The power transformation estimate is attached to the model object and is used in later functions for back-transformation. 
+All remaining functions use the model results to assess fit and plot results.
+
+The fit can be assessed using `anlz_smooth()` and `anlz_fit()`, where the former assesses the individual smoother functions and the latter assesses overall fit. The `anlz_smooth()` results show the individual effects of the modelled components of each model as the effective degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and significance of the component (`p-value`).  The significance of the component is in part based on the difference between `edf` and `Ref.df`.  The `anlz_fit()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate improved model fit.
 
 ```{r}
-mod$trans
-```
-
-All remaining functions use the model results to assess fit and plot results. The model must be passed as a named list with the model name to the `mods` argument, which is a common argument to most functions.  This convention is used to allow multiple models to be assessed by each function.  Specifically, a list of fitted models for each GAM type can be passed to each function.  This is shown below in the "Multiple models" section.  
-
-Before using the assessment and plotting functions, a list of the model results is created. 
-
-```{r}
-mod <- list(gam2 = mod)
-```
-
-The fit can be assessed using `anlz_smooth()` and `anlz_fit()`, where the former assesses the individual smoother functions and the latter assesses overall fit. The `anlz_smooth()` results show the individual effects of the modelled components of each model as the estimated degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and significance of the component (`p-value`).  The significance of the component is in part based on the difference between `edf` and `Ref.df`.  The `anlz_fit()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate improved model fit. The `k` column shows the upper limit for the number of knots on the `year` term, when appropriate (i.e., not gam0).  If multiple models are provided as a list to the `mods` argument of `anlz_fit()`, ANOVA F-tests are used to compare models.  The results are appended as F statistics and probability values in the final two columns. The ANOVA comparisons are row-specific, where the values show a comparison between the current row and one preceeding.  
-
-```{r}
-anlz_smooth(mods = mod)
-anlz_fit(mods = mod)
+anlz_smooth(mod)
+anlz_fit(mod)
 ```
 
 The plotting functions show the results in different formats.  If appropriate for the response variable, the model predictions are back-transformed and the scales on each plot are shown in log10-scale to preserve the values of the results.
@@ -113,127 +93,66 @@ The `show_prddoy()` function shows estimated results by day of year with separat
 
 ```{r, fig.height = 5, fig.width = 6}
 ylab <- "Chlorophyll-a"
-show_prddoy(mods = mod, ylab = ylab)
+show_prddoy(mod, ylab = ylab)
 ```
 
-The `show_prdseries()` function shows predictions for the model across the entire time series.  Points are the observed data and the lines are the predicted. The smoothed line through the predictions approximates an annual trend independent of season.
+The `show_prdseries()` function shows predictions for the model across the entire time series.  Points are the observed data and the lines are the predicted.
 
 ```{r, fig.height = 4, fig.width = 6}
-show_prdseries(mods = mod, ylab = ylab)
+show_prdseries(mod, ylab = ylab)
 ```
 
 The `show_prdseason()` function is similar except that the model predictions are grouped by month. This provides a visual depiction of seasonal trends over time.  The trend analysis functions below can be used to statistically test the seasonal changes.
 
 ```{r, fig.height = 4, fig.width = 6}
-show_prdseason(mods = mod, ylab = ylab)
+show_prdseason(mod, ylab = ylab)
 ```
 
 Finally, the `show_prd3d()` function shows a three-dimensional fit of the estimated trends across year and day of year with the z-axis showing the estimates for the response variable. 
 
 ```{r}
-show_prd3d(mods = mod, ylab = ylab)
+show_prd3d(mod, ylab = ylab)
 ```
 
-## Multiple models
+# Trend testing
 
-The functions above also work with a list of different models. This is useful to compare how well the different GAM structures fit the selected time series.  
+Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" or "tertiary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  Each test includes a plotting method to view the results.
 
-```{r}
-trans <- "log10"
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
-  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
-  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans),
-  gam6 = anlz_gam(tomod, mod = "gam6", trans = trans)
-)
-```
-
-Compare fits of multiple models:
-
-```{r}
-anlz_fit(mods = mods)
-anlz_smooth(mods = mods)
-```
-
-The plotting functions work the same, with separate facets for each model. The `show_prd3d()` function does not work with multiple models. 
-
-```{r, fig.height = 4, fig.width = 10}
-ylab <- "Chlorophyll-a"
-show_prddoy(mods = mods, ylab = ylab)
-```
-
-```{r, fig.height = 9, fig.width = 6}
-show_prdseries(mods = mods, ylab = ylab)
-```
-
-```{r, fig.height = 9, fig.width = 6}
-show_prdseason(mods = mods, ylab = ylab)
-```
-
-For all functions, the raw data can be passed to each function using the `moddat` argument.  If this is done, all four models are fit automatically and used to interpret the results for each function.  This is done for convenience, but can be computationally unnecessary because new models are fit with each function. For example, we can quickly assess the fit for all four GAMs to chlorophyll using a different transformation.
-
-```{r}
-anlz_fit(moddat = tomod, trans = "ident")
-```
-
-## Trend testing
-
-Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  Each test includes a plotting method to view the results.  As above, the functions work with multiple model inputs (i.e., a list of fitted GAMs for the same time series), whereas the plotting functions only plot one model at a time. 
-
-### Evalauting changes between time periods
+## Evalauting changes between time periods
 
 The `anlz_perchg()` and `show_perchg()` functions can be used to compare annual averages between two time periods of interest.  The functions require base and test year inputs that are used for comparison.  More than one year can be entered for the the base and test years, e.g., `baseyr = c(1990, 1992, 1993)` vs. `testyr = c(2014, 2015, 2016)`.  
 
 ```{r}
-# use fitted list of models
-trans <- "log10"
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
-  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
-  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
-  )
-anlz_perchg(mods = mods, baseyr = 2006, testyr = 2017)
+anlz_perchg(mod, baseyr = 2006, testyr = 2017)
 ```
 
 To plot the results for one GAM, use the `show_perchg()` function. The plot title summarizes the results. 
 
 ```{r, fig.height = 4, fig.width = 9}
-show_perchg(tomod, trans = "log10", gami = "gam2", baseyr = 2006, testyr = 2017, 
-            ylab = "Chlorophyll-a (ug/L)")
+show_perchg(mod, baseyr = 2006, testyr = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
-### Evaluating seasonal changes over time 
+## Evaluating seasonal changes over time 
 
 The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_avgseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages (`yrstr`, `yrend`).  
 
-The `anlz_avgseason()` estimates the seasonal averages (including standard error) for results from the GAM fits.  Here, three models are evaluated. 
+The `anlz_avgseason()` estimates the seasonal averages (including standard error) for results from the GAM fit.
 
 ```{r}
-trans <- "log10"
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
-  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
-  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
-  )
-avgseason <- anlz_avgseason(mods = mods, doystr = 90, doyend = 180)
+avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
 head(avgseason)
 ```
 
-The `anlz_mixmeta()` function uses results from `anlz_avgseason()` to estimate the trend in the seasonal average over a selected year range. Here, we evaluate the seasonal trend from 2006 to 2017 for the seasonal estimate of the three model results above.  
+The `anlz_mixmeta()` function uses results from `anlz_avgseason()` to estimate the trend in the seasonal average over a selected year range. Here, we evaluate the seasonal trend from 2006 to 2017 for the seasonal estimate of the model results above.  
 
 ```{r}
 anlz_mixmeta(avgseason, yrstr = 2006, yrend = 2017)
 ```
 
-The `show_avgseason()` function plots the seasonal averages and trends over time for one GAM. The `anlz_avgseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
+The `show_avgseason()` function plots the seasonal averages and trends over time. The `anlz_avgseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
 
 ```{r, fig.height = 4, fig.width = 9, echo = T}
-trans <- "log10"
-mods <- list(
-  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
-  )
-show_avgseason(mods = mods, trans = "log10", doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, 
-               ylab = "Chlorophyll-a (ug/L)", gami = "gam2")
+show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
 The seasonal estimates and mixed-meta regression analyses can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal average, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_avgseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
@@ -241,20 +160,13 @@ The seasonal estimates and mixed-meta regression analyses can be used to estimat
 The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_avgseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
 
 ```{r}
-trans <- "log10"
-mods <- list(
-  gam0 = anlz_gam(tomod, mod = "gam0", trans = trans),
-  gam1 = anlz_gam(tomod, mod = "gam1", trans = trans),
-  gam2 = anlz_gam(tomod, mod = "gam2", trans = trans)
-  )
-trndseason <- anlz_trndseason(mods = mods, doystr = 90, doyend = 180, justify = 'left', win = 5)
+trndseason <- anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5)
 head(trndseason)
 ```
 
 The `show_trndseason()` function can be used to plot the results directly, one model at a time. 
 
 ```{r, fig.height = 5, fig.width = 9, echo = T}
-show_trndseason(moddat = tomod, gami = 'gam2', trans = 'log10', doystr = 90, doyend = 180, justify = 'left', 
-                win = 5, ylab = 'Chl. change/yr')
+show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr')
 ```
 
