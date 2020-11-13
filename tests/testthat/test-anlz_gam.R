@@ -14,10 +14,7 @@ test_that("Checking multiple stations anlz_gam", {
 
 test_that("Checkout output of anlz_gam", {
   
-  tomod <- rawdat %>%
-    dplyr::filter(station %in% 32) %>%
-    dplyr::filter(param %in% 'chl')
-  result <- anlz_gam(tomod, mod = 'gam2')
+  result <- anlz_gam(tomod)
   expect_is(result, 'gam')
   
 })

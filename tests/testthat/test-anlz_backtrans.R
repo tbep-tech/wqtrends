@@ -1,8 +1,5 @@
 test_that("Checking anlz_backtrans, log10", {
   
-  tomod <- rawdat %>%
-    dplyr::filter(station %in% 32) %>%
-    dplyr::filter(param %in% 'chl')
   dat <- anlz_trans(tomod, trans = 'log10')
   result <- anlz_backtrans(dat) %>% 
     dplyr::pull(value) %>% 
@@ -15,9 +12,6 @@ test_that("Checking anlz_backtrans, log10", {
 
 test_that("Checking anlz_backtrans, error", {
   
-  tomod <- rawdat %>%
-    dplyr::filter(station %in% 32) %>%
-    dplyr::filter(param %in% 'chl')
   dat <- anlz_trans(tomod, trans = 'log10') %>% 
     dplyr::select(-trans)
 
