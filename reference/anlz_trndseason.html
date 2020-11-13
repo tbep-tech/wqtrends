@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -119,25 +119,19 @@
     </div>
 
     <pre class="usage"><span class='fu'>anlz_trndseason</span>(
-  moddat = <span class='kw'>NULL</span>,
-  mods = <span class='kw'>NULL</span>,
+  <span class='kw'>mod</span>,
   doystr = <span class='fl'>1</span>,
   doyend = <span class='fl'>364</span>,
-  justify = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"center"</span>),
-  win = <span class='fl'>5</span>,
-  <span class='kw'>...</span>
+  justify = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"center"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>),
+  win = <span class='fl'>5</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>moddat</th>
-      <td><p>input raw data, one station and paramater</p></td>
-    </tr>
-    <tr>
-      <th>mods</th>
-      <td><p>optional list of model objects</p></td>
+      <th>mod</th>
+      <td><p>input model object as returned by <code><a href='anlz_gam.html'>anlz_gam</a></code></p></td>
     </tr>
     <tr>
       <th>doystr</th>
@@ -154,10 +148,6 @@
     <tr>
       <th>win</th>
       <td><p>numeric indicating number of years to use for the trend window</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments passed to other methods</p></td>
     </tr>
     </table>
 
@@ -183,36 +173,27 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 
-<span class='co'># fit models with function</span>
+<span class='co'># data to model</span>
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>anlz_trndseason</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'left'</span>, win = <span class='fl'>5</span>)
-}
-<span class='co'># use previously fitted list of models</span>
-<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'log10'</span>
-<span class='kw'>mods</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  gam0 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam0'</span>, trans = <span class='kw'>trans</span>),
-  gam1 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam1'</span>, trans = <span class='kw'>trans</span>), 
-  gam2 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='kw'>trans</span>)
-  )
-<span class='fu'>anlz_trndseason</span>(mods = <span class='kw'>mods</span>, trans = <span class='st'>'log10'</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'left'</span>, win = <span class='fl'>5</span>)
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 90 x 9</span><span>
-#&gt; </span><span style='color: #555555;'># Groups:   model [3]</span><span>
-#&gt;    model   avg     se    yr bt_avg bt_lwr bt_upr  yrcoef  pval
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> gam0  0.776 0.031</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>990   7.60   6.60   8.75 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.595
-#&gt; </span><span style='color: #555555;'> 2</span><span> gam0  0.781 0.030</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>991   7.69   6.71   8.81 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.583
-#&gt; </span><span style='color: #555555;'> 3</span><span> gam0  0.786 0.029</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>992   7.77   6.81   8.87 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.571
-#&gt; </span><span style='color: #555555;'> 4</span><span> gam0  0.790 0.028</span><span style='text-decoration: underline;'>3</span><span>  </span><span style='text-decoration: underline;'>1</span><span>993   7.86   6.92   8.93 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.560
-#&gt; </span><span style='color: #555555;'> 5</span><span> gam0  0.795 0.027</span><span style='text-decoration: underline;'>5</span><span>  </span><span style='text-decoration: underline;'>1</span><span>994   7.95   7.02   9.00 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.549
-#&gt; </span><span style='color: #555555;'> 6</span><span> gam0  0.800 0.026</span><span style='text-decoration: underline;'>6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>995   8.04   7.13   9.07 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.538
-#&gt; </span><span style='color: #555555;'> 7</span><span> gam0  0.805 0.025</span><span style='text-decoration: underline;'>9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>996   8.13   7.24   9.14 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.528
-#&gt; </span><span style='color: #555555;'> 8</span><span> gam0  0.810 0.025</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>997   8.23   7.34   9.22 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.519
-#&gt; </span><span style='color: #555555;'> 9</span><span> gam0  0.815 0.024</span><span style='text-decoration: underline;'>6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>998   8.32   7.45   9.30 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.511
-#&gt; </span><span style='color: #555555;'>10</span><span> gam0  0.820 0.024</span><span style='text-decoration: underline;'>0</span><span>  </span><span style='text-decoration: underline;'>1</span><span>999   8.42   7.55   9.38 0.004</span><span style='text-decoration: underline;'>93</span><span> 0.504
-#&gt; </span><span style='color: #555555;'># … with 80 more rows</span><span></div></span></pre>
+
+<span class='kw'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
+<span class='fu'>anlz_trndseason</span>(<span class='kw'>mod</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>, justify = <span class='st'>'center'</span>, win = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 30 x 8</span><span>
+#&gt;      avg     se    yr bt_avg bt_lwr bt_upr    yrcoef     pval
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> 1.89  0.290   </span><span style='text-decoration: underline;'>1</span><span>990  86.0   23.2  318.   </span><span style='color: #BB0000;'>NaN</span><span>       </span><span style='color: #BB0000;'>NaN</span><span>     
+#&gt; </span><span style='color: #555555;'> 2</span><span> 0.794 0.088</span><span style='text-decoration: underline;'>9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>991   6.82   4.57  10.2  </span><span style='color: #BB0000;'>NaN</span><span>       </span><span style='color: #BB0000;'>NaN</span><span>     
+#&gt; </span><span style='color: #555555;'> 3</span><span> 0.649 0.050</span><span style='text-decoration: underline;'>4</span><span>  </span><span style='text-decoration: underline;'>1</span><span>992   4.88   3.89   6.13  -</span><span style='color: #BB0000;'>0.210</span><span>     0.094</span><span style='text-decoration: underline;'>2</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> 0.563 0.066</span><span style='text-decoration: underline;'>9</span><span>  </span><span style='text-decoration: underline;'>1</span><span>993   4.01   2.96   5.42  -</span><span style='color: #BB0000;'>0.074</span><span style='color: #BB0000;text-decoration: underline;'>7</span><span>    0.290 
+#&gt; </span><span style='color: #555555;'> 5</span><span> 0.743 0.077</span><span style='text-decoration: underline;'>4</span><span>  </span><span style='text-decoration: underline;'>1</span><span>994   6.07   4.28   8.60   0.064</span><span style='text-decoration: underline;'>1</span><span>    0.128 
+#&gt; </span><span style='color: #555555;'> 6</span><span> 0.607 0.075</span><span style='text-decoration: underline;'>6</span><span>  </span><span style='text-decoration: underline;'>1</span><span>995   4.43   3.15   6.23   0.056</span><span style='text-decoration: underline;'>3</span><span>    0.010</span><span style='text-decoration: underline;'>6</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> 0.966 0.082</span><span style='text-decoration: underline;'>2</span><span>  </span><span style='text-decoration: underline;'>1</span><span>996  10.1    7.00  14.7    0.063</span><span style='text-decoration: underline;'>5</span><span>    0.171 
+#&gt; </span><span style='color: #555555;'> 8</span><span> 0.739 0.081</span><span style='text-decoration: underline;'>0</span><span>  </span><span style='text-decoration: underline;'>1</span><span>997   6.00   4.16   8.65   0.032</span><span style='text-decoration: underline;'>5</span><span>    0.294 
+#&gt; </span><span style='color: #555555;'> 9</span><span> 0.987 0.063</span><span style='text-decoration: underline;'>7</span><span>  </span><span style='text-decoration: underline;'>1</span><span>998  10.6    7.98  14.2   -</span><span style='color: #BB0000;'>0.015</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>    0.768 
+#&gt; </span><span style='color: #555555;'>10</span><span> 1.07  0.136   </span><span style='text-decoration: underline;'>1</span><span>999  12.8    6.91  23.6   -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>00</span><span>   0.833 
+#&gt; </span><span style='color: #555555;'># … with 20 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

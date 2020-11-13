@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -144,56 +144,24 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 
-<span class='co'># fit models with function</span>
+<span class='co'># data to model</span>
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
-<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'log10'</span>
-<span class='kw'>mods</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  gam0 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam0'</span>, trans = <span class='kw'>trans</span>),
-  gam1 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam1'</span>, trans = <span class='kw'>trans</span>), 
-  gam2 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='kw'>trans</span>)
-  )
-<span class='kw'>avgseason</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_avgseason.html'>anlz_avgseason</a></span>(mods = <span class='kw'>mods</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>)
+
+<span class='kw'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
+<span class='kw'>avgseason</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_avgseason.html'>anlz_avgseason</a></span>(<span class='kw'>mod</span>, doystr = <span class='fl'>90</span>, doyend = <span class='fl'>180</span>)
 <span class='fu'>anlz_mixmeta</span>(<span class='kw'>avgseason</span>, yrstr = <span class='fl'>2000</span>, yrend = <span class='fl'>2019</span>)
-</div><div class='output co'>#&gt; $gam0
-#&gt; Call:  mixmeta::mixmeta(formula = avg ~ yr, S = S, data = x, random = ~1 | 
+</div><div class='output co'>#&gt; Call:  mixmeta::mixmeta(formula = avg ~ yr, S = S, data = totrnd, random = ~1 | 
 #&gt;     yr, method = "reml")
 #&gt; 
 #&gt; Fixed-effects coefficients:
 #&gt; (Intercept)           yr  
-#&gt;     -9.0277       0.0049  
+#&gt;      1.5798      -0.0003  
 #&gt; 
 #&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
 #&gt;   logLik       AIC       BIC  
-#&gt;  49.9274  -93.8547  -91.1836  
-#&gt; 
-#&gt; 
-#&gt; $gam1
-#&gt; Call:  mixmeta::mixmeta(formula = avg ~ yr, S = S, data = x, random = ~1 | 
-#&gt;     yr, method = "reml")
-#&gt; 
-#&gt; Fixed-effects coefficients:
-#&gt; (Intercept)           yr  
-#&gt;     21.6118      -0.0103  
-#&gt; 
-#&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
-#&gt;   logLik       AIC       BIC  
-#&gt;  28.0702  -50.1404  -47.4693  
-#&gt; 
-#&gt; 
-#&gt; $gam2
-#&gt; Call:  mixmeta::mixmeta(formula = avg ~ yr, S = S, data = x, random = ~1 | 
-#&gt;     yr, method = "reml")
-#&gt; 
-#&gt; Fixed-effects coefficients:
-#&gt; (Intercept)           yr  
-#&gt;      5.6293      -0.0024  
-#&gt; 
-#&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
-#&gt;   logLik       AIC       BIC  
-#&gt;  30.1960  -54.3919  -51.7208  
-#&gt; 
+#&gt;  12.3044  -18.6089  -15.9377  
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

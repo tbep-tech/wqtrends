@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
     <p>Fit a generalized additive model to a water quality time series</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_gam</span>(<span class='kw'>moddat</span>, mod = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gam0"</span>, <span class='st'>"gam1"</span>, <span class='st'>"gam2"</span>, <span class='st'>"gam6"</span>), <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>anlz_gam</span>(<span class='kw'>moddat</span>, kts = <span class='kw'>NULL</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,8 +128,8 @@
       <td><p>input raw data, one station and paramater</p></td>
     </tr>
     <tr>
-      <th>mod</th>
-      <td><p>chr string indicating one of <code>gam0</code>, <code>gam1</code>, <code>gam2</code>, or <code>gam6</code>, see details,</p></td>
+      <th>kts</th>
+      <td><p>optional numeric vector for the upper limit for the number of knots in the term <code>s(cont_year)</code>, see details</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -142,14 +142,11 @@
     <p>a <code><a href='https://rdrr.io/pkg/mgcv/man/gam.html'>gam</a></code> model object</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>One of four forms for the Generalized additive models (GAMs) can be selected to describes trends at the stations of interest.  The four models descibe the time components differently and represent increasing levels of complexity to describe the chlorophyll trend:</p>
+    <p>The model structure is as follows:</p>
 <dl>
- <dt>gam0:</dt><dd><p>chl ~ year + s(doy)</p></dd>
- <dt>gam1:</dt><dd><p>chl ~ year + s(doy) + s(year)</p></dd>
- <dt>gam2:</dt><dd><p>chl ~ year + s(doy) + s(year) + ti(doy, year)</p></dd>
- <dt>gam6:</dt><dd><p>chl ~ year + s(doy) + s(year, k = large)</p></dd>
+ <dt>model S:</dt><dd><p>chl ~ s(cont_year, k = large)</p></dd>
 
-</dl><p>For all models, <code>year</code> is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and <code>doy</code> is the day of year as a numeric value from 1 to 366.  All models include <code>year</code> as a linear effect.  The functions <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></code> model either <code>year</code> or <code>doy</code> as a smoothed, non-linear variable and <code><a href='https://rdrr.io/pkg/mgcv/man/te.html'>ti</a></code> models the interaction between the two.  The fourth model, <code>gam6</code>, is the same as <code>gam1</code> with the exception that the optimal amount of smoothing on <code>year</code> is not constrained by increasing the theoretical upper limit on the number of knots for <code>k</code>.  The upper limit of <code>k</code> was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified <code>k</code>, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc.</p>
+</dl><p>The <code>cont_year</code> vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and <code>doy</code> is the day of year as a numeric value from 1 to 366.  The function <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></code> models <code>cont_year</code> as a smoothed, non-linear variable. The optimal amount of smoothing on <code>cont_year</code> is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for <code>k</code> should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of <code>k</code> was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified <code>k</code>, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other analyze: 
@@ -168,19 +165,18 @@
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
-<span class='fu'>anlz_gam</span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='st'>'log10'</span>)
+<span class='fu'>anlz_gam</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
 </div><div class='output co'>#&gt; 
 #&gt; Family: gaussian 
 #&gt; Link function: identity 
 #&gt; 
 #&gt; Formula:
-#&gt; value ~ cont_year + s(cont_year, k = 20) + s(doy, bs = "cc") + 
-#&gt;     ti(cont_year, doy, bs = c("tp", "cc"))
+#&gt; value ~ s(cont_year, k = 360)
 #&gt; 
 #&gt; Estimated degrees of freedom:
-#&gt; 4.15 7.13 8.95  total = 21.23 
+#&gt; 242  total = 243.23 
 #&gt; 
-#&gt; GCV score: 0.07670887     rank: 40/41</div></pre>
+#&gt; GCV score: 0.05856223     </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

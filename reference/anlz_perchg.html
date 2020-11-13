@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -118,18 +118,14 @@
     <p>Estimate percent change trends from GAM results for selected time periods</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_perchg</span>(moddat = <span class='kw'>NULL</span>, mods = <span class='kw'>NULL</span>, <span class='kw'>baseyr</span>, <span class='kw'>testyr</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>anlz_perchg</span>(<span class='kw'>mod</span>, <span class='kw'>baseyr</span>, <span class='kw'>testyr</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>moddat</th>
-      <td><p>input raw data, one station and paramater</p></td>
-    </tr>
-    <tr>
-      <th>mods</th>
-      <td><p>optional list of model objects</p></td>
+      <th>mod</th>
+      <td><p>input model object as returned by <code><a href='anlz_gam.html'>anlz_gam</a></code></p></td>
     </tr>
     <tr>
       <th>baseyr</th>
@@ -138,10 +134,6 @@
     <tr>
       <th>testyr</th>
       <td><p>numeric vector of ending years</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments passed to other methods</p></td>
     </tr>
     </table>
 
@@ -167,27 +159,17 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 
-<span class='co'># fit models with function</span>
+<span class='co'># data to model</span>
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>anlz_perchg</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>, baseyr = <span class='fl'>1990</span>, testyr = <span class='fl'>2016</span>)
-}
-<span class='co'># use previously fitted list of models</span>
-<span class='kw'>trans</span> <span class='op'>&lt;-</span> <span class='st'>'log10'</span>
-<span class='kw'>mods</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  gam0 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam0'</span>, trans = <span class='kw'>trans</span>),
-  gam1 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam1'</span>, trans = <span class='kw'>trans</span>), 
-  gam2 = <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, mod = <span class='st'>'gam2'</span>, trans = <span class='kw'>trans</span>)
-  )
-<span class='fu'>anlz_perchg</span>(mods = <span class='kw'>mods</span>, baseyr = <span class='fl'>1990</span>, testyr = <span class='fl'>2016</span>)
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 3 x 5</span><span>
-#&gt;   model baseval testval perchg     pval
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> gam0     5.06    6.80   34.3 0.000</span><span style='text-decoration: underline;'>915</span><span>
-#&gt; </span><span style='color: #555555;'>2</span><span> gam1     3.36    5.33   58.6 0.000</span><span style='text-decoration: underline;'>108</span><span>
-#&gt; </span><span style='color: #555555;'>3</span><span> gam2     3.12    5.31   70.4 0.000</span><span style='text-decoration: underline;'>386</span><span></div></span></pre>
+  
+<span class='kw'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
+<span class='fu'>anlz_perchg</span>(<span class='kw'>mod</span>, baseyr = <span class='fl'>1990</span>, testyr = <span class='fl'>2016</span>)
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 4</span><span>
+#&gt;   baseval testval perchg   pval
+#&gt;     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>    18.4    5.55  -</span><span style='color: #BB0000;'>69.9</span><span> 0.065</span><span style='text-decoration: underline;'>8</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
