@@ -18,3 +18,10 @@ test_that("Checkout output of anlz_gam", {
   expect_is(result, 'gam')
   
 })
+
+test_that("Checkout output of anlz_gam, knot reduction", {
+  
+  result <- anlz_gam(tomod, kts = 500)
+  expect_is(result, 'gam')
+  
+})

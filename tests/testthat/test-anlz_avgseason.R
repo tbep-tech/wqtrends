@@ -6,6 +6,14 @@ test_that("Checking anlz_avgseason", {
   
 })
 
+test_that("Checking anlz_avgseason, no transformation", {
+  
+  result <- anlz_avgseason(modident, doystr = 90, doyend = 180) 
+  
+  expect_equal(nrow(result), 30)
+  
+})
+
 test_that("Checking  error, insufficient inputs", {
   
   expect_error(anlz_avgseason(doystr = 90, doyend = 180))
