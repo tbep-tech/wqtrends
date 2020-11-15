@@ -14,7 +14,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -26,9 +26,6 @@ show_prdseason <- function(mod, ylab){
   
   # get transformation
   trans <- unique(prds$trans)
-  
-  # backtransform daily predictions
-  prds <- anlz_backtrans(prds)
   
   # get raw data from model if not provided
   tobacktrans <- mod$model %>% 

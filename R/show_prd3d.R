@@ -15,7 +15,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'   
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -25,10 +25,7 @@ show_prd3d <- function(mod, ylab) {
   
   # get daily predictions, differs from anlz_prd
   prds <- anlz_prdday(mod)
-  
-  # backtransform daily predictions
-  prds <- anlz_backtrans(prds)
-  
+
   toplo <- prds %>% 
     dplyr::select(-date, -cont_year, -trans) %>% 
     dplyr::filter(!yr %in% 2018) %>% 

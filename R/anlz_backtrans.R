@@ -15,7 +15,7 @@
 #' library(dplyr)
 #' 
 #' tomod <- rawdat %>% 
-#'   filter(station %in% 32) %>% 
+#'   filter(station %in% 34) %>% 
 #'   filter(param %in% 'chl')
 #' dat <- anlz_trans(tomod, trans = 'log10')
 #' backtrans <- anlz_backtrans(dat)

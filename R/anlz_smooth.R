@@ -16,7 +16,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'   
 #' mod <- anlz_gam(tomod, trans = 'log10')

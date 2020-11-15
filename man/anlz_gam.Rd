@@ -30,7 +30,7 @@ The \code{cont_year} vector is measured as a continuous numeric variable for the
 \examples{
 library(dplyr)
 tomod <- rawdat \%>\% 
-  filter(station \%in\% 32) \%>\% 
+  filter(station \%in\% 34) \%>\% 
   filter(param \%in\% 'chl')
 anlz_gam(tomod, trans = 'log10')
 }

@@ -17,7 +17,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -30,9 +30,6 @@ show_prddoy <- function(mod, ylab, size = 0.5, alpha = 1){
 
   # get transformation
   trans <- unique(prds$trans)
-  
-  # back-transform
-  prds <- anlz_backtrans(prds)
   
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = doy, group = factor(yr), colour = yr)) + 
     ggplot2::geom_line(ggplot2::aes(y = value), size = size, alpha = alpha) + 

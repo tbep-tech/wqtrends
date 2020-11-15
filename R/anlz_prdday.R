@@ -14,7 +14,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -34,7 +34,8 @@ anlz_prdday <- function(mod) {
       yr = lubridate::year(date)
     )
   prd <- predict(mod, newdata = data)
-  out <- data.frame(data, value = prd, trans = mod$trans, stringsAsFactors = F)
+  out <- data.frame(data, value = prd, trans = mod$trans, stringsAsFactors = F) %>% 
+    anlz_backtrans()
   
   return(out)
       

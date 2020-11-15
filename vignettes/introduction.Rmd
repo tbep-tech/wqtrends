@@ -72,7 +72,7 @@ The `anlz_gam()` function is used to fit the model.  First, the raw data are fil
 
 ```{r}
 tomod <- rawdat %>%
- filter(station %in% 32) %>%
+ filter(station %in% 34) %>%
  filter(param %in% "chl")
 mod <- anlz_gam(tomod, trans = "log10")
 mod

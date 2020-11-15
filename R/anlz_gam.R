@@ -24,7 +24,7 @@
 #' @examples
 #' library(dplyr)
 #' tomod <- rawdat %>% 
-#'   filter(station %in% 32) %>% 
+#'   filter(station %in% 34) %>% 
 #'   filter(param %in% 'chl')
 #' anlz_gam(tomod, trans = 'log10')
 anlz_gam <- function(moddat, kts = NULL, ...){

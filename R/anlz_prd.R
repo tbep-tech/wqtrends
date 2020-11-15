@@ -14,7 +14,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'   
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -45,10 +45,11 @@ anlz_prd <- function(mod) {
   out <- prddat %>% 
     dplyr::mutate(
       annvalue = annvalue,
-      value = value,
-      trans = trans
-      )
-    
+      value = value, 
+      trans = mod$trans
+      ) %>% 
+    anlz_backtrans()
+
   return(out)
   
 }

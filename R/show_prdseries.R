@@ -16,7 +16,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -30,9 +30,6 @@ show_prdseries <- function(mod, ylab, alpha = 0.7){
   # get transformation
   trans <- unique(prds$trans)
 
-  # back-transform
-  prds <- anlz_backtrans(prds) 
-  
   # raw data
   tobacktrans <- mod$model %>% 
     dplyr::mutate(

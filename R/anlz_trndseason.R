@@ -19,7 +19,7 @@
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
-#'   filter(station %in% 32) %>%
+#'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
@@ -52,17 +52,6 @@ anlz_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center',
     if(inherits(mixmet, 'logical'))
       next
 
-    # get slope estimate
-    # dispersion <- summary(mod)$dispersion
-    # bt_slo <- mixmet$model %>% 
-    #   dplyr::select(yr) %>% 
-    #   dplyr::mutate(
-    #     avg = predict(mixmet), 
-    #     bt_avg = 10^(avg + log(10) * dispersion / 2)
-    #     )
-    # bt_slo <- (bt_slo$bt_avg[nrow(bt_slo)] - bt_slo$bt_avg[1]) / (bt_slo$yr[nrow(bt_slo)] - bt_slo$yr[1])
-    # 
-    # tmp[i, 'yrcoef'] <- bt_slo
     tmp[i, 'yrcoef'] <- mixmet$coefficients['yr']
     tmp[i, 'pval'] <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4]
     

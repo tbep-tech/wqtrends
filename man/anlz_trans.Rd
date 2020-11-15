@@ -20,7 +20,7 @@ Transform response variable prior to fitting GAM
 \examples{
 library(dplyr)
 tomod <- rawdat \%>\% 
-  filter(station \%in\% 32) \%>\% 
+  filter(station \%in\% 34) \%>\% 
   filter(param \%in\% 'chl')
 anlz_trans(tomod, trans = 'log10')
 }
