@@ -14,14 +14,11 @@ Depends:
   R (>= 3.5)
 Imports:
   dplyr,
-  forecast,
   ggplot2,
   lubridate,
-  MASS,
   mgcv,
   mixmeta, 
   plotly,
-  purrr,
   tibble,
   tidyr, 
   viridisLite
