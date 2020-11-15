@@ -6,7 +6,7 @@ test_that("Checking anlz_backtrans, log10", {
     .[1:4] %>% 
     round(1)
   
-  expect_equal(result, c(2.1, 6.9, 10.8, 7.4))
+  expect_equal(result, c(2.8, 3.1, 2.5, 4.2))
 
 })
 
