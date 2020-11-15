@@ -152,29 +152,29 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
 
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>34</span>) <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
 <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_trans.html'>anlz_trans</a></span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
 <span class='kw'>backtrans</span> <span class='op'>&lt;-</span> <span class='fu'>anlz_backtrans</span>(<span class='kw'>dat</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>backtrans</span>)
 </div><div class='output co'>#&gt;         date station param     value doy cont_year   yr  mo trans
-#&gt; 1 1990-01-18      32   chl  2.133333  18  1990.047 1990 Jan log10
-#&gt; 2 1990-03-13      32   chl  6.866667  72  1990.195 1990 Mar log10
-#&gt; 3 1990-03-20      32   chl 10.833333  79  1990.214 1990 Mar log10
-#&gt; 4 1990-03-30      32   chl  7.366667  89  1990.241 1990 Mar log10
-#&gt; 5 1990-04-05      32   chl  4.800000  95  1990.258 1990 Apr log10
-#&gt; 6 1990-04-12      32   chl 17.266667 102  1990.277 1990 Apr log10</div><div class='input'>
+#&gt; 1 1991-02-12      34   chl  2.766667  43  1991.115 1991 Feb log10
+#&gt; 2 1992-02-27      34   chl  3.066667  58  1992.156 1992 Feb log10
+#&gt; 3 1992-03-12      34   chl  2.466667  72  1992.194 1992 Mar log10
+#&gt; 4 1992-03-23      34   chl  4.166667  83  1992.224 1992 Mar log10
+#&gt; 5 1992-04-01      34   chl  5.766667  92  1992.249 1992 Apr log10
+#&gt; 6 1992-04-08      34   chl 12.133333  99  1992.268 1992 Apr log10</div><div class='input'>
 <span class='kw'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
 <span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_prd.html'>anlz_prd</a></span>(<span class='kw'>mod</span>)
 <span class='kw'>backtrans</span> <span class='op'>&lt;-</span> <span class='fu'>anlz_backtrans</span>(<span class='kw'>dat</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>backtrans</span>)
-</div><div class='output co'>#&gt;   cont_year       date  mo doy   yr annvalue    value trans
-#&gt; 1  1990.047 1990-01-18 Jan  18 1990 2.135252 2.135252 log10
-#&gt; 2  1990.077 1990-01-28 Jan  28 1990 2.755449 2.755449 log10
-#&gt; 3  1990.106 1990-02-08 Feb  39 1990 3.525898 3.525898 log10
-#&gt; 4  1990.136 1990-02-19 Feb  50 1990 4.436242 4.436242 log10
-#&gt; 5  1990.166 1990-03-02 Mar  61 1990 5.442057 5.442057 log10
-#&gt; 6  1990.196 1990-03-13 Mar  72 1990 6.454342 6.454342 log10</div></pre>
+</div><div class='output co'>#&gt;   cont_year       date  mo doy   yr  annvalue     value trans
+#&gt; 1  1991.115 1991-02-11 Feb  42 1991 580.94407 580.94407 log10
+#&gt; 2  1991.144 1991-02-22 Feb  53 1991 330.32229 330.32229 log10
+#&gt; 3  1991.173 1991-03-05 Mar  64 1991 197.91113 197.91113 log10
+#&gt; 4  1991.202 1991-03-15 Mar  74 1991 124.57624 124.57624 log10
+#&gt; 5  1991.231 1991-03-26 Mar  85 1991  82.11917  82.11917 log10
+#&gt; 6  1991.259 1991-04-05 Apr  95 1991  56.50281  56.50281 log10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

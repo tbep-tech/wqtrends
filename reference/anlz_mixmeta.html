@@ -146,7 +146,7 @@
 
 <span class='co'># data to model</span>
 <span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>32</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>34</span>) <span class='op'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
 
 <span class='kw'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
@@ -157,11 +157,11 @@
 #&gt; 
 #&gt; Fixed-effects coefficients:
 #&gt; (Intercept)           yr  
-#&gt;      1.5798      -0.0003  
+#&gt;    -47.5650       0.0286  
 #&gt; 
 #&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
 #&gt;   logLik       AIC       BIC  
-#&gt;  12.3044  -18.6089  -15.9377  
+#&gt; -44.9732   95.9463   98.6174  
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
