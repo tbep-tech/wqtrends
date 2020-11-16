@@ -140,6 +140,9 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of <code><a href='https://rdrr.io/pkg/mixmeta/man/mixmeta.html'>mixmeta</a></code> fitted model objects</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Parameters are not back-transformed if the original GAM used a transformation of the response variable</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
@@ -157,11 +160,11 @@
 #&gt; 
 #&gt; Fixed-effects coefficients:
 #&gt; (Intercept)           yr  
-#&gt;    -47.5650       0.0286  
+#&gt;     -0.2067       0.0006  
 #&gt; 
 #&gt; 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters
 #&gt;   logLik       AIC       BIC  
-#&gt; -44.9732   95.9463   98.6174  
+#&gt;  11.0542  -16.1084  -13.4373  
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
