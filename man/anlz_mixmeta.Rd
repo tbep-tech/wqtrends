@@ -19,6 +19,9 @@ A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
 \description{
 Fit a mixed meta-analysis regression model of trends
 }
+\details{
+Parameters are not back-transformed if the original GAM used a transformation of the response variable
+}
 \examples{
 library(dplyr)
 

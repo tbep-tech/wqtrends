@@ -6,6 +6,8 @@
 #' @param yrstr numeric for starting year
 #' @param yrend numeric for ending year
 #'
+#' @details Parameters are not back-transformed if the original GAM used a transformation of the response variable
+#' 
 #' @return A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
 #' @export
 #'

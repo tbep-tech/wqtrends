@@ -45,14 +45,23 @@ anlz_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center',
     
     if(justify == 'right')
       mixmet <- anlz_mixmeta(tmp, yrstr = yr - win + 1, yrend = yr)
-    
+
     if(justify == 'center')
       mixmet <- anlz_mixmeta(tmp, yrstr = round(yr - win / 2), yrend = round(yr + win / 2))
     
     if(inherits(mixmet, 'logical'))
       next
-
-    tmp[i, 'yrcoef'] <- mixmet$coefficients['yr']
+    
+    # get slope
+    slope <- mixmet$coefficients['yr']
+    if(mod$trans == 'log10'){
+      dispersion <- summary(mod)$dispersion
+      slope <- predict(mixmet)
+      slope <- (slope[length(slope)] - slope[1])/(mixmet$model[length(slope), 2] - mixmet$model[1, 2])
+      slope <- 10 ^ (slope  + log(10) * dispersion / 2)
+    }
+    
+    tmp[i, 'yrcoef'] <- slope
     tmp[i, 'pval'] <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4]
     
   }

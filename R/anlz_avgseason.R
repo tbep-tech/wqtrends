@@ -68,13 +68,14 @@ anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
   dispersion <- summary(mod)$dispersion
   
   if(trans == 'log10'){
-    avgs$lwr <- 10^((avgs$avg - 1.96 * avgs$se) + log(10) * dispersion / 2)
-    avgs$upr <- 10^((avgs$avg + 1.96 * avgs$se) + log(10) * dispersion / 2)
-    avgs$avg <- 10^(avgs$avg + log(10) * dispersion / 2)
+    avgs$bt_lwr <- 10^((avgs$avg - 1.96 * avgs$se) + log(10) * dispersion / 2)
+    avgs$bt_upr <- 10^((avgs$avg + 1.96 * avgs$se) + log(10) * dispersion / 2)
+    avgs$bt_avg <- 10^(avgs$avg + log(10) * dispersion / 2)
   }
   if(trans == 'ident'){
-    avgs$lwr <- avgs$avg - 1.96 * avgs$se
-    avgs$upr <- avgs$avg + 1.96 * avgs$se
+    avgs$bt_avg <- avgs$avg
+    avgs$bt_lwr <- avgs$avg - 1.96 * avgs$se
+    avgs$bt_upr <- avgs$avg + 1.96 * avgs$se
   }
   
   out <- avgs
