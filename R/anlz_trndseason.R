@@ -56,9 +56,9 @@ anlz_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center',
     slope <- mixmet$coefficients['yr']
     if(mod$trans == 'log10'){
       dispersion <- summary(mod)$dispersion
-      slope <- predict(mixmet)
-      slope <- (slope[length(slope)] - slope[1])/(mixmet$model[length(slope), 2] - mixmet$model[1, 2])
-      slope <- 10 ^ (slope  + log(10) * dispersion / 2)
+      bt_prd <- 10 ^ (predict(mixmet) + log(10) * dispersion / 2)
+      df <- data.frame(chl = bt_prd, yr = mixmet$model$yr)
+      slope <- lm(chl ~ yr, df) %>% summary %>% coefficients %>% .[2, 1]
     }
     
     tmp[i, 'yrcoef'] <- slope
