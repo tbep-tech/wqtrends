@@ -79,6 +79,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -118,7 +124,7 @@
     <p>Transform response variable prior to fitting GAM</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_trans</span>(<span class='kw'>moddat</span>, trans = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"log10"</span>, <span class='st'>"ident"</span>))</pre>
+    <pre class="usage"><span class='fu'>anlz_trans</span><span class='op'>(</span><span class='va'>moddat</span>, trans <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"log10"</span>, <span class='st'>"ident"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,11 +156,11 @@
 <code><a href='anlz_trndseason.html'>anlz_trndseason</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>)
-<span class='kw'>tomod</span> <span class='op'>&lt;-</span> <span class='kw'>rawdat</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>station</span> <span class='op'>%in%</span> <span class='fl'>34</span>) <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='kw'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span>)
-<span class='fu'>anlz_trans</span>(<span class='kw'>tomod</span>, trans = <span class='st'>'log10'</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='va'>tomod</span> <span class='op'>&lt;-</span> <span class='va'>rawdat</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>station</span> <span class='op'>%in%</span> <span class='fl'>34</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span><span class='op'>)</span>
+<span class='fu'>anlz_trans</span><span class='op'>(</span><span class='va'>tomod</span>, trans <span class='op'>=</span> <span class='st'>'log10'</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           date station param       value doy cont_year   yr  mo trans
 #&gt; 1   1991-02-12      34   chl  0.44195684  43  1991.115 1991 Feb log10
 #&gt; 2   1992-02-27      34   chl  0.48666657  58  1992.156 1992 Feb log10
@@ -715,7 +721,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
