@@ -33,7 +33,7 @@ tomod <- rawdat \%>\%
   filter(station \%in\% 34) \%>\%
   filter(param \%in\% 'chl')
   
-mod <- anlz_gam(tomod, trans = 'log10')
+mod <- anlz_gam(tomod, trans = 'ident')
 
 show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)')

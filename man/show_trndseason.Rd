@@ -8,6 +8,7 @@ show_trndseason(
   mod,
   doystr = 1,
   doyend = 364,
+  type = c("log", "approx"),
   justify = c("left", "right", "center"),
   win = 5,
   ylab

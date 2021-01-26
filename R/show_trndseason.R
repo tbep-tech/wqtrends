@@ -21,9 +21,10 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
-show_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('left', 'right', 'center'), win = 5, ylab) {
+show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log', 'approx'), justify = c('left', 'right', 'center'), win = 5, ylab) {
   
   justify <- match.arg(justify)
+  type <- match.arg(type)
   
   # get slope trends
   trndseason <- anlz_trndseason(mod = mod, doystr = doystr, doyend = doyend, justify = justify, win = win) 
@@ -32,8 +33,7 @@ show_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('left', '
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
   strt <- paste(lubridate::month(dts[1], label = T, abbr = T), lubridate::day(dts[1]))
   ends <- paste(lubridate::month(dts[2], label = T, abbr = T), lubridate::day(dts[2]))
-  ttl <- paste0('Annual Slope estimates for seasonal trends: ', strt, '-',  ends)
-  
+
   # subtitle
   subttl <- paste0('Estimates based on ', justify , ' window of ', win, ' years')
   
@@ -51,12 +51,35 @@ show_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('left', '
       ) %>% 
     na.omit()
   
-  # plot output
-  p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
+  if(type == 'log'){
+    
+    ttl <- paste0('Annual log-slopes (+/- 95%) for seasonal trends: ', strt, '-',  ends)
+    
+    p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
+      ggplot2::geom_hline(yintercept = 0) + 
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0) +
+      ggplot2::scale_color_manual(values = c('black', 'tomato1'), drop = FALSE)
+ 
+  }
+  
+  if(type == 'approx'){
+    
+    ttl <- paste0('Annual slopes (approximate) for seasonal trends: ', strt, '-',  ends)
+    
+    p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = appr_yrcoef, fill = pval)) + 
+      ggplot2::geom_hline(yintercept = 0) + 
+      ggplot2::labs(
+        title = ttl, 
+        subtitle = subttl, 
+        y = ylab
+      )
+    
+  }
+  
+  p <- p + 
     ggplot2::geom_point(shape = 21, size = 3) +
+    ggplot2::scale_fill_manual(values = c('white', 'tomato1'), drop = FALSE) +
     ggplot2::scale_x_continuous(limits = yrrng) +
-    ggplot2::scale_fill_manual(values = c(NA, 'tomato1'), drop = FALSE) +
-    ggplot2::geom_hline(yintercept = 0) + 
     ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(), 
