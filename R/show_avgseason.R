@@ -20,7 +20,7 @@
 #'   filter(station %in% 34) %>%
 #'   filter(param %in% 'chl')
 #'   
-#' mod <- anlz_gam(tomod, trans = 'log10')
+#' mod <- anlz_gam(tomod, trans = 'ident')
 #' 
 #' show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
@@ -55,19 +55,14 @@ show_avgseason <- function(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 
       bt_avg = avg
     )
   
-  # for ident
-  slope <- mixmet$coefficients['yr']
+  # subtitle info
+  pval <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4] %>% anlz_pvalformat()
   
   # backtransform if log10
   if(mod$trans == 'log10'){
     
     dispersion <- summary(mod)$dispersion
-    
-    # correct slope for subtitle
-    bt_prd <- 10 ^ (predict(mixmet) + log(10) * dispersion / 2)
-    df <- data.frame(chl = bt_prd, yr = mixmet$model$yr)
-    slope <- lm(chl ~ yr, df) %>% summary %>% coefficients %>% .[2, 1]
-    
+  
     # backtransform mixmeta predictions
     toplo2 <- data.frame(
       yr = seq(yrstr, yrend, length = 50)
@@ -80,13 +75,25 @@ show_avgseason <- function(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 
         bt_avg = 10^(avg + log(10) * dispersion / 2)
       )
     
+    # for subtitle
+    slope <- lm(bt_avg ~ yr, toplo2) %>% summary %>% coefficients %>% .[2, 1]
+    slope <- round(slope, 2)
+    logslope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
+    logslope <- round(logslope, 2)
+    logslope <- paste0(logslope[1], ' (', logslope[2], ', ', logslope[3], ')')
+    subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': approximate slope ', slope, ', log-slope ', logslope, ', ', pval)
+    
+  }
+  
+  if(mod$trans == 'ident'){
+    
+    slope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
+    slope <- round(slope, 2)
+    slope <- paste0(slope[1], ' (', slope[2], ', ', slope[3], ')')
+    subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': slope ', slope, ', ', pval)
+    
   }
 
-  # subtitle
-  slope <- round(slope, 2)
-  pval <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4] %>% anlz_pvalformat()
-  subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': slope ', slope, ', ', pval)
-  
   # plot output
   p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_avg)) + 
     ggplot2::geom_point(colour = 'deepskyblue3') +
