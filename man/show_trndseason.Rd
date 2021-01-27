@@ -8,7 +8,7 @@ show_trndseason(
   mod,
   doystr = 1,
   doyend = 364,
-  type = c("log", "approx"),
+  type = c("log10", "approx"),
   justify = c("left", "right", "center"),
   win = 5,
   ylab
@@ -20,6 +20,8 @@ show_trndseason(
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
 \item{doyend}{numeric indicating ending Julian day for extracting averages}
+
+\item{type}{chr string indicating if log slopes are shown (if applicable)}
 
 \item{justify}{chr string indicating the justification for the trend window}
 
