@@ -1,13 +1,20 @@
 Package: wqtrends
 Title: Assess Water Quality Trends with Generalized Additive Models
 Version: 1.1.0
-Date: 2020-11-16
-Authors@R: 
+Date: 2021-01-27
+Authors@R: c(
     person(given = "Marcus",
            family = "Beck",
            role = c("aut", "cre"),
            email = "mbeck@tbep.org",
-           comment = c(ORCID = "0000-0002-4996-0059"))
+           comment = c(ORCID = "0000-0002-4996-0059")
+    ), 
+    person(given = "Perry",
+      family = "de Valpine",
+      role = c("aut"),
+      email = "pdevalpine@gmail.com"
+    )
+  )
 Description: Assess water quality trends for long-term monitoring data in estuaries 
   using Generalized Additive Models.
 Depends: 
