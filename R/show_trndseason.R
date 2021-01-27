@@ -3,6 +3,7 @@
 #' Plot seasonal rates of change based on average estimates
 #' 
 #' @inheritParams anlz_trndseason
+#' @param type chr string indicating if log slopes are shown (if applicable)
 #' @param ylab chr string for y-axis label
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -21,7 +22,7 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
-show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log', 'approx'), justify = c('left', 'right', 'center'), win = 5, ylab) {
+show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log10', 'approx'), justify = c('left', 'right', 'center'), win = 5, ylab) {
   
   justify <- match.arg(justify)
   type <- match.arg(type)
@@ -51,7 +52,7 @@ show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log', 'appr
       ) %>% 
     na.omit()
   
-  if(type == 'log'){
+  if(type == 'log10' & mod$trans == 'log10'){
     
     ttl <- paste0('Annual log-slopes (+/- 95%) for seasonal trends: ', strt, '-',  ends)
     
@@ -62,7 +63,7 @@ show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log', 'appr
  
   }
   
-  if(type == 'approx'){
+  if(type == 'approx' & mod$trans == 'log10'){
     
     ttl <- paste0('Annual slopes (approximate) for seasonal trends: ', strt, '-',  ends)
     
@@ -73,6 +74,17 @@ show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log', 'appr
         subtitle = subttl, 
         y = ylab
       )
+    
+  }
+  
+  if(mod$trans == 'ident'){
+    
+    ttl <- paste0('Annual slopes (+/- 95%) for seasonal trends: ', strt, '-',  ends)
+    
+    p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
+      ggplot2::geom_hline(yintercept = 0) + 
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0) +
+      ggplot2::scale_color_manual(values = c('black', 'tomato1'), drop = FALSE)
     
   }
   
