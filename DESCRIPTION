@@ -4,15 +4,42 @@ Version: 1.1.0
 Date: 2021-01-27
 Authors@R: c(
     person(given = "Marcus",
-           family = "Beck",
-           role = c("aut", "cre"),
-           email = "mbeck@tbep.org",
-           comment = c(ORCID = "0000-0002-4996-0059")
+      family = "Beck",
+      role = c("aut", "cre"),
+      email = "mbeck@tbep.org",
+      comment = c(ORCID = "0000-0002-4996-0059")
     ), 
     person(given = "Perry",
       family = "de Valpine",
       role = c("aut"),
       email = "pdevalpine@gmail.com"
+    ),
+    person(given = "Rebecca",
+      family = "Murphy",
+      role = c("aut"),
+      email = "rmurphy@chesapeakebay.net"
+    ),
+    person(given = "Ian",
+      family = "Wren",
+      role = c("aut"),
+      email = "ianw@sfei.org"
+    ),
+    person(given = "Ariella",
+      family = "Chelsky",
+      role = c("aut"),
+      email = "ariellac@sfei.org"
+    ),
+    person(given = "Melissa",
+      family = "Foley",
+      role = c("aut"),
+      email = "melissaf@sfei.org",
+      comment = c(ORCID = "0000-0002-5832-6404")
+    ),  
+    person(given = "David",
+      family = "Senn",
+      role = c("aut"),
+      email = "davids@sfei.org",
+      comment = c(ORCID = "0000-0002-4869-3550")
     )
   )
 Description: Assess water quality trends for long-term monitoring data in estuaries 
