@@ -11,7 +11,10 @@
 #' @return A data frame of slope estimates and p-values for each year
 #' @export
 #'
-#' @details Trends are based on the slope of the fitted linear trend within the window, where the linear trend is estimated using a meta-analysis regression model (from \code{\link{anlz_mixmeta}}) for the seasonal averages (from \code{\link{anlz_avgseason}})
+#' @details Trends are based on the slope of the fitted linear trend within the window, where the linear trend is estimated using a meta-analysis regression model (from \code{\link{anlz_mixmeta}}) for the seasonal averages (from \code{\link{anlz_avgseason}}).
+#' 
+#' Note that for left and right windows, the exact number of years in \code{win} is used. For example, a left-centered window for 1990 of ten years will include exactly ten years from 1990, 1991, ... , 1999.  The same applies to a right-centered window, e.g., for 1990 it would include 1981, 1982, ..., 1990 (if those years have data). However, for a centered window, picking an even number of years will always have an extra year to center the window exactly, e.g., a ten year window for 1990 will include eleven years from 1985 to 1995 so there is the same number of years to the left and right of center. A centered window with an odd number of years will always be centered and includes the exact number of years used in \code{win}.
+#'
 #' @family analyze
 #' 
 #' @examples
@@ -23,7 +26,7 @@
 #'   filter(param %in% 'chl')
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
-#' anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5)
+#' anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 8)
 anlz_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5){
   
   # get seasonal averages
@@ -46,8 +49,20 @@ anlz_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center',
     if(justify == 'right')
       mixmet <- anlz_mixmeta(tmp, yrstr = yr - win + 1, yrend = yr)
 
-    if(justify == 'center')
-      mixmet <- anlz_mixmeta(tmp, yrstr = round(yr - win / 2), yrend = round(yr + win / 2))
+    if(justify == 'center'){
+      
+      yrstr <- round(yr - win / 2)
+      yrend <- round(yr + win / 2)
+      
+      if(win %% 2 != 0){
+        yrstr <- yrstr + 1
+        yrend <- yrend - 1
+      }
+      
+      mixmet <- anlz_mixmeta(tmp, yrstr = yrstr, yrend = yrend)
+     
+       
+    }
     
     if(inherits(mixmet, 'logical'))
       next
