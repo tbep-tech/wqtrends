@@ -155,7 +155,7 @@ The `show_avgseason()` function plots the seasonal averages and trends over time
 show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
-The seasonal estimates and mixed-meta regression analyses can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal average, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_avgseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
+The seasonal estimates and mixed-effects meta-analysis regression can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal average, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_avgseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
 
 The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_avgseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
 
