@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -126,12 +126,15 @@
 
     <pre class="usage"><span class='fu'>show_trndseason</span><span class='op'>(</span>
   <span class='va'>mod</span>,
+  metfun <span class='op'>=</span> <span class='va'>mean</span>,
   doystr <span class='op'>=</span> <span class='fl'>1</span>,
   doyend <span class='op'>=</span> <span class='fl'>364</span>,
   type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"log10"</span>, <span class='st'>"approx"</span><span class='op'>)</span>,
   justify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"center"</span><span class='op'>)</span>,
   win <span class='op'>=</span> <span class='fl'>5</span>,
-  <span class='va'>ylab</span>
+  <span class='va'>ylab</span>,
+  nsim <span class='op'>=</span> <span class='fl'>10000</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -140,6 +143,10 @@
     <tr>
       <th>mod</th>
       <td><p>input model object as returned by <code><a href='anlz_gam.html'>anlz_gam</a></code></p></td>
+    </tr>
+    <tr>
+      <th>metfun</th>
+      <td><p>function input for metric to calculate, e.g., <code>mean</code>, <code>var</code>, <code>max</code>, etc</p></td>
     </tr>
     <tr>
       <th>doystr</th>
@@ -164,6 +171,14 @@
     <tr>
       <th>ylab</th>
       <td><p>chr string for y-axis label</p></td>
+    </tr>
+    <tr>
+      <th>nsim</th>
+      <td><p>numeric indicating number of random draws for simulating uncertainty</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to <code>metfun</code>, e.g., <code>na.rm = TRUE)</code></p></td>
     </tr>
     </table>
 
