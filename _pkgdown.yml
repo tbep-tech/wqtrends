@@ -1,0 +1,13 @@
+template:
+  assets: inst
+reference:
+- title: Analyze
+  contents:
+  - has_concept("analyze")
+- title: Visualize
+  contents:
+  - has_concept("show")
+- title: Other
+  desc: Other functions not defined by the concepts above
+  contents:
+  - lacks_concepts(c("analyze", "show"))

@@ -9,7 +9,7 @@
 #' @return A data frame of period averages
 #' @export
 #'
-#' @family analyze
+#' @concept analyze
 #' 
 #' @examples
 #' library(dplyr)

@@ -19,7 +19,7 @@
 #' @import mgcv
 #' @export
 #' 
-#' @family analyze
+#' @concept analyze
 #' 
 #' @examples
 #' library(dplyr)

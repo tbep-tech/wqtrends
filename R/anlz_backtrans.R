@@ -9,7 +9,7 @@
 #' 
 #' @details \code{dat} can be output from \code{\link{anlz_trans}} or \code{\link{anlz_prd}}
 #' 
-#' @family analyze
+#' @concept analyze
 #' 
 #' @examples
 #' library(dplyr)

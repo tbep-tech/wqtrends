@@ -5,6 +5,8 @@
 #' @return p-value formatted as a text string, one of \code{p < 0.001}, \code{'p < 0.01'}, \code{p < 0.05}, or \code{ns} for not significant
 #' @export
 #'
+#' @concept analyze
+#'
 #' @examples
 #' anlz_pvalformat(0.05)
 anlz_pvalformat <- function(x){

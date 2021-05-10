@@ -11,7 +11,7 @@
 #' 
 #' @details Working components of this function were taken from the \code{\link[baytrends]{gamDiff}} function in the baytrends package. 
 #' 
-#' @family analyze
+#' @concept analyze
 #' 
 #' @examples
 #' library(dplyr)

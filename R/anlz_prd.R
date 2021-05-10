@@ -7,7 +7,7 @@
 #' @return a \code{data.frame} with predictions
 #' @export
 #' 
-#' @family analyze
+#' @concept analyze
 #'
 #' @examples
 #' library(dplyr)

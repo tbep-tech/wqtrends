@@ -8,7 +8,7 @@
 #' @return a \code{plotly} surface
 #' @export
 #' 
-#' @family show
+#' @concept show
 #'
 #' @examples
 #' library(dplyr)

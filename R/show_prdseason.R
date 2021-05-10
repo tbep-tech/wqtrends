@@ -7,7 +7,7 @@
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
 #' 
-#' @family show
+#' @concept show
 #' 
 #' @examples
 #' library(dplyr)

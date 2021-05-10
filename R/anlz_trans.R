@@ -8,6 +8,8 @@
 #' @return \code{moddat} with the \code{value} column transformed as indicated
 #' @export
 #' 
+#' @concept analyze
+#' 
 #' @family analyze
 #' 
 #' @examples

@@ -11,6 +11,8 @@
 #' @return A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
 #' @export
 #'
+#' @concept analyze
+#'
 #' @examples
 #' library(dplyr)
 #' 
