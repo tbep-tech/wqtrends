@@ -3,10 +3,13 @@
 #' Estimate seasonal rates of change based on average estimates
 #' 
 #' @param mod input model object as returned by \code{\link{anlz_gam}}
+#' @param metfun function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc
 #' @param doystr numeric indicating start Julian day for extracting averages
 #' @param doyend numeric indicating ending Julian day for extracting averages
 #' @param justify chr string indicating the justification for the trend window
 #' @param win numeric indicating number of years to use for the trend window
+#' @param nsim numeric indicating number of random draws for simulating uncertainty
+#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A data frame of slope estimates and p-values for each year
 #' @export
@@ -29,14 +32,22 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 8)
-anlz_trndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5){
-  
-  # get seasonal averages
-  avgseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend) 
+anlz_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5, nsim = 1e4, ...){
 
   justify <- match.arg(justify)
 
-  tmp <- tibble::tibble(avgseason)
+  # compare metfun to mean
+  chk <- identical(deparse(metfun), deparse(mean))
+  
+  # use anlz_avgseason if metfun is mean
+  if(chk)
+    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend) 
+
+  # use anlz_metseason if metfun is not mean
+  if(!chk)
+    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
+
+  tmp <- tibble::tibble(metseason)
   tmp$yrcoef <- NaN
   tmp$pval <- NaN
   

@@ -2,7 +2,7 @@
 #' 
 #' Fit a mixed meta-analysis regression model of trends
 #' 
-#' @param avgseason output from \code{\link{anlz_avgseason}}
+#' @param metseason output from \code{\link{anlz_avgseason}} or \code{\link{anlz_metseason}}
 #' @param yrstr numeric for starting year
 #' @param yrend numeric for ending year
 #'
@@ -22,19 +22,19 @@
 #'   filter(param %in% 'chl')
 #' 
 #' mod <- anlz_gam(tomod, trans = 'log10')
-#' avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
-#' anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2019)
-anlz_mixmeta <- function(avgseason, yrstr = 2000, yrend = 2019){
+#' metseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
+#' anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
+anlz_mixmeta <- function(metseason, yrstr = 2000, yrend = 2019){
 
   # input
-  totrnd <- avgseason %>% 
+  totrnd <- metseason %>% 
     dplyr::mutate(S = se^2) %>% 
     dplyr::filter(yr %in% seq(yrstr, yrend))
 
   if(nrow(totrnd) != length(seq(yrstr, yrend)))
     return(NA)
   
-  out <- mixmeta::mixmeta(avg ~ yr, S = S, random = ~1|yr, data = totrnd, method = 'reml')
+  out <- mixmeta::mixmeta(met ~ yr, S = S, random = ~1|yr, data = totrnd, method = 'reml')
     
   return(out)
 

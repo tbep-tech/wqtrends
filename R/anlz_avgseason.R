@@ -63,23 +63,25 @@ anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
   Xs <- A %*% Xp
   means <- as.numeric(Xs %*% coefs)
   ses <- sqrt(diag(Xs %*% mod$Vp %*% t(Xs)))
-  avgs <- data.frame(avg = means, se = ses, yr = yr)
+  avgs <- data.frame(met = means, se = ses, yr = yr)
 
   # backtransform, add lwr/upr confidence intervals
   dispersion <- summary(mod)$dispersion
   
   if(trans == 'log10'){
-    avgs$bt_lwr <- 10^((avgs$avg - 1.96 * avgs$se) + log(10) * dispersion / 2)
-    avgs$bt_upr <- 10^((avgs$avg + 1.96 * avgs$se) + log(10) * dispersion / 2)
-    avgs$bt_avg <- 10^(avgs$avg + log(10) * dispersion / 2)
+    avgs$bt_lwr <- 10^((avgs$met - 1.96 * avgs$se) + log(10) * dispersion / 2)
+    avgs$bt_upr <- 10^((avgs$met + 1.96 * avgs$se) + log(10) * dispersion / 2)
+    avgs$bt_met <- 10^(avgs$met + log(10) * dispersion / 2)
   }
   if(trans == 'ident'){
-    avgs$bt_avg <- avgs$avg
-    avgs$bt_lwr <- avgs$avg - 1.96 * avgs$se
-    avgs$bt_upr <- avgs$avg + 1.96 * avgs$se
+    avgs$bt_met <- avgs$met
+    avgs$bt_lwr <- avgs$met - 1.96 * avgs$se
+    avgs$bt_upr <- avgs$met + 1.96 * avgs$se
   }
   
-  out <- avgs
+  out <- avgs %>% 
+    tibble::tibble() %>% 
+    dplyr::select(yr, met, se, bt_lwr, bt_upr, bt_met)
   
   return(out)
     

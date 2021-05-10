@@ -109,7 +109,7 @@ show_perchg(mod, baseyr = 2006, testyr = 2017, ylab = "Chlorophyll-a (ug/L)")
 
 ## Evaluating seasonal changes over time 
 
-The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_avgseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages (`yrstr`, `yrend`).  
+The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_metseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages/metrics (`yrstr`, `yrend`).  
 
 The `anlz_avgseason()` estimates the seasonal averages (including standard error) for results from the GAM fit.
 
@@ -124,13 +124,13 @@ The `anlz_mixmeta()` function uses results from `anlz_avgseason()` to estimate t
 anlz_mixmeta(avgseason, yrstr = 2006, yrend = 2017)
 ```
 
-The `show_avgseason()` function plots the seasonal averages and trends over time. The `anlz_avgseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
+The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_avgseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
 
 ```{r, fig.height = 4, fig.width = 9, echo = T}
-show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
+show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
-The seasonal estimates and mixed-effects meta-analysis regression can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal average, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_avgseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
+The seasonal estimates and mixed-effects meta-analysis regression can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal metric, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_metseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
 
 The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_avgseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
 

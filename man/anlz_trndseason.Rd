@@ -6,14 +6,19 @@
 \usage{
 anlz_trndseason(
   mod,
+  metfun = mean,
   doystr = 1,
   doyend = 364,
   justify = c("center", "left", "right"),
-  win = 5
+  win = 5,
+  nsim = 10000,
+  ...
 )
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
+
+\item{metfun}{function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc}
 
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
@@ -22,6 +27,10 @@ anlz_trndseason(
 \item{justify}{chr string indicating the justification for the trend window}
 
 \item{win}{numeric indicating number of years to use for the trend window}
+
+\item{nsim}{numeric indicating number of random draws for simulating uncertainty}
+
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
 \value{
 A data frame of slope estimates and p-values for each year

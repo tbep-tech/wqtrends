@@ -17,7 +17,7 @@ anlz_metseason(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 10000, ...)
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
-\item{...}{additional arguments pass to \code{metfun}, e.g., \code{na.rm = TRUE)}}
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
 \value{
 A data frame of period metrics

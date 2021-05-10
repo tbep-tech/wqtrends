@@ -3,9 +3,12 @@
 #' Plot period (seasonal) averages from fitted GAM
 #' 
 #' @inheritParams anlz_avgseason
+#' @param metfun function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc
 #' @param yrstr numeric for starting year for trend model
 #' @param yrend numeric for ending year for trend model
 #' @param ylab chr string for y-axis label
+#' @param nsim numeric indicating number of random draws for simulating uncertainty
+#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -22,18 +25,26 @@
 #'   
 #' mod <- anlz_gam(tomod, trans = 'ident')
 #' 
-#' show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
-show_avgseason <- function(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab) {
+show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, ...) {
+  
+  # compare metfun to mean
+  chk <- identical(deparse(metfun), deparse(mean))
+  
+  # use anlz_avgseason if metfun is mean
+  if(chk)
+    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend) 
+  
+  # use anlz_metseason if metfun is not mean
+  if(!chk)
+    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
   
   # transformation used
   trans <- mod$trans
   
-  # get seasonal averages
-  avgseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend) 
-  
   # get mixmeta models
-  mixmet <- anlz_mixmeta(avgseason, yrstr = yrstr, yrend = yrend)
+  mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend)
 
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
@@ -42,17 +53,17 @@ show_avgseason <- function(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 
   ttl <- paste0('Fitted averages with 95% confidence intervals: ', strt, '-',  ends)
 
   # plot objects
-  toplo1 <- avgseason
+  toplo1 <- metseason
   
   toplo2 <- data.frame(
     yr = seq(yrstr, yrend, length = 50)
     ) %>% 
     dplyr::mutate( 
-      avg = predict(mixmet, newdata = data.frame(yr = yr)), 
+      met = predict(mixmet, newdata = data.frame(yr = yr)), 
       se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2], 
-      bt_lwr = avg - 1.96 * se,
-      bt_upr = avg + 1.96 * se,
-      bt_avg = avg
+      bt_lwr = met - 1.96 * se,
+      bt_upr = met + 1.96 * se,
+      bt_met = met
     )
   
   # subtitle info
@@ -68,15 +79,15 @@ show_avgseason <- function(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 
       yr = seq(yrstr, yrend, length = 50)
       ) %>% 
       dplyr::mutate( 
-        avg = predict(mixmet, newdata = data.frame(yr = yr)), 
+        met = predict(mixmet, newdata = data.frame(yr = yr)), 
         se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2], 
-        bt_lwr = 10^((avg - 1.96 * se) + log(10) * dispersion / 2),
-        bt_upr = 10^((avg + 1.96 * se) + log(10) * dispersion / 2),
-        bt_avg = 10^(avg + log(10) * dispersion / 2)
+        bt_lwr = 10^((met - 1.96 * se) + log(10) * dispersion / 2),
+        bt_upr = 10^((met + 1.96 * se) + log(10) * dispersion / 2),
+        bt_met = 10^(met + log(10) * dispersion / 2)
       )
     
     # for subtitle
-    slope <- lm(bt_avg ~ yr, toplo2) %>% summary %>% coefficients %>% .[2, 1]
+    slope <- lm(bt_met ~ yr, toplo2) %>% summary %>% coefficients %>% .[2, 1]
     slope <- round(slope, 2)
     logslope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
     logslope <- round(logslope, 2)
@@ -95,7 +106,7 @@ show_avgseason <- function(mod, doystr = 1, doyend = 364, yrstr = 2000, yrend = 
   }
 
   # plot output
-  p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_avg)) + 
+  p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_met)) + 
     ggplot2::geom_point(colour = 'deepskyblue3') +
     ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3') +
     ggplot2::geom_ribbon(data = toplo2, ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), fill = 'pink', alpha = 0.4) +
