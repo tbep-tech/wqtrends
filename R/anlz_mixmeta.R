@@ -8,10 +8,10 @@
 #'
 #' @details Parameters are not back-transformed if the original GAM used a transformation of the response variable
 #' 
+#' @concept analyze
+#' 
 #' @return A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
 #' @export
-#'
-#' @concept analyze
 #'
 #' @examples
 #' library(dplyr)

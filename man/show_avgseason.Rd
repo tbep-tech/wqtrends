@@ -38,13 +38,4 @@ mod <- anlz_gam(tomod, trans = 'ident')
 show_avgseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)')
 }
-\seealso{
-Other show: 
-\code{\link{show_perchg}()},
-\code{\link{show_prd3d}()},
-\code{\link{show_prddoy}()},
-\code{\link{show_prdseason}()},
-\code{\link{show_prdseries}()},
-\code{\link{show_trndseason}()}
-}
 \concept{show}

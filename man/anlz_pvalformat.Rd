@@ -18,3 +18,4 @@ Format p-values for show functions
 \examples{
 anlz_pvalformat(0.05)
 }
+\concept{analyze}

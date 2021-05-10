@@ -34,3 +34,4 @@ mod <- anlz_gam(tomod, trans = 'log10')
 avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
 anlz_mixmeta(avgseason, yrstr = 2000, yrend = 2019)
 }
+\concept{analyze}

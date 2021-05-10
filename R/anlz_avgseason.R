@@ -32,33 +32,34 @@ anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
   
   # transformation
   trans <- mod$trans
-  
-  # prep prediciton data
+
+  # number of days in seasonal window
   numDays <- doyend - doystr + 1
-  gamdat$julian <- julian(gamdat$date)
-  fillData <- data.frame(julian = min(gamdat$julian):max(gamdat$julian))
-  fillData$date <- as.Date(fillData$julian, origin = as.Date("1970-01-01"))
-  fillData$yr <- lubridate::year(fillData$date)
-  fillData$fyr <- factor(fillData$yr)
-  fillData$doy <- fillData$julian - julian(update(fillData$date, month = 1, mday = 1))
-  fillData$cont_year <- fillData$yr + (fillData$doy - 1)/366
-  centerYear <- mean(range(fillData$cont_year, na.rm=FALSE))
-  fillData$cyr <- fillData$cont_year - centerYear
   
-  ## Exclude days not in the desired range
-  fillData <- subset(fillData, doy >= doystr & doy <= doyend)
-  
-  ## Exclude years that do not include all relevant days (i.e. start or end year)
-  dayCounts <- table(fillData$yr)
-  incompleteYear <- as.integer(names(dayCounts)[dayCounts != numDays])
-  numYears <- length(dayCounts)-length(incompleteYear)
-  fillData <- subset(fillData, !(yr %in% incompleteYear))
-  yr <- as.integer(names(dayCounts)[dayCounts == numDays])
+  # prep prediction data
+  dtrng <- range(gamdat$date, na.rm = T)
+  fillData <- data.frame(date = seq.Date(dtrng[1], dtrng[2], by = 'day')) %>% 
+    dplyr::mutate(
+      yr = lubridate::year(date), 
+      doy = lubridate::yday(date),
+      cont_year = lubridate::decimal_date(date)
+    ) %>% 
+    dplyr::filter(doy >= doystr & doy <= doyend) %>% 
+    dplyr::group_by(yr) %>% 
+    dplyr::mutate(
+      dayCounts = n()
+    ) %>% 
+    dplyr::ungroup() %>% 
+    dplyr::filter(dayCounts == numDays) %>% 
+    dplyr::select(-dayCounts)
+
+  # yr vector
+  yr <- fillData %>% dplyr::pull(yr) %>% unique
   
   ## See Examples section of help(predict.gam)
   Xp <- predict(mod, newdata = fillData, type = "lpmatrix")
   coefs <- coef(mod)
-  A <- kronecker(diag(numYears), matrix(rep(1/numDays, numDays), nrow = 1))
+  A <- kronecker(diag(length(yr)), matrix(rep(1/numDays, numDays), nrow = 1))
   Xs <- A %*% Xp
   means <- as.numeric(Xs %*% coefs)
   ses <- sqrt(diag(Xs %*% mod$Vp %*% t(Xs)))

@@ -47,13 +47,4 @@ mod <- anlz_gam(tomod, trans = 'log10')
 show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
 }
-\seealso{
-Other show: 
-\code{\link{show_avgseason}()},
-\code{\link{show_perchg}()},
-\code{\link{show_prd3d}()},
-\code{\link{show_prddoy}()},
-\code{\link{show_prdseason}()},
-\code{\link{show_prdseries}()}
-}
 \concept{show}
