@@ -29,13 +29,6 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' anlz_metseason(mod, mean, doystr = 90, doyend = 180, nsim = 100)
 anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 1e4, ...) {
-  
-  # gam model data
-  gamdat <- mod$model %>% 
-    dplyr::mutate(
-      date = lubridate::date_decimal(cont_year), 
-      date = as.Date(date)
-    )
 
   # transformation
   trans <- mod$trans
@@ -43,22 +36,8 @@ anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 
   # number of days in seasonal window
   numDays <- doyend - doystr + 1
   
-  # prep prediction data
-  dtrng <- range(gamdat$date, na.rm = T)
-  fillData <- data.frame(date = seq.Date(dtrng[1], dtrng[2], by = 'day')) %>% 
-    dplyr::mutate(
-      yr = lubridate::year(date), 
-      doy = lubridate::yday(date),
-      cont_year = lubridate::decimal_date(date)
-    ) %>% 
-    dplyr::filter(doy >= doystr & doy <= doyend) %>% 
-    dplyr::group_by(yr) %>% 
-    dplyr::mutate(
-      dayCounts = n()
-    ) %>% 
-    dplyr::ungroup() %>% 
-    dplyr::filter(dayCounts == numDays) %>% 
-    dplyr::select(-dayCounts)
+  # prediction matrix
+  fillData <- anlz_prdmatrix(mod, doystr = doystr, doyend = doyend)
   
   # basis function coefficients and var/cov matrix (uncertainty of coefs)
   gamcoefs <- coef(mod)

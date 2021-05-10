@@ -23,35 +23,14 @@
 #' anlz_avgseason(mod, doystr = 90, doyend = 180)
 anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
 
-  # gam model data
-  gamdat <- mod$model %>% 
-    dplyr::mutate(
-      date = lubridate::date_decimal(cont_year), 
-      date = as.Date(date)
-    )
-  
   # transformation
   trans <- mod$trans
 
   # number of days in seasonal window
   numDays <- doyend - doystr + 1
-  
-  # prep prediction data
-  dtrng <- range(gamdat$date, na.rm = T)
-  fillData <- data.frame(date = seq.Date(dtrng[1], dtrng[2], by = 'day')) %>% 
-    dplyr::mutate(
-      yr = lubridate::year(date), 
-      doy = lubridate::yday(date),
-      cont_year = lubridate::decimal_date(date)
-    ) %>% 
-    dplyr::filter(doy >= doystr & doy <= doyend) %>% 
-    dplyr::group_by(yr) %>% 
-    dplyr::mutate(
-      dayCounts = n()
-    ) %>% 
-    dplyr::ungroup() %>% 
-    dplyr::filter(dayCounts == numDays) %>% 
-    dplyr::select(-dayCounts)
+    
+  # prediction matrix
+  fillData <- anlz_prdmatrix(mod, doystr = doystr, doyend = doyend)
 
   # yr vector
   yr <- fillData %>% dplyr::pull(yr) %>% unique
