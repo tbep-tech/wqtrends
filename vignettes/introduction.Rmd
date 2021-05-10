@@ -37,13 +37,13 @@ The data are pre-processed to work with the GAM fitting functions included in th
 head(rawdat)
 ```
 
-One GAM model can be fit to the time series data. Each GAM fits additive smoothing functions to describe variation of the response variable (`value`) over time, where time is measured as an annual and seasonal effect.  The four models describe the time components differently and represent increasing levels of complexity to describe the response variable:
+One GAM model can be fit to the time series data. Each GAM fits additive smoothing functions to describe variation of the response variable (`value`) over time, where time is measured as a continuous number.  The basic GAM used by this package is as follows:
 
 * `S`: value ~ s(year, k = *large*)
 
-The `cont_year` vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and `doy` is the day of year as a numeric value from 1 to 366.  The function `s()` models `cont_year` as a smoothed, non-linear variable. The optimal amount of smoothing on `cont_year` is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for `k` should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of `k` was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
+The `cont_year` vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.).  The function `s()` models `cont_year` as a smoothed, non-linear variable. The optimal amount of smoothing on `cont_year` is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for `k` should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of `k` was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
 
-The `anlz_gam()` function is used to fit the model.  First, the raw data are filtered to select only station 32 and the chlorophyll parameter.  The model is fit using a log-10 transformation of the response variable.  Available transformation options are log10 (`log10`) or identity (`ident`). 
+The `anlz_gam()` function is used to fit the model.  First, the raw data are filtered to select only station 34 and the chlorophyll parameter.  The model is fit using a log-10 transformation of the response variable.  Available transformation options are log10 (`log10`) or identity (`ident`). 
 
 ```{r}
 tomod <- rawdat %>%
@@ -53,9 +53,9 @@ mod <- anlz_gam(tomod, trans = "log10")
 mod
 ```
 
-All remaining functions use the model results to assess fit and plot results.
+All remaining functions use the model results to assess fit, calculate seasonal metrics and trends, and plot results.
 
-The fit can be assessed using `anlz_smooth()` and `anlz_fit()`, where the former assesses the individual smoother functions and the latter assesses overall fit. The `anlz_smooth()` results show the individual effects of the modelled components of each model as the effective degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and significance of the component (`p-value`).  The significance of the component is in part based on the difference between `edf` and `Ref.df`.  The `anlz_fit()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate improved model fit.
+The fit can be assessed using `anlz_smooth()` and `anlz_fit()`, where the former assesses the individual smoother functions and the latter assesses overall fit. The `anlz_smooth()` results show the results for the fit to the `cont_year` smoother as the effective degrees of freedom (`edf`), the reference degrees of freedom (`Ref.df`), the test statistic (`F`), and statistical significance (`p-value`).  The significance is in part based on the difference between `edf` and `Ref.df`.  The `anlz_fit()` results show the overall summary of the model as Akaike Information Criterion (`AIC`), the generalized cross-validation score (`GCV`), and the `R2` values.  Lower values for `AIC` and `GCV` and higher values for `R2` indicate better model fit.
 
 ```{r}
 anlz_smooth(mod)
@@ -77,7 +77,7 @@ The `show_prdseries()` function shows predictions for the model across the entir
 show_prdseries(mod, ylab = ylab)
 ```
 
-The `show_prdseason()` function is similar except that the model predictions are grouped by month. This provides a visual depiction of seasonal trends over time.  The trend analysis functions below can be used to statistically test the seasonal changes.
+The `show_prdseason()` function is similar except that the model predictions are grouped by month. This provides a simple visual depiction of changes by month over time.  The trend analysis functions below can be used to statistically test the seasonal changes.
 
 ```{r, fig.height = 4, fig.width = 6}
 show_prdseason(mod, ylab = ylab)
@@ -91,11 +91,11 @@ show_prd3d(mod, ylab = ylab)
 
 # Trend testing
 
-Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" or "tertiary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  Each test includes a plotting method to view the results.
+Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  In particular, significance of changes over time are evaluated using mixed-effect meta-analysis applied to the GAM results to allow for full propagation of uncertainty between methods.  Each test includes a plotting method to view the results.
 
 ## Evalauting changes between time periods
 
-The `anlz_perchg()` and `show_perchg()` functions can be used to compare annual averages between two time periods of interest.  The functions require base and test year inputs that are used for comparison.  More than one year can be entered for the the base and test years, e.g., `baseyr = c(1990, 1992, 1993)` vs. `testyr = c(2014, 2015, 2016)`.  
+The `anlz_perchg()` and `show_perchg()` functions can be used to compare annual averages between two time periods of interest.  The functions require base and test year inputs that are used for comparison.  More than one year can be entered for the base and test years, e.g., `baseyr = c(1990, 1992, 1993)` vs. `testyr = c(2014, 2015, 2016)`.  
 
 ```{r}
 anlz_perchg(mod, baseyr = 2006, testyr = 2017)
@@ -109,25 +109,40 @@ show_perchg(mod, baseyr = 2006, testyr = 2017, ylab = "Chlorophyll-a (ug/L)")
 
 ## Evaluating seasonal changes over time 
 
-The `anlz_avgseason()`, `anlz_mixmeta()`, and `show_metseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages/metrics (`yrstr`, `yrend`).  
+The `anlz_avgseason()`, `anlz_metseason()`, `anlz_mixmeta()`, and `show_metseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed-effects meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages/metrics (`yrstr`, `yrend`).  
 
 The `anlz_avgseason()` estimates the seasonal averages (including standard error) for results from the GAM fit.
 
 ```{r}
 avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
-head(avgseason)
+avgseason
 ```
 
-The `anlz_mixmeta()` function uses results from `anlz_avgseason()` to estimate the trend in the seasonal average over a selected year range. Here, we evaluate the seasonal trend from 2006 to 2017 for the seasonal estimate of the model results above.  
+The `anlz_metseason()` function is a more generic function that can estimate seasonal metrics and their uncertainties for any summary function available in R.  This may include seasonal maxima (`max`), minima (`min`), variance (`var`), or others.  The function uses repeated resampling of the GAM model coefficients to simulate multiple time series as an estimate of uncertainty for the summary parameter.  It is noted that this function will produce results that converge to those for `anlz_avgseason()` if the `mean` summary function is used and the number of simulations is very high.  
+
+The inputs for `anlz_metseason()` are similar as `anlz_avgseason()`, with the addition of the `metfun` and `nsim` arguments to specify the summary function and number of simulations, respectively.  Here we show the estimate for the maximum chlorophyll in each season, using a relatively low number of simulations.  Repeating this function will produce similar but slightly different results because the estimates are stochastic. 
+
+```{r}
+metseason <- anlz_metseason(mod, metfun = max, doystr = 90, doyend = 180, nsim = 100)
+metseason
+```
+
+The `anlz_mixmeta()` function uses results from `anlz_avgseason()` or `anlz_metseason()` to estimate the trend in the seasonal metric over a selected year range. Here, we evaluate the seasonal trend from 2006 to 2017 for the seasonal estimate of the model results above.  
 
 ```{r}
 anlz_mixmeta(avgseason, yrstr = 2006, yrend = 2017)
 ```
 
-The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_avgseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
+The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_avgseason()`, `anlz_metseason()`, and `anlz_mixmeta()` functions are used internally to get the predictions.
 
 ```{r, fig.height = 4, fig.width = 9, echo = T}
 show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
+```
+
+Adding an argument for `metfun` to `show_metseason()` will plot results and trends for a metric other than the average.  Note the use of `nsim` in this example.  In practice, a much higher value should be used (e.g., `nsim = 1e5`)
+
+```{r, fig.height = 4, fig.width = 9, echo = T}
+show_metseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
 The seasonal estimates and mixed-effects meta-analysis regression can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal metric, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_metseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
@@ -142,6 +157,11 @@ head(trndseason)
 The `show_trndseason()` function can be used to plot the results directly, one model at a time. 
 
 ```{r, fig.height = 5, fig.width = 9, echo = T}
-show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr')
+show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, average')
 ```
 
+As before, adding an argument for `metfun` to `show_trndseason()` will plot results and trends for a metric other than the average.  Note the use of `nsim` in this example.  In practice, a much higher value should be used (e.g., `nsim = 1e5`)
+
+```{r, fig.height = 4, fig.width = 9, echo = T}
+show_trndseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, maximum')
+```

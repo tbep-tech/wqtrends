@@ -22,13 +22,13 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
-show_trndseason <- function(mod, doystr = 1, doyend = 364, type = c('log10', 'approx'), justify = c('left', 'right', 'center'), win = 5, ylab) {
+show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4, ...) {
   
   justify <- match.arg(justify)
   type <- match.arg(type)
   
   # get slope trends
-  trndseason <- anlz_trndseason(mod = mod, doystr = doystr, doyend = doyend, justify = justify, win = win) 
+  trndseason <- anlz_trndseason(mod = mod, metfun = metfun, doystr = doystr, doyend = doyend, justify = justify, win = win, nsim = nsim, ...) 
 
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))

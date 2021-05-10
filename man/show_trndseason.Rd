@@ -6,16 +6,21 @@
 \usage{
 show_trndseason(
   mod,
+  metfun = mean,
   doystr = 1,
   doyend = 364,
   type = c("log10", "approx"),
   justify = c("left", "right", "center"),
   win = 5,
-  ylab
+  ylab,
+  nsim = 10000,
+  ...
 )
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
+
+\item{metfun}{function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc}
 
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
@@ -28,6 +33,10 @@ show_trndseason(
 \item{win}{numeric indicating number of years to use for the trend window}
 
 \item{ylab}{chr string for y-axis label}
+
+\item{nsim}{numeric indicating number of random draws for simulating uncertainty}
+
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

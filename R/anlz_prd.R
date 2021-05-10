@@ -39,12 +39,12 @@ anlz_prd <- function(mod) {
   prd <- predict(mod, newdata = prddat, type = 'terms')
   int <- attr(prd, 'constant')
   value <- rowSums(prd) + int
-  annvalue <- rowSums(prd[, !grepl('doy', colnames(prd)), drop = FALSE]) + int
+  # annvalue <- rowSums(prd[, !grepl('doy', colnames(prd)), drop = FALSE]) + int
   
   # get annual trend
   out <- prddat %>% 
     dplyr::mutate(
-      annvalue = annvalue,
+      # annvalue = annvalue,
       value = value, 
       trans = mod$trans
       ) %>% 
