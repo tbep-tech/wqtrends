@@ -27,3 +27,13 @@ test_that("Checking anlz_trndseason, right window", {
   expect_equal(sum(is.na(result)), 0)
   
 })
+
+test_that("Checking anlz_trndseason, max as metfun", {
+  
+  result <- anlz_trndseason(mod, metfun = max, doystr = 90, doyend = 180, justify = 'right', win = 5, nsim = 5) %>% 
+    dplyr::pull(pval) %>% 
+    .[(length(.) - 3):length(.)]
+  
+  expect_equal(sum(is.na(result)), 0)
+  
+})
