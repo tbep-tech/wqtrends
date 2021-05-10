@@ -1,6 +1,6 @@
 test_that("Checking anlz_prdday", {
   
-  result <- anlz_prdmatrix(mod) %>% 
+  result <- anlz_prdday(mod) %>% 
     dplyr::pull(value) %>% 
     .[1:4] %>% 
     round(1)
