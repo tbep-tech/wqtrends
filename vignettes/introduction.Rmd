@@ -162,6 +162,6 @@ show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab 
 
 As before, adding an argument for `metfun` to `show_trndseason()` will plot results and trends for a metric other than the average.  Note the use of `nsim` in this example.  In practice, a much higher value should be used (e.g., `nsim = 1e5`)
 
-```{r, fig.height = 4, fig.width = 9, echo = T}
+```{r, fig.height = 5, fig.width = 9, echo = T}
 show_trndseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, maximum')
 ```
