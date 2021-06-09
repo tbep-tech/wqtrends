@@ -46,7 +46,8 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
   strt <- paste(lubridate::month(dts[1], label = T, abbr = T), lubridate::day(dts[1]))
   ends <- paste(lubridate::month(dts[2], label = T, abbr = T), lubridate::day(dts[2]))
-  ttl <- paste0('Fitted metrics with 95% confidence intervals: ', strt, '-',  ends)
+  func <- as.character(substitute(metfun))
+  ttl <- paste0('Est. ', func, ' with 95% confidence intervals: ', strt, '-',  ends)
 
   # subtitle only if any years missing
   subttl <- NULL
