@@ -27,8 +27,6 @@ Extract period (seasonal) metrics from fitted GAM
 }
 \details{
 This function estimates a metric of interest for a given seasonal period each year using results from a fitted GAM (i.e., from \code{\link{anlz_gam}}).  The estimates are based on the predicted values for each seasonal period, with uncertainty of the metric based on repeated sampling of the predictions following uncertainty in the model coefficients.
-
-This function will converge to identical results provided by \code{\link{anlz_avgseason}} if \code{metfun = mean} and \code{nsim} is very large.
 }
 \examples{
 library(dplyr)

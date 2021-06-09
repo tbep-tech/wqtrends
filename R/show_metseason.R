@@ -2,7 +2,9 @@
 #'
 #' Plot period (seasonal) averages from fitted GAM
 #' 
-#' @inheritParams anlz_avgseason
+#' @param mod input model object as returned by \code{\link{anlz_gam}}
+#' @param doystr numeric indicating start Julian day for extracting averages
+#' @param doyend numeric indicating ending Julian day for extracting averages
 #' @param metfun function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc
 #' @param yrstr numeric for starting year for trend model, see details
 #' @param yrend numeric for ending year for trend model, see details
@@ -33,16 +35,9 @@
 #'      ylab = 'Chlorophyll-a (ug/L)')
 show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, ...) {
   
-  # compare metfun to mean
-  chk <- identical(deparse(metfun), deparse(mean))
-  
-  # use anlz_avgseason if metfun is mean
-  if(chk)
-    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend) 
-  
-  # use anlz_metseason if metfun is not mean
-  if(!chk)
-    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
+
+  # estimate metrics
+  metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
   
   # transformation used
   trans <- mod$trans

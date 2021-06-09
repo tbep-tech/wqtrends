@@ -2,12 +2,14 @@
 #'
 #' Get prediction matrix for a fitted GAM
 #' 
-#' @inheritParams anlz_avgseason
+#' @param mod input model object as returned by \code{\link{anlz_gam}}
+#' @param doystr numeric indicating start Julian day for extracting averages
+#' @param doyend numeric indicating ending Julian day for extracting averages
 #'
 #' @return a \code{data.frame} with predictors to use with the fitted GAM
 #' @export
 #' 
-#' @details Used internally by \code{\link{anlz_avgseason}} and \code{\link{anlz_metseason}}, not to be used by itself
+#' @details Used internally by \code{\link{anlz_metseason}}, not to be used by itself
 #' 
 #' @concept analyze
 #'
@@ -26,10 +28,9 @@ anlz_prdmatrix <- function(mod, doystr = 1, doyend = 364){
   # date range
   dtrng <- range(mod$model$cont_year, na.rm = T) %>% 
     lubridate::date_decimal() %>% 
-    as.Date
-  
-  # number of days in season subset
-  numDays <- doyend - doystr + 1
+    as.Date %>% 
+    lubridate::year(.) 
+  dtrng <- c(as.Date(doystr, origin = paste0(dtrng[1], '-01-01')), as.Date(doyend, origin = paste0(dtrng[2], '-01-01')))
   
   # prediction data, daily time step, subset by doystr, doyend
   fillData <- data.frame(date = seq.Date(dtrng[1], dtrng[2], by = 'day')) %>% 
@@ -38,14 +39,7 @@ anlz_prdmatrix <- function(mod, doystr = 1, doyend = 364){
       doy = lubridate::yday(date),
       cont_year = lubridate::decimal_date(date)
     ) %>% 
-    dplyr::filter(doy >= doystr & doy <= doyend) %>% 
-    dplyr::group_by(yr) %>% 
-    dplyr::mutate(
-      dayCounts = dplyr::n()
-    ) %>% 
-    dplyr::ungroup() %>% 
-    dplyr::filter(dayCounts == numDays) %>% 
-    dplyr::select(-dayCounts)
+    dplyr::filter(doy >= doystr & doy <= doyend)
   
   out <- fillData
   

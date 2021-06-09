@@ -127,13 +127,13 @@ metseason <- anlz_metseason(mod, metfun = max, doystr = 90, doyend = 180, nsim =
 metseason
 ```
 
-The `anlz_mixmeta()` function uses results from `anlz_avgseason()` or `anlz_metseason()` to estimate the trend in the seasonal metric over a selected year range. Here, we evaluate the seasonal trend from 2006 to 2017 for the seasonal estimate of the model results above.  
+The `anlz_mixmeta()` function uses results from the `anlz_metseason()` to estimate the trend in the seasonal metric over a selected year range. Here, we evaluate the seasonal trend from 2006 to 2017 for the seasonal estimate of the model results above.  
 
 ```{r}
-anlz_mixmeta(avgseason, yrstr = 2006, yrend = 2017)
+anlz_mixmeta(metseason, yrstr = 2006, yrend = 2017)
 ```
 
-The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_avgseason()`, `anlz_metseason()`, and `anlz_mixmeta()` functions are used internally to get the predictions.
+The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_metseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
 
 ```{r, fig.height = 4, fig.width = 9, echo = T}
 show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
@@ -147,7 +147,7 @@ show_metseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, yrstr =
 
 The seasonal estimates and mixed-effects meta-analysis regression can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal metric, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_metseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
 
-The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_avgseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
+The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_metseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
 
 ```{r}
 trndseason <- anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5)

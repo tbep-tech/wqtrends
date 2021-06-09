@@ -14,8 +14,6 @@
 #' 
 #' @details This function estimates a metric of interest for a given seasonal period each year using results from a fitted GAM (i.e., from \code{\link{anlz_gam}}).  The estimates are based on the predicted values for each seasonal period, with uncertainty of the metric based on repeated sampling of the predictions following uncertainty in the model coefficients.
 #'
-#' This function will converge to identical results provided by \code{\link{anlz_avgseason}} if \code{metfun = mean} and \code{nsim} is very large.
-#' 
 #' @concept analyze
 #' 
 #' @examples
@@ -70,7 +68,7 @@ anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 
     dplyr::select(-data) %>% 
     dplyr::ungroup() %>% 
     tidyr::unnest('met')
-  
+
   # backtransform, add lwr/upr confidence intervals
   dispersion <- summary(mod)$dispersion
   

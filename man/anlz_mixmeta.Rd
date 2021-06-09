@@ -7,7 +7,7 @@
 anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
 }
 \arguments{
-\item{metseason}{output from \code{\link{anlz_avgseason}} or \code{\link{anlz_metseason}}}
+\item{metseason}{output from \code{\link{anlz_metseason}}}
 
 \item{yrstr}{numeric for starting year}
 
@@ -31,7 +31,7 @@ tomod <- rawdat \%>\%
   filter(param \%in\% 'chl')
 
 mod <- anlz_gam(tomod, trans = 'log10')
-metseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
+metseason <- anlz_metseason(mod, doystr = 90, doyend = 180)
 anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
 }
 \concept{analyze}

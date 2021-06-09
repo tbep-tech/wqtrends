@@ -2,7 +2,7 @@
 #' 
 #' Fit a mixed meta-analysis regression model of trends
 #' 
-#' @param metseason output from \code{\link{anlz_avgseason}} or \code{\link{anlz_metseason}}
+#' @param metseason output from \code{\link{anlz_metseason}}
 #' @param yrstr numeric for starting year
 #' @param yrend numeric for ending year
 #'
@@ -22,7 +22,7 @@
 #'   filter(param %in% 'chl')
 #' 
 #' mod <- anlz_gam(tomod, trans = 'log10')
-#' metseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
+#' metseason <- anlz_metseason(mod, doystr = 90, doyend = 180)
 #' anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
 anlz_mixmeta <- function(metseason, yrstr = 2000, yrend = 2019){
 

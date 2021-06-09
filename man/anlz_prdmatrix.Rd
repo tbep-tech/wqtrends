@@ -20,7 +20,7 @@ a \code{data.frame} with predictors to use with the fitted GAM
 Get prediction matrix for a fitted GAM
 }
 \details{
-Used internally by \code{\link{anlz_avgseason}} and \code{\link{anlz_metseason}}, not to be used by itself
+Used internally by \code{\link{anlz_metseason}}, not to be used by itself
 }
 \examples{
 library(dplyr)
