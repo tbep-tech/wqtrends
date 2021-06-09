@@ -4,14 +4,18 @@
 #' 
 #' @inheritParams anlz_avgseason
 #' @param metfun function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc
-#' @param yrstr numeric for starting year for trend model
-#' @param yrend numeric for ending year for trend model
+#' @param yrstr numeric for starting year for trend model, see details
+#' @param yrend numeric for ending year for trend model, see details
 #' @param ylab chr string for y-axis label
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
+#' 
+#' @details 
+#' 
+#' Setting \code{yrstr} or \code{yrend} to \code{NULL} will suppress plotting of the trend line for the meta-analysis regression model.
 #' 
 #' @concept show
 #'
@@ -42,9 +46,6 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   
   # transformation used
   trans <- mod$trans
-  
-  # get mixmeta models
-  mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend)
 
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
@@ -52,69 +53,84 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   ends <- paste(lubridate::month(dts[2], label = T, abbr = T), lubridate::day(dts[2]))
   ttl <- paste0('Fitted metrics with 95% confidence intervals: ', strt, '-',  ends)
 
+  # subtitle only if any years missing
+  subttl <- NULL
+  
   # plot objects
   toplo1 <- metseason
   
-  toplo2 <- data.frame(
-    yr = seq(yrstr, yrend, length = 50)
-    ) %>% 
-    dplyr::mutate( 
-      met = predict(mixmet, newdata = data.frame(yr = yr)), 
-      se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2], 
-      bt_lwr = met - 1.96 * se,
-      bt_upr = met + 1.96 * se,
-      bt_met = met
+  # plot output
+  p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_met)) + 
+    ggplot2::geom_point(colour = 'deepskyblue3') +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3') +
+    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme(
+      axis.title.x = ggplot2::element_blank()
     )
   
-  # subtitle info
-  pval <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4] %>% anlz_pvalformat()
-  
-  # backtransform if log10
-  if(mod$trans == 'log10'){
+  # get mixmeta models and plotting results
+  if(!any(is.null(yrstr) | is.null(yrend))){
     
-    dispersion <- summary(mod)$dispersion
+    # get mixmeta models
+    mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend)
   
-    # backtransform mixmeta predictions
     toplo2 <- data.frame(
       yr = seq(yrstr, yrend, length = 50)
       ) %>% 
       dplyr::mutate( 
         met = predict(mixmet, newdata = data.frame(yr = yr)), 
         se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2], 
-        bt_lwr = 10^((met - 1.96 * se) + log(10) * dispersion / 2),
-        bt_upr = 10^((met + 1.96 * se) + log(10) * dispersion / 2),
-        bt_met = 10^(met + log(10) * dispersion / 2)
+        bt_lwr = met - 1.96 * se,
+        bt_upr = met + 1.96 * se,
+        bt_met = met
       )
+  
+    # subtitle info
+    pval <- coefficients(summary(mixmet)) %>% data.frame %>% .[2, 4] %>% anlz_pvalformat()
     
-    # for subtitle
-    slope <- lm(bt_met ~ yr, toplo2) %>% summary %>% coefficients %>% .[2, 1]
-    slope <- round(slope, 2)
-    logslope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
-    logslope <- round(logslope, 2)
-    logslope <- paste0(logslope[1], ' (', logslope[2], ', ', logslope[3], ')')
-    subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': approximate slope ', slope, ', log-slope ', logslope, ', ', pval)
+    # backtransform if log10
+    if(mod$trans == 'log10'){
+      
+      dispersion <- summary(mod)$dispersion
+    
+      # backtransform mixmeta predictions
+      toplo2 <- data.frame(
+        yr = seq(yrstr, yrend, length = 50)
+        ) %>% 
+        dplyr::mutate( 
+          met = predict(mixmet, newdata = data.frame(yr = yr)), 
+          se = predict(mixmet, newdata = data.frame(yr = yr), se = T)[, 2], 
+          bt_lwr = 10^((met - 1.96 * se) + log(10) * dispersion / 2),
+          bt_upr = 10^((met + 1.96 * se) + log(10) * dispersion / 2),
+          bt_met = 10^(met + log(10) * dispersion / 2)
+        )
+      
+      # for subtitle
+      slope <- lm(bt_met ~ yr, toplo2) %>% summary %>% coefficients %>% .[2, 1]
+      slope <- round(slope, 2)
+      logslope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
+      logslope <- round(logslope, 2)
+      logslope <- paste0(logslope[1], ' (', logslope[2], ', ', logslope[3], ')')
+      subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': approximate slope ', slope, ', log-slope ', logslope, ', ', pval)
+      
+    }
+    
+    if(mod$trans == 'ident'){
+      
+      slope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
+      slope <- round(slope, 2)
+      slope <- paste0(slope[1], ' (', slope[2], ', ', slope[3], ')')
+      subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': slope ', slope, ', ', pval)
+      
+    }
+
+    p <- p +
+      ggplot2::geom_ribbon(data = toplo2, ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), fill = 'pink', alpha = 0.4) +
+      ggplot2::geom_line(data = toplo2, color = 'pink')
     
   }
   
-  if(mod$trans == 'ident'){
-    
-    slope <- summary(mixmet)$coefficients[2, c(1, 5, 6)]
-    slope <- round(slope, 2)
-    slope <- paste0(slope[1], ' (', slope[2], ', ', slope[3], ')')
-    subttl <- paste0('Trend from ', yrstr, ' to ', yrend, ': slope ', slope, ', ', pval)
-    
-  }
-
-  # plot output
-  p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_met)) + 
-    ggplot2::geom_point(colour = 'deepskyblue3') +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3') +
-    ggplot2::geom_ribbon(data = toplo2, ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), fill = 'pink', alpha = 0.4) +
-    ggplot2::geom_line(data = toplo2, color = 'pink') +
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
-    ggplot2::theme(
-      axis.title.x = ggplot2::element_blank()
-    ) +
+  p <- p + 
     ggplot2::labs(
       title = ttl, 
       subtitle = subttl, 

@@ -21,3 +21,11 @@ test_that("Checking show_metseason class, max as metfun", {
   expect_is(result, 'ggplot')
   
 })
+
+test_that("Checking show_metseason class, yrstr or yrend as NULL", {
+  
+  result <- show_metseason(modident, metfun = max, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, ylab = 'Chlorophyll-a (ug/L)', nsim = 5)
+  
+  expect_is(result, 'ggplot')
+  
+})
