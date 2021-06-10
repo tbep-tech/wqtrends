@@ -109,18 +109,11 @@ show_perchg(mod, baseyr = 2006, testyr = 2017, ylab = "Chlorophyll-a (ug/L)")
 
 ## Evaluating seasonal changes over time 
 
-The `anlz_avgseason()`, `anlz_metseason()`, `anlz_mixmeta()`, and `show_metseason()` functions evaluate seasonal averages between years, including an assessment of the trend for selected years using mixed-effects meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages/metrics (`yrstr`, `yrend`).  
+The `anlz_metseason()`, `anlz_mixmeta()`, and `show_metseason()` functions evaluate seasonal metrics (e.g., mean, max, etc.) between years, including an assessment of the trend for selected years using mixed-effects meta-analysis modelling.  These functions require inputs for the seasonal ranges to evaluate (`doyend`, `doystr`) and years for assessing the trend in the seasonal averages/metrics (`yrstr`, `yrend`).  
 
-The `anlz_avgseason()` estimates the seasonal averages (including standard error) for results from the GAM fit.
+The `anlz_metseason()` function estimates the seasonal metrics (including uncertainty as standard error) for results from the GAM fit.  The seasonal metric can be any summary function available in R, such as seasonal maxima (`max`), minima (`min`), variance (`var`), or others.  The function uses repeated resampling of the GAM model coefficients to simulate multiple time series as an estimate of uncertainty for the summary parameter.  
 
-```{r}
-avgseason <- anlz_avgseason(mod, doystr = 90, doyend = 180)
-avgseason
-```
-
-The `anlz_metseason()` function is a more generic function that can estimate seasonal metrics and their uncertainties for any summary function available in R.  This may include seasonal maxima (`max`), minima (`min`), variance (`var`), or others.  The function uses repeated resampling of the GAM model coefficients to simulate multiple time series as an estimate of uncertainty for the summary parameter.  It is noted that this function will produce results that converge to those for `anlz_avgseason()` if the `mean` summary function is used and the number of simulations is very high.  
-
-The inputs for `anlz_metseason()` are similar as `anlz_avgseason()`, with the addition of the `metfun` and `nsim` arguments to specify the summary function and number of simulations, respectively.  Here we show the estimate for the maximum chlorophyll in each season, using a relatively low number of simulations.  Repeating this function will produce similar but slightly different results because the estimates are stochastic. 
+The inputs for `anlz_metseason()` include the seasonal range as day of year using start (`doystr`) and end (`doyend`) days and the `metfun` and `nsim` arguments to specify the summary function and number of simulations, respectively.  Here we show the estimate for the maximum chlorophyll in each season, using a relatively low number of simulations.  Repeating this function will produce similar but slightly different results because the estimates are stochastic. In practice, a large value for `nsim` should be used to produce accurate results (e.g., `nsim = 1e5`).
 
 ```{r}
 metseason <- anlz_metseason(mod, metfun = max, doystr = 90, doyend = 180, nsim = 100)
@@ -133,7 +126,7 @@ The `anlz_mixmeta()` function uses results from the `anlz_metseason()` to estima
 anlz_mixmeta(metseason, yrstr = 2006, yrend = 2017)
 ```
 
-The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_metseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.
+The `show_metseason()` function plots the seasonal metrics and trends over time. The `anlz_metseason()` and `anlz_mixmeta()` functions are used internally to get the predictions.  The same arguments for these functions are used for `show_metseason`, with the mean as the default metric.
 
 ```{r, fig.height = 4, fig.width = 9, echo = T}
 show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
