@@ -124,7 +124,7 @@
     <p>Get predicted data from fitted GAMs across period of observation</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_prd</span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>anlz_prd</span><span class='op'>(</span><span class='va'>mod</span>, annual <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,6 +132,10 @@
     <tr>
       <th>mod</th>
       <td><p>input model object as returned by <code><a href='anlz_gam.html'>anlz_gam</a></code></p></td>
+    </tr>
+    <tr>
+      <th>annual</th>
+      <td><p>logical indicating if predictions only for the <code>cont_year</code> smoother are returned</p></td>
     </tr>
     </table>
 
