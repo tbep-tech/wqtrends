@@ -4,10 +4,12 @@
 \alias{anlz_prd}
 \title{Get predicted data from fitted GAMs across period of observation}
 \usage{
-anlz_prd(mod)
+anlz_prd(mod, annual = FALSE)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
+
+\item{annual}{logical indicating if predictions only for the \code{cont_year} smoother are returned}
 }
 \value{
 a \code{data.frame} with predictions
