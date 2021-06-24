@@ -1,10 +1,11 @@
 ---
-title: "Introduction"
+title: "Introduction to wqtrends"
 author: "Marcus Beck"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
     toc: true
+bibliography: refs.bib 
 vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
@@ -25,7 +26,7 @@ library(plotly)
 library(english)
 ```
 
-This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models and mixed-effects meta-analysis.
+This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models and mixed-effects meta-analysis [@Wood17; @Sera19].  These models are appropriate for data typically collected for surface water quality monitoring programs at roughly monthly or biweekly collection intervals, covering at least a decade of observations [e.g., @Cloern16].  Daily or continuous monitoring data are not appropriate for these methods, due to computational limitations and a goal of the analysis to estimate long-term, continuous trends from irregular or discontinuous sampling.    
 
 # Basic usage
 
@@ -41,7 +42,7 @@ One GAM model can be fit to the time series data. Each GAM fits additive smoothi
 
 * `S`: value ~ s(year, k = *large*)
 
-The `cont_year` vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.).  The function `s()` models `cont_year` as a smoothed, non-linear variable. The optimal amount of smoothing on `cont_year` is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for `k` should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of `k` was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
+The `cont_year` vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.).  The function `s()` models `cont_year` as a smoothed, non-linear variable. The optimal amount of smoothing on `cont_year` is determined by cross-validation as implemented in the mgcv package [@Wood17] and an upper theoretical upper limit on the number of knots for `k` should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of `k` was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
 
 The `anlz_gam()` function is used to fit the model.  First, the raw data are filtered to select only station 34 and the chlorophyll parameter.  The model is fit using a log-10 transformation of the response variable.  Available transformation options are log10 (`log10`) or identity (`ident`). 
 
@@ -91,7 +92,7 @@ show_prd3d(mod, ylab = ylab)
 
 # Trend testing
 
-Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  In particular, significance of changes over time are evaluated using mixed-effect meta-analysis applied to the GAM results to allow for full propagation of uncertainty between methods.  Each test includes a plotting method to view the results.
+Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  In particular, significance of changes over time are evaluated using mixed-effect meta-analysis [@Sera19] applied to the GAM results to allow for full propagation of uncertainty between methods.  Each test includes a plotting method to view the results.
 
 ## Evalauting changes between time periods
 
@@ -158,3 +159,5 @@ As before, adding an argument for `metfun` to `show_trndseason()` will plot resu
 ```{r, fig.height = 5, fig.width = 9, echo = T}
 show_trndseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, maximum')
 ```
+
+# References
