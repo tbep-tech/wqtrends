@@ -26,7 +26,7 @@ library(plotly)
 library(english)
 ```
 
-This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models and mixed-effects meta-analysis [@Wood17; @Sera19].  These models are appropriate for data typically collected for surface water quality monitoring programs at roughly monthly or biweekly collection intervals, covering at least a decade of observations [e.g., @Cloern16].  Daily or continuous monitoring data are not appropriate for these methods, due to computational limitations and a goal of the analysis to estimate long-term, continuous trends from irregular or discontinuous sampling.    
+This package can be used to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models and mixed-effects meta-analysis [@Wood17; @Sera19].  These models are appropriate for data typically from surface water quality monitoring programs at roughly monthly or biweekly collection intervals, covering at least a decade of observations [e.g., @Cloern16].  Daily or continuous monitoring data covering many years are not appropriate for these methods, due to computational limitations and a goal of the analysis to estimate long-term, continuous trends from irregular or discontinuous sampling.    
 
 # Basic usage
 
