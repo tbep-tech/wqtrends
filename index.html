@@ -81,9 +81,18 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The package can be installed from GitHub.</p>
-<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('devtools')
-devtools::install_github('tbep-tech/wqtrends')</a></code></pre>
+<p>The package can be installed from <a href="https://tbep-tech.r-universe.dev/ui#builds">r-universe</a>. The source code is available on <a href="https://github.com/tbep-tech/wqtrends">GitHub</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># enable repos</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    tbeptech <span class="op">=</span> <span class="st">'https://tbep-tech.r-universe.dev'</span>,
+    CRAN <span class="op">=</span> <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># install wqtrends</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'wqtrends'</span><span class="op">)</span>
+
+<span class="co"># load wqtrends</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">wqtrends</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="issues-and-suggestions" class="section level1">
