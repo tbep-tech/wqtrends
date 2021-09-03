@@ -8,6 +8,10 @@
 
 R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models.  Builds extensively off of concepts in the [baytrends](https://cran.r-project.org/web/packages/baytrends/index.html) R package developed by the Chesapeake Bay Program.
 
+Detailed information on the methods used in this package are described in the following open access article:
+
+*Beck, M.W., de Valpine, P., Murphy, R., Wren, I., Chelsky, A., Foley, M., Senn, D.B. 2022. Multi-scale trend analysis of water quality using error propagation of Generalized Additive Models. Science of the Total Environment. 802:149927. [https://doi.org/10.1016/j.scitotenv.2021.149927](https://doi.org/10.1016/j.scitotenv.2021.149927)*
+
 ## Installation
 
 The package can be installed from [r-universe](https://tbep-tech.r-universe.dev/ui#builds).  The source code is available on [GitHub](https://github.com/tbep-tech/wqtrends).

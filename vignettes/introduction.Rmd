@@ -94,7 +94,7 @@ show_prd3d(mod, ylab = ylab)
 
 Statistical tests for evaluating trends are available in this package. These methods are considered "secondary" analyses that use results from a fitted GAM to evaluate trends or changes over time.  In particular, significance of changes over time are evaluated using mixed-effect meta-analysis [@Sera19] applied to the GAM results to allow for full propagation of uncertainty between methods.  Each test includes a plotting method to view the results.
 
-## Evalauting changes between time periods
+## Evaluating changes between time periods
 
 The `anlz_perchg()` and `show_perchg()` functions can be used to compare annual averages between two time periods of interest.  The functions require base and test year inputs that are used for comparison.  More than one year can be entered for the base and test years, e.g., `baseyr = c(1990, 1992, 1993)` vs. `testyr = c(2014, 2015, 2016)`.  
 
