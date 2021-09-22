@@ -42,8 +42,8 @@ Authors@R: c(
       comment = c(ORCID = "0000-0002-4869-3550")
     )
   )
-Description: Assess water quality trends for long-term monitoring data in estuaries 
-  using Generalized Additive Models.
+Description: Assess Water Quality Trends for Long-Term Monitoring Data in Estuaries 
+  using Generalized Additive Models and Error Propagation with Mixed-Effects Meta-Analysis
 Depends: 
   R (>= 3.5)
 Imports:

@@ -6,9 +6,7 @@
 [![Codecov test coverage](https://codecov.io/gh/tbep-tech/wqtrends/branch/master/graph/badge.svg)](https://codecov.io/gh/tbep-tech/wqtrends?branch=master)
 [![DOI](https://zenodo.org/badge/239808241.svg)](https://zenodo.org/badge/latestdoi/239808241)
 
-R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models.  Builds extensively off of concepts in the [baytrends](https://cran.r-project.org/web/packages/baytrends/index.html) R package developed by the Chesapeake Bay Program.
-
-Detailed information on the methods used in this package are described in the following open access article:
+R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models with error propagation from mixed-effect meta-analysis. Uses concepts in the [mgcv](https://cran.r-project.org/web/packages/mgcv/index.html) and [mixmeta](https://cran.r-project.org/web/packages/mixmeta/index.html) packages. Detailed information on the methods used in this package are described in the following open access article:
 
 *Beck, M.W., de Valpine, P., Murphy, R., Wren, I., Chelsky, A., Foley, M., Senn, D.B. 2022. Multi-scale trend analysis of water quality using error propagation of Generalized Additive Models. Science of the Total Environment. 802:149927. [https://doi.org/10.1016/j.scitotenv.2021.149927](https://doi.org/10.1016/j.scitotenv.2021.149927)*
 
