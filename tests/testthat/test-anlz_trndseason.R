@@ -14,7 +14,7 @@ test_that("Checking anlz_trndseason, center window", {
     dplyr::pull(pval) %>% 
     .[(length(.) - 3):length(.)]
   
-  expect_equal(sum(is.na(result)), 1)
+  expect_equal(sum(is.na(result)), 2)
   
 })
 
