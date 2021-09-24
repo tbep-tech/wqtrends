@@ -26,7 +26,7 @@ anlz_trndseason(
 
 \item{justify}{chr string indicating the justification for the trend window}
 
-\item{win}{numeric indicating number of years to use for the trend window}
+\item{win}{numeric indicating number of years to use for the trend window, see details}
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
@@ -41,7 +41,7 @@ Estimate seasonal rates of change based on average estimates
 \details{
 Trends are based on the slope of the fitted linear trend within the window, where the linear trend is estimated using a meta-analysis regression model (from \code{\link{anlz_mixmeta}}) for the seasonal metrics (from \code{\link{anlz_metseason}}).
 
-Note that for left and right windows, the exact number of years in \code{win} is used. For example, a left-centered window for 1990 of ten years will include exactly ten years from 1990, 1991, ... , 1999.  The same applies to a right-centered window, e.g., for 1990 it would include 1981, 1982, ..., 1990 (if those years have data). However, for a centered window, picking an even number of years will always have an extra year to center the window exactly, e.g., a ten year window for 1990 will include eleven years from 1985 to 1995 so there is the same number of years to the left and right of center. A centered window with an odd number of years will always be centered and includes the exact number of years used in \code{win}.
+Note that for left and right windows, the exact number of years in \code{win} is used. For example, a left-centered window for 1990 of ten years will include exactly ten years from 1990, 1991, ... , 1999.  The same applies to a right-centered window, e.g., for 1990 it would include 1981, 1982, ..., 1990 (if those years have data). However, for a centered window, picking an odd number of years for the window width will create a slightly off-centered window because it is impossible to center on an odd number of years.  For example, if \code{win = 9} and \code{justify = 'center'}, the estimate for 2000 will be centered on 1995 to 2004 (five years left, four years right). Centering for window widths with an even number of years will always create a symmetrical window.
 }
 \examples{
 library(dplyr)

@@ -30,7 +30,7 @@ show_trndseason(
 
 \item{justify}{chr string indicating the justification for the trend window}
 
-\item{win}{numeric indicating number of years to use for the trend window}
+\item{win}{numeric indicating number of years to use for the trend window, see details}
 
 \item{ylab}{chr string for y-axis label}
 
