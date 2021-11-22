@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate seasonal rates of change based on average estimates — anlz_trndseason • wqtrends</title>
+<title>Estimate seasonal rates of change based on average estimates for multiple window widths — anlz_sumtrndseason • wqtrends</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Estimate seasonal rates of change based on average estimates — anlz_trndseason" />
-<meta property="og:description" content="Estimate seasonal rates of change based on average estimates" />
+<meta property="og:title" content="Estimate seasonal rates of change based on average estimates for multiple window widths — anlz_sumtrndseason" />
+<meta property="og:description" content="Estimate seasonal rates of change based on average estimates for multiple window widths" />
 
 
 
@@ -115,25 +115,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate seasonal rates of change based on average estimates</h1>
+    <h1>Estimate seasonal rates of change based on average estimates for multiple window widths</h1>
     
-    <div class="hidden name"><code>anlz_trndseason.Rd</code></div>
+    <div class="hidden name"><code>anlz_sumtrndseason.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Estimate seasonal rates of change based on average estimates</p>
+    <p>Estimate seasonal rates of change based on average estimates for multiple window widths</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anlz_trndseason</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>anlz_sumtrndseason</span><span class='op'>(</span>
   <span class='va'>mod</span>,
-  metfun <span class='op'>=</span> <span class='va'>mean</span>,
   doystr <span class='op'>=</span> <span class='fl'>1</span>,
   doyend <span class='op'>=</span> <span class='fl'>364</span>,
   justify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"center"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span><span class='op'>)</span>,
-  win <span class='op'>=</span> <span class='fl'>5</span>,
-  nsim <span class='op'>=</span> <span class='fl'>10000</span>,
-  useave <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>...</span>
+  win <span class='op'>=</span> <span class='fl'>5</span><span class='op'>:</span><span class='fl'>15</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -142,10 +138,6 @@
     <tr>
       <th>mod</th>
       <td><p>input model object as returned by <code><a href='anlz_gam.html'>anlz_gam</a></code></p></td>
-    </tr>
-    <tr>
-      <th>metfun</th>
-      <td><p>function input for metric to calculate, e.g., <code>mean</code>, <code>var</code>, <code>max</code>, etc</p></td>
     </tr>
     <tr>
       <th>doystr</th>
@@ -161,19 +153,7 @@
     </tr>
     <tr>
       <th>win</th>
-      <td><p>numeric indicating number of years to use for the trend window, see details</p></td>
-    </tr>
-    <tr>
-      <th>nsim</th>
-      <td><p>numeric indicating number of random draws for simulating uncertainty</p></td>
-    </tr>
-    <tr>
-      <th>useave</th>
-      <td><p>logical indicating if <code>anlz_avgseason</code> is used for the seasonal metric calculation</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments passed to <code>metfun</code>, e.g., <code>na.rm = TRUE)</code></p></td>
+      <td><p>numeric vector indicating number of years to use for the trend window</p></td>
     </tr>
     </table>
 
@@ -182,13 +162,12 @@
     <p>A data frame of slope estimates and p-values for each year</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Trends are based on the slope of the fitted linear trend within the window, where the linear trend is estimated using a meta-analysis regression model (from <code><a href='anlz_mixmeta.html'>anlz_mixmeta</a></code>) for the seasonal metrics (from <code><a href='anlz_metseason.html'>anlz_metseason</a></code>).</p>
-<p>Note that for left and right windows, the exact number of years in <code>win</code> is used. For example, a left-centered window for 1990 of ten years will include exactly ten years from 1990, 1991, ... , 1999.  The same applies to a right-centered window, e.g., for 1990 it would include 1981, 1982, ..., 1990 (if those years have data). However, for a centered window, picking an odd number of years for the window width will create a slightly off-centered window because it is impossible to center on an odd number of years.  For example, if <code>win = 9</code> and <code>justify = 'center'</code>, the estimate for 2000 will be centered on 1995 to 2004 (five years left, four years right). Centering for window widths with an even number of years will always create a symmetrical window.</p>
+    <p>This function is a wrapper to <code><a href='anlz_trndseason.html'>anlz_trndseason</a></code> to loop across values in <code>win</code>, using <code>useave = TRUE</code> for quicker calculation of average seasonal metrics.  It does not work with any other seasonal metric calculations.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other analyze: 
-<code><a href='anlz_sumtrndseason.html'>anlz_sumtrndseason</a>()</code>,
-<code><a href='anlz_trans.html'>anlz_trans</a>()</code></p></div>
+<code><a href='anlz_trans.html'>anlz_trans</a>()</code>,
+<code><a href='anlz_trndseason.html'>anlz_trndseason</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
@@ -199,21 +178,21 @@
 <span class='r-in'>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>param</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='st'>'chl'</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='anlz_gam.html'>anlz_gam</a></span><span class='op'>(</span><span class='va'>tomod</span>, trans <span class='op'>=</span> <span class='st'>'log10'</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>anlz_trndseason</span><span class='op'>(</span><span class='va'>mod</span>, doystr <span class='op'>=</span> <span class='fl'>90</span>, doyend <span class='op'>=</span> <span class='fl'>180</span>, justify <span class='op'>=</span> <span class='st'>'center'</span>, win <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 29 × 11</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>       yr   met     se bt_lwr bt_upr bt_met    yrcoef      pval appr_yrcoef</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>1</span>991 0.113 0.531   0.133  16.0    1.46 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>            <span style='color: #BB0000;'>NA</span>    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>1</span>992 0.684 0.065<span style='text-decoration: underline;'>7</span>  4.02    7.28   5.41 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>            <span style='color: #BB0000;'>NA</span>    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>1</span>993 0.689 0.097<span style='text-decoration: underline;'>0</span>  3.54    8.49   5.48 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>            <span style='color: #BB0000;'>NA</span>    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>1</span>994 0.790 0.085<span style='text-decoration: underline;'>8</span>  4.69   10.2    6.91 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>            <span style='color: #BB0000;'>NA</span>    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>1</span>995 0.728 0.080<span style='text-decoration: underline;'>9</span>  4.16    8.63   5.99   0.061<span style='text-decoration: underline;'>9</span>    0.005<span style='text-decoration: underline;'>41</span>       1.15 </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>1</span>996 1.20  0.091<span style='text-decoration: underline;'>7</span> 11.7    26.8   17.7    0.036<span style='text-decoration: underline;'>0</span>    0.087<span style='text-decoration: underline;'>7</span>        0.690</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>1</span>997 0.835 0.089<span style='text-decoration: underline;'>3</span>  5.13   11.5    7.68   0.017<span style='text-decoration: underline;'>6</span>    0.451         0.345</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>1</span>998 1.02  0.080<span style='text-decoration: underline;'>1</span>  8.26   17.0   11.9    0.006<span style='text-decoration: underline;'>47</span>   0.767         0.135</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>1</span>999 1.05  0.154   6.26   25.1   12.5   -<span style='color: #BB0000;'>0.012</span><span style='color: #BB0000; text-decoration: underline;'>2</span>    0.569        -<span style='color: #BB0000;'>0.252</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>000 0.811 0.098<span style='text-decoration: underline;'>9</span>  4.64   11.3    7.25  -<span style='color: #BB0000;'>0.032</span><span style='color: #BB0000; text-decoration: underline;'>9</span>    0.032<span style='text-decoration: underline;'>2</span>       -<span style='color: #BB0000;'>0.711</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 19 more rows, and 2 more variables: yrcoef_lwr &lt;dbl&gt;, yrcoef_upr &lt;dbl&gt;</span></span>
+<span class='r-in'><span class='fu'>anlz_sumtrndseason</span><span class='op'>(</span><span class='va'>mod</span>, doystr <span class='op'>=</span> <span class='fl'>90</span>, doyend <span class='op'>=</span> <span class='fl'>180</span>, justify <span class='op'>=</span> <span class='st'>'center'</span>, win <span class='op'>=</span> <span class='fl'>5</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 58 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       yr    yrcoef     pval   win</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>  <span style='text-decoration: underline;'>1</span>991 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>          5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>  <span style='text-decoration: underline;'>1</span>992 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>          5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>  <span style='text-decoration: underline;'>1</span>993 <span style='color: #BB0000;'>NaN</span>       <span style='color: #BB0000;'>NaN</span>          5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>  <span style='text-decoration: underline;'>1</span>994   0.111     0.019<span style='text-decoration: underline;'>2</span>     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>  <span style='text-decoration: underline;'>1</span>995   0.062<span style='text-decoration: underline;'>7</span>    0.115      5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>  <span style='text-decoration: underline;'>1</span>996   0.065<span style='text-decoration: underline;'>1</span>    0.108      5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>  <span style='text-decoration: underline;'>1</span>997   0.053<span style='text-decoration: underline;'>8</span>    0.221      5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>  <span style='text-decoration: underline;'>1</span>998   0.003<span style='text-decoration: underline;'>92</span>   0.936      5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>  <span style='text-decoration: underline;'>1</span>999  -<span style='color: #BB0000;'>0.059</span><span style='color: #BB0000; text-decoration: underline;'>4</span>    0.081<span style='text-decoration: underline;'>1</span>     5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>  <span style='text-decoration: underline;'>2</span>000  -<span style='color: #BB0000;'>0.006</span><span style='color: #BB0000; text-decoration: underline;'>86</span>   0.809      5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 48 more rows</span></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
