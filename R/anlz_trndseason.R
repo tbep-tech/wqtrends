@@ -9,6 +9,7 @@
 #' @param justify chr string indicating the justification for the trend window
 #' @param win numeric indicating number of years to use for the trend window, see details
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
+#' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation
 #' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A data frame of slope estimates and p-values for each year
@@ -32,12 +33,22 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 8)
-anlz_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5, nsim = 1e4, ...){
+anlz_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5, nsim = 1e4, useave = FALSE, ...){
 
   justify <- match.arg(justify)
 
+  # check if metfun input is mean
+  chk <- identical(deparse(metfun), deparse(mean))
+  
+  # make sure user wants average and useave
+  if(!chk & useave)
+    stop('Specify metfun = mean if useave = T')
+  
   # estimate metrics
-  metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
+  if(useave)
+    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend)
+  if(!useave)
+    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
 
   tmp <- tibble::tibble(metseason)
   tmp$yrcoef <- NaN

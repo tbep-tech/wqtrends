@@ -12,6 +12,7 @@ anlz_trndseason(
   justify = c("center", "left", "right"),
   win = 5,
   nsim = 10000,
+  useave = FALSE,
   ...
 )
 }
@@ -29,6 +30,8 @@ anlz_trndseason(
 \item{win}{numeric indicating number of years to use for the trend window, see details}
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
+
+\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
 
 \item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
@@ -56,6 +59,7 @@ anlz_trndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 8)
 }
 \seealso{
 Other analyze: 
+\code{\link{anlz_sumtrndseason}()},
 \code{\link{anlz_trans}()}
 }
 \concept{analyze}

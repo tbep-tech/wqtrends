@@ -26,6 +26,7 @@ anlz_trans(tomod, trans = 'log10')
 }
 \seealso{
 Other analyze: 
+\code{\link{anlz_sumtrndseason}()},
 \code{\link{anlz_trndseason}()}
 }
 \concept{analyze}
