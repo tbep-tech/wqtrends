@@ -155,22 +155,23 @@
 </dl><p>The <code>cont_year</code> vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.) and <code>doy</code> is the day of year as a numeric value from 1 to 366.  The function <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></code> models <code>cont_year</code> as a smoothed, non-linear variable. The optimal amount of smoothing on <code>cont_year</code> is determined by cross-validation as implemented in the mgcv package and an upper theoretical upper limit on the number of knots for <code>k</code> should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of <code>k</code> was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified <code>k</code>, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='va'>tomod</span> <span class='op'>&lt;-</span> <span class='va'>rawdat</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>station</span> <span class='op'>%in%</span> <span class='fl'>34</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>param</span> <span class='op'>%in%</span> <span class='st'>'chl'</span><span class='op'>)</span>
-<span class='fu'>anlz_gam</span><span class='op'>(</span><span class='va'>tomod</span>, trans <span class='op'>=</span> <span class='st'>'log10'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 
-#&gt; Family: gaussian 
-#&gt; Link function: identity 
-#&gt; 
-#&gt; Formula:
-#&gt; value ~ s(cont_year, k = 348)
-#&gt; 
-#&gt; Estimated degrees of freedom:
-#&gt; 219  total = 219.93 
-#&gt; 
-#&gt; GCV score: 0.07280572     </div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>tomod</span> <span class='op'>&lt;-</span> <span class='va'>rawdat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>station</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fl'>34</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span class='r-in'>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>param</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='st'>'chl'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>anlz_gam</span><span class='op'>(</span><span class='va'>tomod</span>, trans <span class='op'>=</span> <span class='st'>'log10'</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Family: gaussian </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Link function: identity </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Formula:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> value ~ s(cont_year, k = 348)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Estimated degrees of freedom:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 219  total = 219.93 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> GCV score: 0.07280572     </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
