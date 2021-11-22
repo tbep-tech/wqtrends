@@ -4,7 +4,7 @@
 \alias{anlz_prdmatrix}
 \title{Get prediction matrix for a fitted GAM}
 \usage{
-anlz_prdmatrix(mod, doystr = 1, doyend = 364)
+anlz_prdmatrix(mod, doystr = 1, doyend = 364, avemat = FALSE)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
@@ -12,6 +12,8 @@ anlz_prdmatrix(mod, doystr = 1, doyend = 364)
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
 \item{doyend}{numeric indicating ending Julian day for extracting averages}
+
+\item{avemat}{logical indicating if the prediction matrix is to be passed to \code{anlz_metseason} (default) or \code{anlz_avgseason}}
 }
 \value{
 a \code{data.frame} with predictors to use with the fitted GAM
