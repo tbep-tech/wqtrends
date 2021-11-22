@@ -28,11 +28,22 @@ anlz_trans <- function(moddat, trans = c('log10', 'ident')){
   
   trans <- match.arg(trans)
   
-  if(trans == 'log10')
+  if(trans == 'log10'){
+    
+    # deal with values less than or equal to 0
+    if(any(moddat$value <= 0)){
+      
+      warning("values <= 0 set to NA for trans = 'log10'")
+      moddat$value[moddat$value <= 0] <- NA
+      
+    }
+    
     moddat <- moddat %>% 
       dplyr::mutate(
         value = log10(value)
       )
+    
+  }
   
   moddat <- moddat %>% 
     dplyr::mutate(
