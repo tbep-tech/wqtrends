@@ -37,3 +37,10 @@ test_that("Checking anlz_trndseason, max as metfun", {
   expect_equal(sum(is.na(result)), 0)
   
 })
+
+test_that("Checking anlz_trndseason, error if metfun not mean and useave TRUE", {
+  
+  expect_error(anlz_trndseason(mod, metfun = max, doystr = 90, doyend = 180, justify = 'right', win = 5, nsim = 5, useave = T))
+  
+})
+
