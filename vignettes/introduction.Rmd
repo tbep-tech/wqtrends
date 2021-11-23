@@ -162,4 +162,10 @@ As before, adding an argument for `metfun` to `show_trndseason()` will plot resu
 show_trndseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, maximum')
 ```
 
+The results supplied by `show_trndseason()` can be extended to multiple window widths by stacking the results into a single plot.  Below, results for window widths from 5 to 15 years are shown using the `show_sumtrndseason()` function for a selected seasonal range using a left-justified window. This function only works with average seasonal metrics due to long processing times with other metrics.  To retrieve the results in tabular form, use `anlz_sumtrndseason()`.  
+
+```{r, fig.height = 7, fig.width = 9, echo = T}
+show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5:15)
+```
+
 # References
