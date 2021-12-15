@@ -10,6 +10,7 @@
 #' @param yrend numeric for ending year for trend model, see details
 #' @param ylab chr string for y-axis label
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
+#' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation
 #' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -18,6 +19,8 @@
 #' @details 
 #' 
 #' Setting \code{yrstr} or \code{yrend} to \code{NULL} will suppress plotting of the trend line for the meta-analysis regression model.
+#' 
+#' Set \code{useave = T} to speed up calculations if \code{metfun = mean}.  This will use \code{\link{anlz_avgseason}} to estimate the seasonal summary metrics using a non-stochastic equation.
 #' 
 #' @concept show
 #'
@@ -33,11 +36,20 @@
 #' 
 #' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
-show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, ...) {
+show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, ...) {
   
-
+  # check if metfun input is mean
+  chk <- identical(deparse(metfun), deparse(mean))
+  
+  # make sure user wants average and useave
+  if(!chk & useave)
+    stop('Specify metfun = mean if useave = T')
+  
   # estimate metrics
-  metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
+  if(useave)
+    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend)
+  if(!useave)
+    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
   
   # transformation used
   trans <- mod$trans

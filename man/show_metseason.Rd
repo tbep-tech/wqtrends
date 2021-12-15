@@ -13,6 +13,7 @@ show_metseason(
   yrend = 2019,
   ylab,
   nsim = 10000,
+  useave = FALSE,
   ...
 )
 }
@@ -33,6 +34,8 @@ show_metseason(
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
+\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
+
 \item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
 \value{
@@ -43,6 +46,8 @@ Plot period (seasonal) averages from fitted GAM
 }
 \details{
 Setting \code{yrstr} or \code{yrend} to \code{NULL} will suppress plotting of the trend line for the meta-analysis regression model.
+
+Set \code{useave = T} to speed up calculations if \code{metfun = mean}.  This will use \code{\link{anlz_avgseason}} to estimate the seasonal summary metrics using a non-stochastic equation.
 }
 \examples{
 library(dplyr)

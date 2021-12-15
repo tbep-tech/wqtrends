@@ -47,6 +47,6 @@ tomod <- rawdat \%>\%
   filter(param \%in\% 'chl')
 
 mod <- anlz_gam(tomod, trans = 'log10')
-show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5:15)
+show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5:6)
 }
 \concept{show}
