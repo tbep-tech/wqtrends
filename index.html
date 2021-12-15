@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,18 +34,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">wqtrends</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0.9002</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -73,37 +69,37 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="wqtrends" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#wqtrends" class="anchor"></a>wqtrends</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="wqtrends">wqtrends<a class="anchor" aria-label="anchor" href="#wqtrends"></a>
+</h1></div>
 
-<p>R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models with error propagation from mixed-effect meta-analysis. Uses concepts in the <a href="https://cran.r-project.org/web/packages/mgcv/index.html">mgcv</a> and <a href="https://cran.r-project.org/web/packages/mixmeta/index.html">mixmeta</a> packages. Detailed information on the methods used in this package are described in the following open access article:</p>
-<p><em>Beck, M.W., de Valpine, P., Murphy, R., Wren, I., Chelsky, A., Foley, M., Senn, D.B. 2022. Multi-scale trend analysis of water quality using error propagation of Generalized Additive Models. Science of the Total Environment. 802:149927. <a href="https://doi.org/10.1016/j.scitotenv.2021.149927">https://doi.org/10.1016/j.scitotenv.2021.149927</a></em></p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>The package can be installed from <a href="https://tbep-tech.r-universe.dev/ui#builds">r-universe</a>. The source code is available on <a href="https://github.com/tbep-tech/wqtrends">GitHub</a>.</p>
+<p>R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models with error propagation from mixed-effect meta-analysis. Uses concepts in the <a href="https://cran.r-project.org/web/packages/mgcv/index.html" class="external-link">mgcv</a> and <a href="https://cran.r-project.org/web/packages/mixmeta/index.html" class="external-link">mixmeta</a> packages. Detailed information on the methods used in this package are described in the following open access article:</p>
+<p><em>Beck, M.W., de Valpine, P., Murphy, R., Wren, I., Chelsky, A., Foley, M., Senn, D.B. 2022. Multi-scale trend analysis of water quality using error propagation of Generalized Additive Models. Science of the Total Environment. 802:149927. <a href="https://doi.org/10.1016/j.scitotenv.2021.149927" class="external-link">https://doi.org/10.1016/j.scitotenv.2021.149927</a></em></p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>The package can be installed from <a href="https://tbep-tech.r-universe.dev/ui#builds" class="external-link">r-universe</a>. The source code is available on <a href="https://github.com/tbep-tech/wqtrends" class="external-link">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># enable repos</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
     tbeptech <span class="op">=</span> <span class="st">'https://tbep-tech.r-universe.dev'</span>,
     CRAN <span class="op">=</span> <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># install wqtrends</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'wqtrends'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'wqtrends'</span><span class="op">)</span>
 
 <span class="co"># load wqtrends</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">wqtrends</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">wqtrends</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="issues-and-suggestions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#issues-and-suggestions" class="anchor"></a>Issues and suggestions</h1>
-<p>Please report any issues and suggestions on the <a href="https://github.com/tbep-tech/wqtrends/issues">issues link</a> for the repository. A guide to posting issues can be found <a href="ISSUE_TEMPLATE.html">here</a>.</p>
+<div class="section level1">
+<h1 id="issues-and-suggestions">Issues and suggestions<a class="anchor" aria-label="anchor" href="#issues-and-suggestions"></a>
+</h1>
+<p>Please report any issues and suggestions on the <a href="https://github.com/tbep-tech/wqtrends/issues" class="external-link">issues link</a> for the repository. A guide to posting issues can be found <a href="ISSUE_TEMPLATE.html">here</a>.</p>
 </div>
-<div id="contributing" class="section level1">
-<h1 class="hasAnchor">
-<a href="#contributing" class="anchor"></a>Contributing</h1>
+<div class="section level1">
+<h1 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h1>
 <p>Please view our <a href="CONTRIBUTING.html">contributing</a> guidelines for any changes or pull requests.</p>
 </div>
 
@@ -111,50 +107,62 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>CC0</small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Marcus Beck <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4996-0059" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing wqtrends</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Marcus Beck <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4996-0059" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Perry de Valpine <br><small class="roles"> Author </small>  </li>
 <li>Rebecca Murphy <br><small class="roles"> Author </small>  </li>
 <li>Ian Wren <br><small class="roles"> Author </small>  </li>
 <li>Ariella Chelsky <br><small class="roles"> Author </small>  </li>
-<li>Melissa Foley <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5832-6404" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>David Senn <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4869-3550" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Melissa Foley <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-5832-6404" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>David Senn <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4869-3550" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/tbep-tech/wqtrends/actions"><img src="https://github.com/tbep-tech/wqtrends/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://github.com/tbep-tech/wqtrends/actions"><img src="https://github.com/tbep-tech/wqtrends/workflows/pkgdown/badge.svg" alt="pkgdown"></a></li>
-<li><a href="https://codecov.io/gh/tbep-tech/wqtrends?branch=master"><img src="https://codecov.io/gh/tbep-tech/wqtrends/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/239808241"><img src="https://zenodo.org/badge/239808241.svg" alt="DOI"></a></li>
+<li><a href="https://github.com/tbep-tech/wqtrends/actions" class="external-link"><img src="https://github.com/tbep-tech/wqtrends/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/tbep-tech/wqtrends/actions" class="external-link"><img src="https://github.com/tbep-tech/wqtrends/workflows/pkgdown/badge.svg" alt="pkgdown"></a></li>
+<li><a href="https://codecov.io/gh/tbep-tech/wqtrends?branch=master" class="external-link"><img src="https://codecov.io/gh/tbep-tech/wqtrends/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/239808241" class="external-link"><img src="https://zenodo.org/badge/239808241.svg" alt="DOI"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Marcus Beck, Perry de Valpine, Rebecca Murphy, Ian Wren, Ariella Chelsky, Melissa Foley, David Senn.</p>
+  <p></p>
+<p>Developed by Marcus Beck, Perry de Valpine, Rebecca Murphy, Ian Wren, Ariella Chelsky, Melissa Foley, David Senn.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -162,6 +170,8 @@
 
   
 
+
+  
 
   </body>
 </html>
