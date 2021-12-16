@@ -5,6 +5,7 @@
 #' @inheritParams anlz_trndseason
 #' @param type chr string indicating if log slopes are shown (if applicable)
 #' @param ylab chr string for y-axis label
+#' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -22,7 +23,9 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
-show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4, useave = FALSE, ...) {
+show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), 
+                            justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4,
+                            useave = FALSE, base_size = 11, ...) {
   
   justify <- match.arg(justify)
   type <- match.arg(type)
@@ -92,7 +95,7 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     ggplot2::geom_point(shape = 21, size = 3) +
     ggplot2::scale_fill_manual(values = c('white', 'tomato1'), drop = FALSE) +
     ggplot2::scale_x_continuous(limits = yrrng) +
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(), 
       legend.position = 'top', 

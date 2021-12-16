@@ -11,7 +11,8 @@ show_sumtrndseason(
   justify = c("center", "left", "right"),
   win = 5:15,
   txtsz = 6,
-  cols = c("lightblue", "lightgreen")
+  cols = c("lightblue", "lightgreen"),
+  base_size = 11
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ show_sumtrndseason(
 \item{txtsz}{numeric for size of text labels inside the plot}
 
 \item{cols}{vector of low/high colors for trends}
+
+\item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 }
 \value{
 A data frame of slope estimates and p-values for each year

@@ -4,7 +4,7 @@
 \alias{show_prddoy}
 \title{Plot predictions for GAMs against day of year}
 \usage{
-show_prddoy(mod, ylab, size = 0.5, alpha = 1)
+show_prddoy(mod, ylab, size = 0.5, alpha = 1, base_size = 11)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
@@ -14,6 +14,8 @@ show_prddoy(mod, ylab, size = 0.5, alpha = 1)
 \item{size}{numeric indicating line size}
 
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
+
+\item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

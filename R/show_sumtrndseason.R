@@ -9,6 +9,7 @@
 #' @param win numeric vector indicating number of years to use for the trend window
 #' @param txtsz numeric for size of text labels inside the plot
 #' @param cols vector of low/high colors for trends
+#' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #'
 #' @return A data frame of slope estimates and p-values for each year
 #' @export
@@ -30,7 +31,8 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5:6)
 show_sumtrndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), 
-                              win = 5:15, txtsz = 6, cols = c('lightblue', 'lightgreen')){
+                              win = 5:15, txtsz = 6, cols = c('lightblue', 'lightgreen'), 
+                              base_size = 11){
   
   justify <- match.arg(justify)
   
@@ -68,7 +70,7 @@ show_sumtrndseason <- function(mod, doystr = 1, doyend = 364, justify = c('cente
     ggplot2::scale_x_continuous(expand = c(0, 0)) + 
     ggplot2::scale_y_continuous(expand = c(0, 0), breaks = win) +
     ggplot2::scale_fill_gradient2(low = cols[1], mid = 'white', high = cols[2], midpoint = 0) +
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::theme(
       legend.position = 'top',
     ) + 

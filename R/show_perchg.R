@@ -4,6 +4,7 @@
 #' 
 #' @inheritParams anlz_perchg
 #' @param ylab chr string for y-axis label
+#' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -21,7 +22,7 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
 #' show_perchg(mod, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
-show_perchg <- function(mod, baseyr, testyr, ylab) {
+show_perchg <- function(mod, baseyr, testyr, ylab, base_size = 11) {
   
   # get change estimates
   chg <- anlz_perchg(mod, baseyr = baseyr, testyr = testyr) %>% 
@@ -69,7 +70,7 @@ show_perchg <- function(mod, baseyr, testyr, ylab) {
     ggplot2::geom_rect(data = trndswn, ggplot2::aes(xmin = xmin, xmax = xmax, ymin = rctmn, ymax = Inf, group = yr, fill = bl), alpha = 0.7) +
     ggplot2::geom_point(data = moddat, ggplot2::aes(x = date, y = value), size = 0.5) +
     ggplot2::geom_line(data = prds, ggplot2::aes(x = date, y = value), size = 0.75, alpha = 0.8) + 
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::scale_fill_manual(values = c('lightblue', 'lightgreen')) +
     ggplot2::theme(
       legend.position = 'none', 

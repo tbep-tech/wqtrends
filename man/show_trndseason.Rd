@@ -15,6 +15,7 @@ show_trndseason(
   ylab,
   nsim = 10000,
   useave = FALSE,
+  base_size = 11,
   ...
 )
 }
@@ -38,6 +39,8 @@ show_trndseason(
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
+
+\item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 
 \item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }

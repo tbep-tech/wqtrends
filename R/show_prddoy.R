@@ -6,6 +6,7 @@
 #' @param ylab chr string for y-axis label
 #' @param size numeric indicating line size
 #' @param alpha numeric from 0 to 1 indicating line transparency
+#' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -23,7 +24,7 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
 #' show_prddoy(mod, ylab = 'Chlorophyll-a (ug/L)')
-show_prddoy <- function(mod, ylab, size = 0.5, alpha = 1){
+show_prddoy <- function(mod, ylab, size = 0.5, alpha = 1, base_size = 11){
 
   # get predictions
   prds <- anlz_prd(mod)
@@ -33,7 +34,7 @@ show_prddoy <- function(mod, ylab, size = 0.5, alpha = 1){
   
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = doy, group = factor(yr), colour = yr)) + 
     ggplot2::geom_line(ggplot2::aes(y = value), size = size, alpha = alpha) + 
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::theme(
       legend.position = 'top', 
       legend.title = ggplot2::element_blank()

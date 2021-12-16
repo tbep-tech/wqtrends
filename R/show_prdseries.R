@@ -5,6 +5,7 @@
 #' @param mod input model object as returned by \code{\link{anlz_gam}}
 #' @param ylab chr string for y-axis label
 #' @param alpha numeric from 0 to 1 indicating line transparency
+#' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -22,7 +23,7 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
 #' show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseries <- function(mod, ylab, alpha = 0.7){
+show_prdseries <- function(mod, ylab, alpha = 0.7, base_size = 11){
 
   # get predictions
   prds <- anlz_prd(mod)
@@ -46,7 +47,7 @@ show_prdseries <- function(mod, ylab, alpha = 0.7){
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
     ggplot2::geom_line(ggplot2::aes(y = value), size = 0.75, alpha = alpha, colour = 'brown') + 
     # ggplot2::geom_line(ggplot2::aes(y = annvalue), alpha = alpha, colour = 'tomato1') +
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::theme(
       legend.position = 'top', 
       legend.title = ggplot2::element_blank(),

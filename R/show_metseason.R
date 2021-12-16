@@ -11,6 +11,7 @@
 #' @param ylab chr string for y-axis label
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation
+#' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -36,7 +37,7 @@
 #' 
 #' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
-show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, ...) {
+show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, base_size = 11,...) {
   
   # check if metfun input is mean
   chk <- identical(deparse(metfun), deparse(mean))
@@ -71,7 +72,7 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_met)) + 
     ggplot2::geom_point(colour = 'deepskyblue3') +
     ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3') +
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) + 
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank()
     )

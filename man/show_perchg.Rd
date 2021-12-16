@@ -4,7 +4,7 @@
 \alias{show_perchg}
 \title{Plot percent change trends from GAM results for selected time periods}
 \usage{
-show_perchg(mod, baseyr, testyr, ylab)
+show_perchg(mod, baseyr, testyr, ylab, base_size = 11)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
@@ -14,6 +14,8 @@ show_perchg(mod, baseyr, testyr, ylab)
 \item{testyr}{numeric vector of ending years}
 
 \item{ylab}{chr string for y-axis label}
+
+\item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

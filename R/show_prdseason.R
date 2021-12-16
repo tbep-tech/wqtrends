@@ -19,7 +19,7 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_prdseason(mod, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseason <- function(mod, ylab){
+show_prdseason <- function(mod, ylab, base_size = 11){
   
   # get daily predictions, differs from anlz_prd
   prds <- anlz_prdday(mod)
@@ -48,7 +48,7 @@ show_prdseason <- function(mod, ylab){
   p <- ggplot2::ggplot(toplo, ggplot2::aes(x = date)) + 
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
     ggplot2::geom_line(ggplot2::aes(y = value, group = month, colour = month), size = 1, alpha = 0.7) + 
-    ggplot2::theme_bw(base_family = 'serif', base_size = 16) +
+    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) +
     ggplot2::theme(
       legend.position = 'top', 
       axis.title.x = ggplot2::element_blank(), 
