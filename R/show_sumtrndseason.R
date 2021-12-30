@@ -40,7 +40,7 @@ show_sumtrndseason <- function(mod, doystr = 1, doyend = 364, justify = c('cente
   sig_vals <- c(-Inf, 0.005, 0.05, Inf)
   
   # get ests across all window widths
-  res <- anlz_sumtrndseason(mod, doystr = 90, doyend = 180, justify = justify, win = win)
+  res <- anlz_sumtrndseason(mod, doystr = doystr, doyend = doyend, justify = justify, win = win)
   
   # seasonal range for title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
