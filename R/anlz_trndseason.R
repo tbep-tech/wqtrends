@@ -19,7 +19,7 @@
 #'
 #' @details Trends are based on the slope of the fitted linear trend within the window, where the linear trend is estimated using a meta-analysis regression model (from \code{\link{anlz_mixmeta}}) for the seasonal metrics (from \code{\link{anlz_metseason}}).
 #' 
-#' Note that for left and right windows, the exact number of years in \code{win} is used. For example, a left-centered window for 1990 of ten years will include exactly ten years from 1990, 1991, ... , 1999.  The same applies to a right-centered window, e.g., for 1990 it would include 1981, 1982, ..., 1990 (if those years have data). However, for a centered window, picking an odd number of years for the window width will create a slightly off-centered window because it is impossible to center on an odd number of years.  For example, if \code{win = 9} and \code{justify = 'center'}, the estimate for 2000 will be centered on 1995 to 2004 (five years left, four years right). Centering for window widths with an even number of years will always create a symmetrical window.
+#' Note that for left and right windows, the exact number of years in \code{win} is used. For example, a left-centered window for 1990 of ten years will include exactly ten years from 1990, 1991, ... , 1999.  The same applies to a right-centered window, e.g., for 1990 it would include 1981, 1982, ..., 1990 (if those years have data). However, for a centered window, picking an even number of years for the window width will create a slightly off-centered window because it is impossible to center on an even number of years.  For example, if \code{win = 8} and \code{justify = 'center'}, the estimate for 2000 will be centered on 1997 to 2004 (three years left, four years right, eight years total). Centering for window widths with an odd number of years will always create a symmetrical window, i.e., if \code{win = 7} and \code{justify = 'center'}, the estimate for 2000 will be centered on 1997 and 2003 (three years left, three years right, seven years total).
 #'
 #' @family analyze
 #' 
@@ -56,7 +56,7 @@ anlz_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justif
   
   # iterate through years to get trend
   for(i in seq_along(tmp$yr)){
-    
+ 
     yr <- tmp$yr[i]
 
     if(justify == 'left')
@@ -67,7 +67,7 @@ anlz_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justif
 
     if(justify == 'center'){
       
-      yrstr <- floor(yr - win / 2)
+      yrstr <- floor(yr - win / 2) + 1
       yrend <- floor(yr + win / 2)
       
       mixmet <- anlz_mixmeta(tmp, yrstr = yrstr, yrend = yrend)
