@@ -64,5 +64,9 @@ mod <- anlz_gam(tomod, trans = 'ident')
 
 show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
      ylab = 'Chlorophyll-a (ug/L)')
+     
+# show seasonal metrics without annual trend
+show_metseason(mod, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, 
+     ylab = 'Chlorophyll-a (ug/L)')
 }
 \concept{show}

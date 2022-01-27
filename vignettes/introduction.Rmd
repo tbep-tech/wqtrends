@@ -133,6 +133,12 @@ The `show_metseason()` function plots the seasonal metrics and trends over time.
 show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
+To plot only the seasonal metrics, the regression line showing trends over time can be suppressed by setting one or both of `yrstr` and `yrend` as `NULL`.
+
+```{r, fig.height = 4, fig.width = 9, echo = T}
+show_metseason(mod, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, ylab = "Chlorophyll-a (ug/L)")
+```
+
 Adding an argument for `metfun` to `show_metseason()` will plot results and trends for a metric other than the average.  Note the use of `nsim` in this example.  In practice, a much higher value should be used (e.g., `nsim = 1e5`)
 
 ```{r, fig.height = 4, fig.width = 9, echo = T}

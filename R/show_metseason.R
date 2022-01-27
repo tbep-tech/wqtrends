@@ -37,6 +37,10 @@
 #' 
 #' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
+#'      
+#' # show seasonal metrics without annual trend
+#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, 
+#'      ylab = 'Chlorophyll-a (ug/L)')
 show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, base_size = 11,...) {
   
   # check if metfun input is mean
