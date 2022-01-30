@@ -4,7 +4,7 @@
 #' 
 #' @param moddat input raw data, one station and paramater 
 #' @param kts optional numeric vector for the upper limit for the number of knots in the term \code{s(cont_year)}, see details
-#' @param ... additional arguments passed to other methods
+#' @param ... additional arguments passed to other methods, i.e., \code{trans = 'log10'} (default) or \code{trans = 'ident'} passed to \code{\link{anlz_trans}}
 #' 
 #' @details 
 #' 

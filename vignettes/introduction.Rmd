@@ -44,7 +44,7 @@ One GAM model can be fit to the time series data. Each GAM fits additive smoothi
 
 The `cont_year` vector is measured as a continuous numeric variable for the annual effect (e.g., January 1st, 2000 is 2000.0, July 1st, 2000 is 2000.5, etc.).  The function `s()` models `cont_year` as a smoothed, non-linear variable. The optimal amount of smoothing on `cont_year` is determined by cross-validation as implemented in the mgcv package [@Wood17] and an upper theoretical upper limit on the number of knots for `k` should be large enough to allow sufficient flexibility in the smoothing term.  The upper limit of `k` was chosen as 12 times the number of years for the input data. If insufficient data are available to fit a model with the specified `k`, the number of knots is decreased until the data can be modelled, e.g., 11 times the number of years, 10 times the number of years, etc. 
 
-The `anlz_gam()` function is used to fit the model.  First, the raw data are filtered to select only station 34 and the chlorophyll parameter.  The model is fit using a log-10 transformation of the response variable.  Available transformation options are log10 (`log10`) or identity (`ident`). 
+The `anlz_gam()` function is used to fit the model.  First, the raw data are filtered to select only station 34 and the chlorophyll parameter.  The model is fit using a log-10 transformation of the response variable.  Available transformation options are log-10 (`log10`) or identity (`ident`).  The log-10 transformation is used by default if not specified by the user. 
 
 ```{r}
 tomod <- rawdat %>%

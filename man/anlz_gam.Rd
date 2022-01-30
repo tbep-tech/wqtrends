@@ -11,7 +11,7 @@ anlz_gam(moddat, kts = NULL, ...)
 
 \item{kts}{optional numeric vector for the upper limit for the number of knots in the term \code{s(cont_year)}, see details}
 
-\item{...}{additional arguments passed to other methods}
+\item{...}{additional arguments passed to other methods, i.e., \code{trans = 'log10'} (default) or \code{trans = 'ident'} passed to \code{\link{anlz_trans}}}
 }
 \value{
 a \code{\link[mgcv]{gam}} model object
