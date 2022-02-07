@@ -54,7 +54,7 @@ anlz_prdmatrix <- function(mod, doystr = 1, doyend = 364, avemat = FALSE){
       dplyr::select(-dayCounts)
     
   }
-  
+
   # create exact matrix if not average
   if(!avemat){
     
@@ -63,7 +63,7 @@ anlz_prdmatrix <- function(mod, doystr = 1, doyend = 364, avemat = FALSE){
       lubridate::date_decimal() %>% 
       as.Date %>% 
       lubridate::year(.) 
-    dtrng <- c(as.Date(doystr, origin = paste0(dtrng[1], '-01-01')), as.Date(doyend, origin = paste0(dtrng[2], '-01-01')))
+    dtrng <- c(as.Date(doystr - 1, origin = paste0(dtrng[1], '-01-01')), as.Date(doyend -1, origin = paste0(dtrng[2], '-01-01')))
     
     # prediction data, daily time step, subset by doystr, doyend
     out <- data.frame(date = seq.Date(dtrng[1], dtrng[2], by = 'day')) %>% 
