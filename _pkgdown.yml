@@ -1,5 +1,7 @@
+url: https://tbep-tech.github.io/wqtrends
 template:
   assets: inst
+  bootstrap: 5
 reference:
 - title: Analyze
   contents:
