@@ -60,7 +60,8 @@ anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
   
   out <- avgs %>% 
     tibble::tibble() %>% 
-    dplyr::select(yr, met, se, bt_lwr, bt_upr, bt_met)
+    mutate(dispersion = dispersion) %>% 
+    dplyr::select(yr, met, se, bt_lwr, bt_upr, bt_met, dispersion)
   
   return(out)
   

@@ -83,6 +83,9 @@ anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 
     mets$bt_upr <- mets$met + 1.96 * mets$se
   }
   
+  # add dispersion to output
+  mets$dispersion <- dispersion
+  
   out <- mets
   
   return(out)
