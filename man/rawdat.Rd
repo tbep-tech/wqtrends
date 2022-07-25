@@ -5,7 +5,7 @@
 \alias{rawdat}
 \title{Raw data from San Francisco Estuary (South Bay)}
 \format{
-A \code{data.frame} object with 12411 rows and 8 columns
+A \code{data.frame} object with 12411 rows and 9 columns
 \describe{
   \item{date}{Date}
   \item{station}{int}
@@ -15,6 +15,7 @@ A \code{data.frame} object with 12411 rows and 8 columns
   \item{cont_year}{num}
   \item{yr}{num}
   \item{mo}{Ord.factor}
+  \item{ssc}{num}
 }
 }
 \usage{
@@ -24,7 +25,7 @@ rawdat
 Raw data from San Francisco Estuary (South Bay)
 }
 \details{
-Data from \code{datprc} object in \url{https://github.com/fawda123/SFbaytrends}
+Data from \code{dat_prc} object in \url{https://github.com/fawda123/SFbaytrends}
 }
 \concept{utilities}
 \keyword{datasets}
