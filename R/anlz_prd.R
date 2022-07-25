@@ -24,10 +24,8 @@ anlz_prd <- function(mod, annual = FALSE) {
 
   prddat <- mod$model
   trans <- mod$trans
-  
-  prddat <- data.frame(
-    cont_year = seq(min(prddat$cont_year), max(prddat$cont_year), length = 1000)
-    ) %>%
+
+  prddat <- prddat %>% 
     dplyr::mutate(
       date = lubridate::date_decimal(cont_year),
       date = as.Date(date),

@@ -37,17 +37,15 @@ anlz_gam <- function(moddat, kts = NULL, ...){
   
   # get transformation
   moddat <- anlz_trans(moddat, ...)
-  
-  frm <- "value ~ s(cont_year)"
 
   fct <- 12
   
   # get upper bounds of knots
   if(is.null(kts))
     kts <- fct * length(unique(moddat$yr))
-  
-  p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
-  p2 <- paste0('s(cont_year, k = ', kts, ')')
+
+  p1 <- 'value ~ '
+  p2 <- paste0('s(cont_year, k = ', kts, ') + s(ssc, k = 24)')
   frmin <- paste0(p1, p2)
   
   out <- try(gam(as.formula(frmin),
@@ -64,8 +62,8 @@ anlz_gam <- function(moddat, kts = NULL, ...){
     # get upper bounds of knots
     kts <- fct * length(unique(moddat$yr))
     
-    p1 <- gsub('(^.*)s\\(cont\\_year\\).*$', '\\1', frm)
-    p2 <- paste0('s(cont_year, k = ', kts, ')')
+    p1 <- 'value ~ '
+    p2 <- paste0('s(cont_year, k = ', kts, ') + s(ssc, k = 24)')
     frmin <- paste0(p1, p2)
     
     out <- try(gam(as.formula(frmin),

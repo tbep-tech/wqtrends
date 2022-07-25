@@ -21,19 +21,13 @@
 #' anlz_prdday(mod)
 anlz_prdday <- function(mod) {
   
-  # get daily predictions, differs from anlz_prd
-  rng <- mod$model$cont_year %>%
-    range(na.rm  = T) %>% 
-    lubridate::date_decimal() %>% 
-    as.Date
-  data <- seq.Date(lubridate::floor_date(rng[1], 'year'), lubridate::ceiling_date(rng[2], 'year'), by = 'days') %>%
-    tibble::tibble(date = .) %>%
+  data <- mod$model %>% 
     dplyr::mutate(
+      date = lubridate::date_decimal(cont_year),
       doy = lubridate::yday(date),
-      cont_year = lubridate::decimal_date(date),
       yr = lubridate::year(date)
     )
-  prd <- predict(mod, newdata = data)
+  prd <- predict(mod, newdata = mod$model)
   out <- data.frame(data, value = prd, trans = mod$trans, stringsAsFactors = F) %>% 
     anlz_backtrans()
   
