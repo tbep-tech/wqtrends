@@ -27,5 +27,9 @@ Raw data from San Francisco Estuary (South Bay)
 \details{
 Data from \code{dat_prc} object in \url{https://github.com/fawda123/SFbaytrends}
 }
+\seealso{
+Other utilities: 
+\code{\link{sscdat}}
+}
 \concept{utilities}
 \keyword{datasets}
