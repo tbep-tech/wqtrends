@@ -53,6 +53,20 @@ anlz_perchg <- function(mod, baseyr, testyr){
   pdat$bl <- pdat$year <= baseyr[nbaseyr] # create logical field indicating baseline
   pdat$cont_year <- (pdat$year + (pdat$doy-1)/366) # compute cont_year
   
+  if('ssc' %in% names(gamdat)){
+    
+    sscjn <- sscdat %>% 
+      dplyr::mutate(
+        doy = lubridate::yday(date), 
+        year = lubridate::year(date)
+      ) %>% 
+      dplyr::select(-date)
+    
+    pdat <- pdat %>% 
+      dplyr::left_join(sscjn, by = c('doy', 'year'))
+    
+  }
+
   # JBH(24Nov2017): extension of above xa and avg.per.mat
   #   keeping weight the same--just extending number of values by "*nrow(pdatWgt)"
   xa <- c(rep(1/nbase,nbase),

@@ -25,7 +25,9 @@ anlz_prd <- function(mod, annual = FALSE) {
   prddat <- mod$model
   trans <- mod$trans
 
-  prddat <- prddat %>% 
+  prddat <- data.frame(
+    cont_year = seq(min(prddat$cont_year), max(prddat$cont_year), length = 1000)
+  ) %>%
     dplyr::mutate(
       date = lubridate::date_decimal(cont_year),
       date = as.Date(date),
@@ -33,7 +35,17 @@ anlz_prd <- function(mod, annual = FALSE) {
       doy = lubridate::yday(date),
       yr = lubridate::year(date)
     )
-
+  
+  if('ssc' %in% names(mod$model)){
+    
+    sscprd <- sscdat %>% 
+      filter(date >= min(prddat$date) & date <= max(prddat$date))
+  
+    prddat <- prddat %>% 
+      inner_join(sscprd, by = 'date')
+    
+  }
+  
   # get predictions from terms matrix, value is sum of all plus intercept, annvalue is same minus anything with doy
   prd <- predict(mod, newdata = prddat, type = 'terms')
   int <- attr(prd, 'constant')

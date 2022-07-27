@@ -27,8 +27,8 @@ show_prd3d <- function(mod, ylab) {
   prds <- anlz_prdday(mod)
 
   toplo <- prds %>% 
-    dplyr::select(-date, -cont_year, -trans) %>% 
-    dplyr::filter(!yr %in% 2018) %>% 
+    dplyr::select(-matches('date|cont_year|trans|ssc')) %>% 
+    # dplyr::filter(!yr %in% 2018) %>% 
     tidyr::spread(yr, value) %>% 
     dplyr::select(-doy) %>% 
     as.matrix

@@ -52,7 +52,7 @@ anlz_prdmatrix <- function(mod, doystr = 1, doyend = 364, avemat = FALSE){
       dplyr::ungroup() %>% 
       dplyr::filter(dayCounts == numDays) %>% 
       dplyr::select(-dayCounts)
-    
+  
   }
 
   # create exact matrix if not average
@@ -73,6 +73,16 @@ anlz_prdmatrix <- function(mod, doystr = 1, doyend = 364, avemat = FALSE){
         cont_year = lubridate::decimal_date(date)
       ) %>% 
       dplyr::filter(doy >= doystr & doy <= doyend)
+    
+  }
+  
+  if('ssc' %in% names(mod$model)){
+    
+    sscprd <- sscdat %>% 
+      filter(date >= min(out$date) & date <= max(out$date))
+    
+    out <- out %>% 
+      inner_join(sscprd, by = 'date')
     
   }
   

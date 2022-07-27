@@ -36,7 +36,7 @@ anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 
   
   # prediction matrix
   fillData <- anlz_prdmatrix(mod, doystr = doystr, doyend = doyend)
-  
+
   # basis function coefficients and var/cov matrix (uncertainty of coefs)
   gamcoefs <- coef(mod)
   vargamcoefs <- mod$Vp
