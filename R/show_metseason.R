@@ -13,6 +13,8 @@
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
+#' @param xlim optional numeric vector of length two for x-axis limits
+#' @param ylim optional numeric vector of length two for y-axis limits
 #' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -48,7 +50,7 @@
 #' # omit years from the analysis
 #' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019,
 #'      yromit = c(2006, 2018), ylab = 'Chlorophyll-a (ug/L)')
-show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, base_size = 11, yromit = NULL, ...) {
+show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, yromit = NULL, ylab, nsim = 1e4, useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
   
   # check if metfun input is mean
   chk <- identical(deparse(metfun), deparse(mean))
@@ -160,6 +162,10 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
       title = ttl, 
       subtitle = subttl, 
       y = ylab
+    ) + 
+    ggplot2::coord_cartesian(
+      xlim = xlim, 
+      ylim = ylim
     )
   
   return(p)

@@ -19,7 +19,7 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_prdseason(mod, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseason <- function(mod, ylab, base_size = 11){
+show_prdseason <- function(mod, ylab, base_size = 11, xlim = NULL, ylim = NULL){
   
   # get daily predictions, differs from anlz_prd
   prds <- anlz_prdday(mod)
@@ -57,6 +57,10 @@ show_prdseason <- function(mod, ylab, base_size = 11){
     ggplot2::guides(col = ggplot2::guide_legend(nrow = 2)) +
     ggplot2::labs(
       y = ylab
+    ) + 
+    ggplot2::coord_cartesian(
+      xlim = xlim, 
+      ylim = ylim
     )
  
   if(trans != 'ident')

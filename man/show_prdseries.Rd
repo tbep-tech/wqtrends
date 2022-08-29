@@ -4,7 +4,14 @@
 \alias{show_prdseries}
 \title{Plot predictions for GAMs over time series}
 \usage{
-show_prdseries(mod, ylab, alpha = 0.7, base_size = 11)
+show_prdseries(
+  mod,
+  ylab,
+  alpha = 0.7,
+  base_size = 11,
+  xlim = NULL,
+  ylim = NULL
+)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
@@ -14,6 +21,10 @@ show_prdseries(mod, ylab, alpha = 0.7, base_size = 11)
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
+
+\item{xlim}{optional numeric vector of length two for x-axis limits}
+
+\item{ylim}{optional numeric vector of length two for y-axis limits}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

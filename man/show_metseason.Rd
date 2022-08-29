@@ -11,11 +11,13 @@ show_metseason(
   doyend = 364,
   yrstr = 2000,
   yrend = 2019,
+  yromit = NULL,
   ylab,
   nsim = 10000,
   useave = FALSE,
   base_size = 11,
-  yromit = NULL,
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 }
@@ -32,6 +34,8 @@ show_metseason(
 
 \item{yrend}{numeric for ending year for trend model, see details}
 
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
+
 \item{ylab}{chr string for y-axis label}
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
@@ -40,7 +44,9 @@ show_metseason(
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 
-\item{yromit}{optional numeric vector for years to omit from the plot, see details}
+\item{xlim}{optional numeric vector of length two for x-axis limits}
+
+\item{ylim}{optional numeric vector of length two for y-axis limits}
 
 \item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
