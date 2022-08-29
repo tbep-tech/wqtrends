@@ -15,6 +15,7 @@ show_metseason(
   nsim = 10000,
   useave = FALSE,
   base_size = 11,
+  yromit = NULL,
   ...
 )
 }
@@ -39,6 +40,8 @@ show_metseason(
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
+
 \item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
 \value{
@@ -49,6 +52,8 @@ Plot period (seasonal) averages from fitted GAM
 }
 \details{
 Setting \code{yrstr} or \code{yrend} to \code{NULL} will suppress plotting of the trend line for the meta-analysis regression model.
+
+The optional \code{omityr} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 
 Set \code{useave = T} to speed up calculations if \code{metfun = mean}.  This will use \code{\link{anlz_avgseason}} to estimate the seasonal summary metrics using a non-stochastic equation.
 }
@@ -68,5 +73,9 @@ show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019,
 # show seasonal metrics without annual trend
 show_metseason(mod, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, 
      ylab = 'Chlorophyll-a (ug/L)')
+     
+# omit years from the analysis
+show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019,
+     yromit = c(2006, 2018), ylab = 'Chlorophyll-a (ug/L)')
 }
 \concept{show}

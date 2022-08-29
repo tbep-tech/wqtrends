@@ -5,7 +5,7 @@
 #' @param metseason output from \code{\link{anlz_metseason}}
 #' @param yrstr numeric for starting year
 #' @param yrend numeric for ending year
-#'
+#' @param yromit optional numeric vector for years to omit from, inherited from \code{\link{show_metseason}}
 #' @details Parameters are not back-transformed if the original GAM used a transformation of the response variable
 #' 
 #' @concept analyze
@@ -24,14 +24,14 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' metseason <- anlz_metseason(mod, doystr = 90, doyend = 180)
 #' anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
-anlz_mixmeta <- function(metseason, yrstr = 2000, yrend = 2019){
+anlz_mixmeta <- function(metseason, yrstr = 2000, yrend = 2019, yromit = NULL){
 
   # input
   totrnd <- metseason %>% 
     dplyr::mutate(S = se^2) %>% 
     dplyr::filter(yr %in% seq(yrstr, yrend))
 
-  if(nrow(totrnd) != length(seq(yrstr, yrend)))
+  if(nrow(totrnd) != length(seq(yrstr, yrend)) & is.null(yromit))
     return(NA)
   
   out <- mixmeta::mixmeta(met ~ yr, S = S, random = ~1|yr, data = totrnd, method = 'reml')

@@ -8,6 +8,7 @@
 #' @param metfun function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc
 #' @param yrstr numeric for starting year for trend model, see details
 #' @param yrend numeric for ending year for trend model, see details
+#' @param yromit optional numeric vector for years to omit from the plot, see details
 #' @param ylab chr string for y-axis label
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation
@@ -20,6 +21,8 @@
 #' @details 
 #' 
 #' Setting \code{yrstr} or \code{yrend} to \code{NULL} will suppress plotting of the trend line for the meta-analysis regression model.
+#' 
+#' The optional \code{omityr} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 #' 
 #' Set \code{useave = T} to speed up calculations if \code{metfun = mean}.  This will use \code{\link{anlz_avgseason}} to estimate the seasonal summary metrics using a non-stochastic equation.
 #' 
@@ -41,7 +44,11 @@
 #' # show seasonal metrics without annual trend
 #' show_metseason(mod, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
-show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, base_size = 11,...) {
+#'      
+#' # omit years from the analysis
+#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019,
+#'      yromit = c(2006, 2018), ylab = 'Chlorophyll-a (ug/L)')
+show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, ylab, nsim = 1e4, useave = FALSE, base_size = 11, yromit = NULL, ...) {
   
   # check if metfun input is mean
   chk <- identical(deparse(metfun), deparse(mean))
@@ -56,6 +63,11 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   if(!useave)
     metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
   
+  # omit years if yromit provided
+  if(!is.null(yromit))
+    metseason <- metseason %>% 
+      dplyr::filter(!yr %in% yromit)
+
   # transformation used
   trans <- mod$trans
 
@@ -80,12 +92,12 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank()
     )
-  
+
   # get mixmeta models and plotting results
   if(!any(is.null(yrstr) | is.null(yrend))){
     
     # get mixmeta models
-    mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend)
+    mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend, yromit = yromit)
   
     toplo2 <- data.frame(
       yr = seq(yrstr, yrend, length = 50)

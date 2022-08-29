@@ -4,7 +4,7 @@
 \alias{anlz_mixmeta}
 \title{Fit a mixed meta-analysis regression model of trends}
 \usage{
-anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
+anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019, yromit = NULL)
 }
 \arguments{
 \item{metseason}{output from \code{\link{anlz_metseason}}}
@@ -12,6 +12,8 @@ anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
 \item{yrstr}{numeric for starting year}
 
 \item{yrend}{numeric for ending year}
+
+\item{yromit}{optional numeric vector for years to omit from, inherited from \code{\link{show_metseason}}}
 }
 \value{
 A list of \code{\link[mixmeta]{mixmeta}} fitted model objects
