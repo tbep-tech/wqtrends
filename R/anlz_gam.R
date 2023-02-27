@@ -54,10 +54,12 @@ anlz_gam <- function(moddat, kts = NULL, ...){
              data = moddat,
              na.action = na.exclude,
              select = F
-  ))
+  ), silent = T)
   
   # drops upper limit on knots until it works
   while(inherits(out, 'try-error')){
+    
+    cat('reducing knots for cont_year spline from', kts, '\n')
     
     fct <- fct -1
     
@@ -72,7 +74,7 @@ anlz_gam <- function(moddat, kts = NULL, ...){
                    data = moddat,
                    na.action = na.exclude,
                    select = F
-    ))
+    ), silent = T)
     
   }
     
