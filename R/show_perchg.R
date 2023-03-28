@@ -5,6 +5,8 @@
 #' @inheritParams anlz_perchg
 #' @param ylab chr string for y-axis label
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
+#' @param xlim optional numeric vector of length two for x-axis limits
+#' @param ylim optional numeric vector of length two for y-axis limits
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -22,7 +24,7 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
 #' show_perchg(mod, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
-show_perchg <- function(mod, baseyr, testyr, ylab, base_size = 11) {
+show_perchg <- function(mod, baseyr, testyr, ylab, base_size = 11, xlim = NULL, ylim = NULL) {
   
   # get change estimates
   chg <- anlz_perchg(mod, baseyr = baseyr, testyr = testyr) %>% 
@@ -80,6 +82,10 @@ show_perchg <- function(mod, baseyr, testyr, ylab, base_size = 11) {
     ggplot2::labs(
       title = ttl, 
       y = ylab
+    ) + 
+    ggplot2::coord_cartesian(
+      xlim = xlim, 
+      ylim = ylim
     )
   
   if(trans != 'ident')

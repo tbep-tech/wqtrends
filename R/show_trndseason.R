@@ -6,6 +6,8 @@
 #' @param type chr string indicating if log slopes are shown (if applicable)
 #' @param ylab chr string for y-axis label
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
+#' @param xlim optional numeric vector of length two for x-axis limits
+#' @param ylim optional numeric vector of length two for y-axis limits
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -25,7 +27,7 @@
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
 show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), 
                             justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4,
-                            useave = FALSE, base_size = 11, ...) {
+                            useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
   
   justify <- match.arg(justify)
   type <- match.arg(type)
@@ -105,6 +107,10 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
       title = ttl, 
       subtitle = subttl, 
       y = ylab
+    ) + 
+    ggplot2::coord_cartesian(
+      xlim = xlim, 
+      ylim = ylim
     )
   
   return(p)

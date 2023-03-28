@@ -6,6 +6,8 @@
 #' @param ylab chr string for y-axis label
 #' @param alpha numeric from 0 to 1 indicating line transparency
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
+#' @param xlim optional numeric vector of length two for x-axis limits
+#' @param ylim optional numeric vector of length two for y-axis limits
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export
@@ -23,7 +25,7 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
 #' show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseries <- function(mod, ylab, alpha = 0.7, base_size = 11){
+show_prdseries <- function(mod, ylab, alpha = 0.7, base_size = 11, xlim = NULL, ylim = NULL){
 
   # get predictions
   prds <- anlz_prd(mod)
@@ -55,6 +57,10 @@ show_prdseries <- function(mod, ylab, alpha = 0.7, base_size = 11){
     ) + 
     ggplot2::labs(
       y = ylab
+    ) + 
+    ggplot2::coord_cartesian(
+      xlim = xlim, 
+      ylim = ylim
     )
   
   if(trans != 'ident')

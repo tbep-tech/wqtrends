@@ -16,6 +16,8 @@ show_trndseason(
   nsim = 10000,
   useave = FALSE,
   base_size = 11,
+  xlim = NULL,
+  ylim = NULL,
   ...
 )
 }
@@ -41,6 +43,10 @@ show_trndseason(
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
+
+\item{xlim}{optional numeric vector of length two for x-axis limits}
+
+\item{ylim}{optional numeric vector of length two for y-axis limits}
 
 \item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
 }
