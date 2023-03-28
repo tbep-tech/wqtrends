@@ -8,11 +8,9 @@ library(patchwork)
 library(dplyr)
 library(data.table)
 library(ggplot2)
-library(tidyquant)
+library(gratia)
 
 #your root directory
-root<-'G:/.shortcut-targets-by-id/0B1g4fIYKHETSUzVaSmxNdTZ1bVk/1_Nutrient_Share/'
-setwd(paste0(root,'1_Projects_NUTRIENTS/01_Projects_Active/FY23_Trends_contd/3_ProjectWork/2_Scripts/gamcode')) #set working directory
 load('rawdat.RData') #import trends raw chl-a data
 load('sscdata-aggreg.rData') #import 15-minute aggregated ssc/turb data
 #generate new sscdat, create a new log(ssc) column and a new set of columns with varying right-aligned moving averages of log-transformed data
@@ -109,16 +107,18 @@ chlonly <- rawdat%>%
 
 anlz_ssc <- function(petersonstation, sscstation,kts = NULL,   ...){
   
+  # get transformation
+  moddat<- chlonly %>%
+    dplyr::filter(station==petersonstation)
+  moddat <- anlz_trans(moddat, ...)
+  
+  
   if(length(unique(moddat$param)) > 1)
     stop('More than one parameter found in input data')
   
   if(length(unique(moddat$station)) > 1)
     stop('More than one station found in input data')
   
-  # get transformation
-  moddat<- chlonly %>%
-    dplyr::filter(station==petersonstation)
-  moddat <- anlz_trans(moddat, ...)
   
   fct <- 12
   
