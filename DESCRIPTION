@@ -1,7 +1,7 @@
 Package: wqtrends
 Title: Assess Water Quality Trends with Generalized Additive Models
 Version: 1.4.0
-Date: 2022-08-29
+Date: 2023-08-15
 Authors@R: c(
     person(given = "Marcus",
       family = "Beck",
@@ -43,7 +43,9 @@ Authors@R: c(
     )
   )
 Description: Assess Water Quality Trends for Long-Term Monitoring Data in Estuaries 
-  using Generalized Additive Models and Error Propagation with Mixed-Effects Meta-Analysis
+  using Generalized Additive Models and Error Propagation with Mixed-Effects Meta-Analysis. Methods
+  are available for model fitting, assessment of fit, annual and seasonal trend tests, and 
+  visualization of results.
 Depends: 
   R (>= 3.5)
 Imports:
@@ -60,7 +62,7 @@ Imports:
 License: CC0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0),
     covr,

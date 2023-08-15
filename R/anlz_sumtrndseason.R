@@ -23,10 +23,11 @@
 #' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 34) %>%
-#'   filter(param %in% 'chl')
+#'   filter(param %in% 'chl') %>% 
+#'   filter(yr > 2015)
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
-#' anlz_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5:6)
+#' anlz_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 2:3)
 anlz_sumtrndseason <- function(mod, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5:15){
   
   justify <- match.arg(justify)

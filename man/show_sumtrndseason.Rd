@@ -47,10 +47,11 @@ library(dplyr)
 # data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 34) \%>\%
-  filter(param \%in\% 'chl')
+  filter(param \%in\% 'chl') \%>\% 
+  filter(yr > 2015)
 
 mod <- anlz_gam(tomod, trans = 'log10')
-show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 5:6)
+show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'center', win = 2:3)
 }
 \seealso{
 Other show: 

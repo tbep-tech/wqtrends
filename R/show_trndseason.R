@@ -20,10 +20,11 @@
 #' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 34) %>%
-#'   filter(param %in% 'chl')
+#'   filter(param %in% 'chl') %>% 
+#'   filter(yr > 2015)
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
-#' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5,
+#' show_trndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 4,
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
 show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), 
                             justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4,

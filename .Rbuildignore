@@ -10,3 +10,4 @@
 ^Meta$
 ^codecov\.yml$
 ^\.github$
+^_pkgdown\.yml$

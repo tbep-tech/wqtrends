@@ -29,8 +29,9 @@ library(dplyr)
 # data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 34) \%>\%
-  filter(param \%in\% 'chl')
-
+  filter(param \%in\% 'chl') \%>\% 
+  filter(yr > 2015)
+  
 mod <- anlz_gam(tomod, trans = 'log10')
 show_prdseason(mod, ylab = 'Chlorophyll-a (ug/L)')
 }

@@ -30,10 +30,11 @@ library(dplyr)
 # data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 34) \%>\%
-  filter(param \%in\% 'chl')
+  filter(param \%in\% 'chl') \%>\% 
+  filter(yr > 2015)
 
 mod <- anlz_gam(tomod, trans = 'log10')
 metseason <- anlz_metseason(mod, doystr = 90, doyend = 180)
-anlz_mixmeta(metseason, yrstr = 2000, yrend = 2019)
+anlz_mixmeta(metseason, yrstr = 2016, yrend = 2019)
 }
 \concept{analyze}

@@ -36,20 +36,23 @@
 #' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 34) %>%
-#'   filter(param %in% 'chl')
+#'   filter(param %in% 'chl') %>% 
+#'   filter(yr > 2015)
 #'   
 #' mod <- anlz_gam(tomod, trans = 'ident')
 #' 
-#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019, 
+#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
-#'      
+#'
+#' \donttest{
 #' # show seasonal metrics without annual trend
 #' show_metseason(mod, doystr = 90, doyend = 180, yrstr = NULL, yrend = NULL, 
 #'      ylab = 'Chlorophyll-a (ug/L)')
 #'      
 #' # omit years from the analysis
-#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2019,
-#'      yromit = c(2006, 2018), ylab = 'Chlorophyll-a (ug/L)')
+#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2015, yrend = 2019,
+#'      yromit = 2018, ylab = 'Chlorophyll-a (ug/L)')
+#' }      
 show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, yromit = NULL, ylab, nsim = 1e4, useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
   
   # check if metfun input is mean
