@@ -87,21 +87,22 @@
 <span class="r-in"><span><span class="co"># data to model</span></span></span>
 <span class="r-in"><span><span class="va">tomod</span> <span class="op">&lt;-</span> <span class="va">rawdat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">station</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">34</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">param</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">'chl'</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">param</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">'chl'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">yr</span> <span class="op">&gt;</span> <span class="fl">2015</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="anlz_gam.html">anlz_gam</a></span><span class="op">(</span><span class="va">tomod</span>, trans <span class="op">=</span> <span class="st">'log10'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">metseason</span> <span class="op">&lt;-</span> <span class="fu"><a href="anlz_metseason.html">anlz_metseason</a></span><span class="op">(</span><span class="va">mod</span>, doystr <span class="op">=</span> <span class="fl">90</span>, doyend <span class="op">=</span> <span class="fl">180</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">anlz_mixmeta</span><span class="op">(</span><span class="va">metseason</span>, yrstr <span class="op">=</span> <span class="fl">2000</span>, yrend <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlz_mixmeta</span><span class="op">(</span><span class="va">metseason</span>, yrstr <span class="op">=</span> <span class="fl">2016</span>, yrend <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:  mixmeta::mixmeta(formula = met ~ yr, S = S, data = totrnd, random = ~1 | </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     yr, method = "reml")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fixed-effects coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)           yr  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.1509       0.0005  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    -74.1017       0.0371  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 units, 1 outcome, 20 observations, 2 fixed and 1 random-effects parameters</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   logLik       AIC       BIC  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  11.0966  -16.1932  -13.5221  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 units, 1 outcome, 4 observations, 2 fixed and 1 random-effects parameters</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  logLik      AIC      BIC  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.0738   3.8525  -0.0681  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
