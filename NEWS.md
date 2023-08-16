@@ -2,6 +2,11 @@
 
 * Initial CRAN submission.
 * `anlz_gam()` has try silent, shows `cat` message about knots instead
+* Shortened examples in help documentation to reduce runtime
+* Update tests for `show_metseason()` and `anlz_gam()` to increase coverage
+* Changed README links to pass CRAN checks
+* Added CITATION file
+* Added NEWS file
 
 # wqtrends 1.4.0
 
@@ -21,3 +26,19 @@
 * Added dispersion parameter to output of `anlz_avgseason()` and `anlz_metseason()`
 * Added `yromit` argument to omit years from the plot and trend with `show_metseason()`
 * Added `xlim` and `ylim` argument to most plot functions
+
+# wqtrends 1.3.0
+
+* Removed `anlz_avgseason()`, all seasonal metrics estimated with `anlz_metseason()`.
+
+# wqtrends 1.2.0
+
+* Addition of functions for calculating generic seasonal metrics
+
+# wqtrends 1.1.0
+
+* Update for manuscript draft
+
+# wqtrends 1.0.0
+
+* First release
