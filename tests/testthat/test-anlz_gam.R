@@ -19,9 +19,9 @@ test_that("Checkout output of anlz_gam", {
   
 })
 
-test_that("Checkout output of anlz_gam, knot reduction", {
+test_that("Checkout output of anlz_gam, knot reduction if knots too high", {
   
-  result <- anlz_gam(tomod, kts = 500)
+  result <- anlz_gam(tomod, kts = 1000)
   expect_is(result, 'gam')
   
 })

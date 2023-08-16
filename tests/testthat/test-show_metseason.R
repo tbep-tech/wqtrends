@@ -48,7 +48,7 @@ test_that("Checking show_metseason class with useave = T", {
 
 test_that("Checking show_metseason, error if metfun not mean and useave TRUE", {
   
-  expect_error(anlz_show_metseason(mod, metfun = max, doystr = 90, doyend = 180, justify = 'right', win = 5, nsim = 5, useave = T))
+  expect_error(show_metseason(mod, metfun = max, doystr = 90, doyend = 180, justify = 'right', win = 5, nsim = 5, useave = T), "Specify metfun = mean if useave = T")
   
 })
 
