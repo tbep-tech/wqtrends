@@ -65,21 +65,16 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="wqtrends">wqtrends<a class="anchor" aria-label="anchor" href="#wqtrends"></a>
 </h1></div>
-<p><a href="https://github.com/tbep-tech/wqtrends/actions" class="external-link"><img src="https://github.com/tbep-tech/wqtrends/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://github.com/tbep-tech/wqtrends/actions" class="external-link"><img src="https://github.com/tbep-tech/wqtrends/workflows/pkgdown/badge.svg" alt="pkgdown"></a> <a href="https://codecov.io/gh/tbep-tech/wqtrends?branch=master" class="external-link"><img src="https://codecov.io/gh/tbep-tech/wqtrends/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://zenodo.org/badge/latestdoi/239808241" class="external-link"><img src="https://zenodo.org/badge/239808241.svg" alt="DOI"></a></p>
-<p>R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models with error propagation from mixed-effect meta-analysis. Uses concepts in the <a href="https://cran.r-project.org/web/packages/mgcv/index.html" class="external-link">mgcv</a> and <a href="https://cran.r-project.org/web/packages/mixmeta/index.html" class="external-link">mixmeta</a> packages. Detailed information on the methods used in this package are described in the following open access article:</p>
+<p><a href="https://github.com/tbep-tech/wqtrends/actions" class="external-link"><img src="https://github.com/tbep-tech/wqtrends/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://github.com/tbep-tech/wqtrends/actions" class="external-link"><img src="https://github.com/tbep-tech/wqtrends/workflows/pkgdown/badge.svg" alt="pkgdown"></a> <a href="https://app.codecov.io/gh/tbep-tech/wqtrends?branch=master" class="external-link"><img src="https://codecov.io/gh/tbep-tech/wqtrends/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://zenodo.org/badge/latestdoi/239808241" class="external-link"><img src="https://zenodo.org/badge/239808241.svg" alt="DOI"></a></p>
+<p>R package to assess water quality trends for long-term monitoring data in estuaries using Generalized Additive Models with error propagation from mixed-effect meta-analysis. Uses concepts in the <a href="https://CRAN.R-project.org/package=mgcv" class="external-link">mgcv</a> and <a href="https://CRAN.R-project.org/package=mixmeta" class="external-link">mixmeta</a> packages. Detailed information on the methods used in this package are described in the following open access article:</p>
 <p><em>Beck, M.W., de Valpine, P., Murphy, R., Wren, I., Chelsky, A., Foley, M., Senn, D.B. 2022. Multi-scale trend analysis of water quality using error propagation of Generalized Additive Models. Science of the Total Environment. 802:149927. <a href="https://doi.org/10.1016/j.scitotenv.2021.149927" class="external-link">https://doi.org/10.1016/j.scitotenv.2021.149927</a></em></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The package can be installed from <a href="https://tbep-tech.r-universe.dev/ui#builds" class="external-link">r-universe</a>. The source code is available on <a href="https://github.com/tbep-tech/wqtrends" class="external-link">GitHub</a>.</p>
+<p>The development version of the package can be installed from <a href="http://tbep-tech.r-universe.dev/ui/#builds" class="external-link">r-universe</a>. The source code is available on <a href="https://github.com/tbep-tech/wqtrends" class="external-link">GitHub</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># enable repos</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    tbeptech <span class="op">=</span> <span class="st">'https://tbep-tech.r-universe.dev'</span>,</span>
-<span>    CRAN <span class="op">=</span> <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># install wqtrends</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'wqtrends'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Install wqtrends in R:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'wqtrends'</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://tbep-tech.r-universe.dev'</span>, <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load wqtrends</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">wqtrends</span><span class="op">)</span></span></code></pre></div>
@@ -88,12 +83,7 @@
 <div class="section level1">
 <h1 id="issues-and-suggestions">Issues and suggestions<a class="anchor" aria-label="anchor" href="#issues-and-suggestions"></a>
 </h1>
-<p>Please report any issues and suggestions on the <a href="https://github.com/tbep-tech/wqtrends/issues" class="external-link">issues link</a> for the repository. A guide to posting issues can be found <a href="ISSUE_TEMPLATE.html">here</a>.</p>
-</div>
-<div class="section level1">
-<h1 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
-</h1>
-<p>Please view our <a href="CONTRIBUTING.html">contributing</a> guidelines for any changes or pull requests.</p>
+<p>Please report any issues and suggestions on the <a href="https://github.com/tbep-tech/wqtrends/issues" class="external-link">issues link</a> for the repository.</p>
 </div>
 
   </main><aside class="col-md-3"><div class="license">
