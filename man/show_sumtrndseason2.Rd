@@ -36,17 +36,16 @@ Plot seasonal rates of change in quarters based on average estimates for multipl
 This function is similar to \code{\link{show_sumtrndseason}} but results are grouped into seasonal quarters as four separate plots with a combined color scale.
 }
 \examples{
-\dontrun{
 library(dplyr)
 
 # data to model
 tomod <- rawdat \%>\%
   filter(station \%in\% 34) \%>\%
-  filter(param \%in\% 'chl')
+  filter(param \%in\% 'chl') \%>\% 
+  filter(yr > 2015)
 
 mod <- anlz_gam(tomod, trans = 'log10')
-show_sumtrndseason2(mod, justify = 'center', win = 5:6)
-}
+show_sumtrndseason2(mod, justify = 'center', win = 2:3)
 }
 \seealso{
 Other show: 

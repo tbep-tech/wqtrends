@@ -42,9 +42,10 @@ Authors@R: c(
       comment = c(ORCID = "0000-0002-4869-3550")
     )
   )
-Description: Assess Water Quality Trends for Long-Term Monitoring Data in Estuaries 
-  using Generalized Additive Models and Error Propagation with Mixed-Effects Meta-Analysis. Methods
-  are available for model fitting, assessment of fit, annual and seasonal trend tests, and 
+Description: Assess Water Quality Trends for Long-Term Monitoring Data in Estuaries using
+  Generalized Additive Models following Wood (2017) <doi:10.1201/9781315370279> and Error
+  Propagation with Mixed-Effects Meta-Analysis following Sera et al. (2019) <doi:10.1002/sim.8362>.
+  Methods are available for model fitting, assessment of fit, annual and seasonal trend tests, and
   visualization of results.
 Depends: 
   R (>= 3.5)

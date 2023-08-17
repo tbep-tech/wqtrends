@@ -19,17 +19,16 @@
 #' @family show
 #' 
 #' @examples
-#' \dontrun{
 #' library(dplyr)
 #' 
 #' # data to model
 #' tomod <- rawdat %>%
 #'   filter(station %in% 34) %>%
-#'   filter(param %in% 'chl')
+#'   filter(param %in% 'chl') %>% 
+#'   filter(yr > 2015)
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
-#' show_sumtrndseason2(mod, justify = 'center', win = 5:6)
-#' }
+#' show_sumtrndseason2(mod, justify = 'center', win = 2:3)
 show_sumtrndseason2 <- function(mod, justify = c('center', 'left', 'right'), 
                                win = 5:15, txtsz = 6, cols = c('lightblue', 'lightgreen'), 
                                base_size = 11){
