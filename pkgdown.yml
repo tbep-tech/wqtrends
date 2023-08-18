@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   introduction: introduction.html
-last_built: 2023-08-17T12:52Z
+last_built: 2023-08-18T14:17Z
 urls:
   reference: https://tbep-tech.github.io/wqtrends/reference
   article: https://tbep-tech.github.io/wqtrends/articles
