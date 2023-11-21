@@ -14,11 +14,11 @@ R package to assess water quality trends for long-term monitoring data in estuar
 
 ## Installation
 
-The development version of the package can be installed from [r-universe](http://tbep-tech.r-universe.dev/ui/#builds).  The source code is available on [GitHub](https://github.com/tbep-tech/wqtrends).
+Install the package from CRAN as follows. The development version of the package can be installed from [r-universe](http://tbep-tech.r-universe.dev/ui/#builds).  The source code is available on [GitHub](https://github.com/tbep-tech/wqtrends).
 
 ```r
 # Install wqtrends in R:
-install.packages('wqtrends', repos = c('https://tbep-tech.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages('wqtrends')
 
 # load wqtrends
 library(wqtrends)
