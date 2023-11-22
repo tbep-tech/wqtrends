@@ -15,6 +15,7 @@ show_trndseason(
   ylab,
   nsim = 10000,
   useave = FALSE,
+  usearrow = FALSE,
   base_size = 11,
   xlim = NULL,
   ylim = NULL,
@@ -41,6 +42,8 @@ show_trndseason(
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
+
+\item{usearrow}{logical indicating if arrows should be used to indicate significant trend direction}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 

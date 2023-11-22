@@ -5,6 +5,7 @@
 #' @inheritParams anlz_trndseason
 #' @param type chr string indicating if log slopes are shown (if applicable)
 #' @param ylab chr string for y-axis label
+#' @param usearrow logical indicating if arrows should be used to indicate significant trend direction
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' @param xlim optional numeric vector of length two for x-axis limits
 #' @param ylim optional numeric vector of length two for y-axis limits
@@ -28,7 +29,7 @@
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
 show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), 
                             justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4,
-                            useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
+                            useave = FALSE, usearrow = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
   
   justify <- match.arg(justify)
   type <- match.arg(type)
@@ -46,15 +47,22 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
   
   # year range
   yrrng <- range(trndseason$yr, na.rm = T)
+
+  # shape and factor vectors based on usearrow
+  pshp <- if(usearrow == T) c(21, 24, 25) else c(21, 21)
+  pfct <- if(usearrow == T) c('ns', 'inc, p < 0.05', 'dec, p < 0.05') else c('ns', 'p < 0.05')
+  pcol <- if(usearrow == T) c('black', 'tomato1', 'tomato1') else c('black', 'tomato1')
+  pfil <- if(usearrow == T) c('white', 'tomato1', 'tomato1') else c('white', 'tomato1')
   
   # to plot, no NA
   toplo <- trndseason %>% 
     dplyr::mutate(
       pval = dplyr::case_when(
-          pval < 0.05 ~ 'p < 0.05', 
-          T ~ 'ns'
+          pval < 0.05 & yrcoef > 0 ~ pfct[2],
+          pval < 0.05 & yrcoef < 0 ~ pfct[3],
+          T ~ pfct[1]
         ), 
-      pval = factor(pval, levels = c('ns', 'p < 0.05'))
+      pval = factor(pval, levels = pfct)
       ) %>% 
     na.omit()
   
@@ -65,7 +73,7 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
       ggplot2::geom_hline(yintercept = 0) + 
       ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0) +
-      ggplot2::scale_color_manual(values = c('black', 'tomato1'), drop = FALSE)
+      ggplot2::scale_color_manual(values = pcol, drop = FALSE)
  
   }
   
@@ -90,13 +98,14 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
       ggplot2::geom_hline(yintercept = 0) + 
       ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0) +
-      ggplot2::scale_color_manual(values = c('black', 'tomato1'), drop = FALSE)
+      ggplot2::scale_color_manual(values = pcol, drop = FALSE)
     
   }
   
   p <- p + 
-    ggplot2::geom_point(shape = 21, size = 3) +
-    ggplot2::scale_fill_manual(values = c('white', 'tomato1'), drop = FALSE) +
+    ggplot2::geom_point(ggplot2::aes(shape = pval), size = 3) +
+    ggplot2::scale_fill_manual(values = pfil, drop = FALSE) +
+    ggplot2::scale_shape_manual(values = pshp, drop = FALSE) +
     ggplot2::scale_x_continuous(limits = yrrng) +
     ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
     ggplot2::theme(
