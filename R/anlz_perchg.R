@@ -9,7 +9,7 @@
 #' @export
 #' @return A data frame of summary results for change between the years.
 #' 
-#' @details Working components of this function were taken from the \code{\link[baytrends]{gamDiff}} function in the baytrends package. 
+#' @details Working components of this function were taken from the gamDiff function in the baytrends package. 
 #' 
 #' @concept analyze
 #' 

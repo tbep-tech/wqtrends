@@ -13,6 +13,8 @@ show_metseason(
   yrend = 2019,
   yromit = NULL,
   ylab,
+  width = 0.9,
+  size = 1.5,
   nsim = 10000,
   useave = FALSE,
   base_size = 11,
@@ -37,6 +39,10 @@ show_metseason(
 \item{yromit}{optional numeric vector for years to omit from the plot, see details}
 
 \item{ylab}{chr string for y-axis label}
+
+\item{width}{numeric for width of error bars}
+
+\item{size}{numeric for point size}
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 

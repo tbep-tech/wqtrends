@@ -20,7 +20,7 @@ A data frame of summary results for change between the years.
 Estimate percent change trends from GAM results for selected time periods
 }
 \details{
-Working components of this function were taken from the \code{\link[baytrends]{gamDiff}} function in the baytrends package.
+Working components of this function were taken from the gamDiff function in the baytrends package.
 }
 \examples{
 library(dplyr)
