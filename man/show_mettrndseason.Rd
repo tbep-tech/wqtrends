@@ -89,3 +89,4 @@ mod <- anlz_gam(tomod, trans = 'log10')
 show_mettrndseason(mod, metfun = mean, doystr = 90, doyend = 180, justify = 'center', 
   win = 4, ylab = 'Chlorophyll-a (ug/L)')
 }
+\concept{show}
