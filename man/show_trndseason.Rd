@@ -2,7 +2,7 @@
 % Please edit documentation in R/show_trndseason.R
 \name{show_trndseason}
 \alias{show_trndseason}
-\title{Plot seasonal rates of change based on average estimates}
+\title{Plot rates of change based on seasonal metrics}
 \usage{
 show_trndseason(
   mod,
@@ -57,7 +57,7 @@ show_trndseason(
 A \code{\link[ggplot2]{ggplot}} object
 }
 \description{
-Plot seasonal rates of change based on average estimates
+Plot rates of change based on seasonal metrics
 }
 \examples{
 library(dplyr)

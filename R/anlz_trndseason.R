@@ -1,6 +1,6 @@
-#' Estimate seasonal rates of change based on average estimates
+#' Estimate rates of change based on seasonal metrics
 #'
-#' Estimate seasonal rates of change based on average estimates
+#' Estimate rates of change based on seasonal metrics
 #' 
 #' @param mod input model object as returned by \code{\link{anlz_gam}}
 #' @param metfun function input for metric to calculate, e.g., \code{mean}, \code{var}, \code{max}, etc

@@ -1,6 +1,6 @@
-#' Plot seasonal rates of change based on average estimates
+#' Plot rates of change based on seasonal metrics 
 #'
-#' Plot seasonal rates of change based on average estimates
+#' Plot rates of change based on seasonal metrics
 #' 
 #' @inheritParams anlz_trndseason
 #' @param type chr string indicating if log slopes are shown (if applicable)

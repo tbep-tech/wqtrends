@@ -2,7 +2,7 @@
 % Please edit documentation in R/anlz_trndseason.R
 \name{anlz_trndseason}
 \alias{anlz_trndseason}
-\title{Estimate seasonal rates of change based on average estimates}
+\title{Estimate rates of change based on seasonal metrics}
 \usage{
 anlz_trndseason(
   mod,
@@ -39,7 +39,7 @@ anlz_trndseason(
 A data frame of slope estimates and p-values for each year
 }
 \description{
-Estimate seasonal rates of change based on average estimates
+Estimate rates of change based on seasonal metrics
 }
 \details{
 Trends are based on the slope of the fitted linear trend within the window, where the linear trend is estimated using a meta-analysis regression model (from \code{\link{anlz_mixmeta}}) for the seasonal metrics (from \code{\link{anlz_metseason}}).
