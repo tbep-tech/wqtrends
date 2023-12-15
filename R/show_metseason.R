@@ -99,7 +99,7 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
     )
 
   # get mixmeta models and plotting results
-  if(!any(is.null(yrstr) | is.null(yrend))){
+  if(!is.null(yrstr) & !is.null(yrend)){
     
     # get mixmeta models
     mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend, yromit = yromit)
