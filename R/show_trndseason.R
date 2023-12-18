@@ -107,7 +107,7 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     ggplot2::scale_fill_manual(values = pfil, drop = FALSE) +
     ggplot2::scale_shape_manual(values = pshp, drop = FALSE) +
     ggplot2::scale_x_continuous(limits = yrrng) +
-    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
+    ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(), 
       legend.position = 'top', 

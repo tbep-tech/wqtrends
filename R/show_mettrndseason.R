@@ -109,7 +109,7 @@ show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, jus
   p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = bt_met)) + 
     ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'black', width = width) +
     ggplot2::geom_point(ggplot2::aes(fill = trnd), pch = 21, color = 'black', size = size) +
-    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) +
+    ggplot2::theme_bw(base_size = base_size) +
     ggplot2::scale_fill_manual(values = cols, drop = F) +
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(), 

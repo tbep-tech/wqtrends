@@ -49,7 +49,7 @@ show_prdseries <- function(mod, ylab, alpha = 0.7, base_size = 11, xlim = NULL, 
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
     ggplot2::geom_line(ggplot2::aes(y = value), size = 0.75, alpha = alpha, colour = 'brown') + 
     # ggplot2::geom_line(ggplot2::aes(y = annvalue), alpha = alpha, colour = 'tomato1') +
-    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
+    ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::theme(
       legend.position = 'top', 
       legend.title = ggplot2::element_blank(),

@@ -95,7 +95,7 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_met)) + 
     ggplot2::geom_point(colour = 'deepskyblue3', size = size) +
     ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3', width = width) +
-    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
+    ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank()
     )

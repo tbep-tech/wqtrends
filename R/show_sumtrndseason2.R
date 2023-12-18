@@ -72,7 +72,7 @@ show_sumtrndseason2 <- function(mod, justify = c('center', 'left', 'right'),
     ggplot2::scale_x_continuous(expand = c(0, 0)) + 
     ggplot2::scale_y_continuous(expand = c(0, 0), breaks = win) +
     ggplot2::scale_fill_gradient2(low = cols[1], mid = 'white', high = cols[2], midpoint = 0) +
-    ggplot2::theme_bw(base_family = 'serif', base_size = base_size) + 
+    ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::theme(
       legend.position = 'top',
       strip.background = ggplot2::element_blank(), 
