@@ -180,15 +180,15 @@ The results supplied by `show_trndseason()` can be extended to multiple window w
 show_sumtrndseason(mod, doystr = 90, doyend = 180, justify = 'left', win = 5:15)
 ```
 
-Lastly, the plots returned by `show_metseason()` and `show_trndseason()` can be combined using the `show_mettrndseason()` function.  This plot will show the seasonal metrics from the GAM as in `show_metseason()` with the colors of the points for the seasonal metrics colored by the significance of the moving window trends shown in `show_trndseason()`.  the four colors indicate increasing, decreasing, no trend, or no estimate (i.e., too few points for the window). Most of the arguments for `show_metseason()` and `show_trndseason()` are available in `show_mettrndseason()`.
+Lastly, the plots returned by `show_metseason()` and `show_trndseason()` can be combined using the `show_mettrndseason()` function.  This plot will show the seasonal metrics from the GAM as in `show_metseason()` with the colors of the points for the seasonal metrics colored by the significance of the moving window trends shown in `show_trndseason()`.  The four colors indicate increasing, decreasing, no trend, or no estimate (i.e., too few points for the window). Most of the arguments for `show_metseason()` and `show_trndseason()` apply to `show_mettrndseason()`.
 
-```{r, fig.height = 4, fig.width = 9, echo = T}
+```{r, fig.height = 5, fig.width = 9, echo = T}
 show_mettrndseason(mod, metfun = mean, doystr = 90, doyend = 180, ylab = "Chlorophyll-a (ug/L)", win = 5, justify = 'left')
 ```
 
-Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The `cmbn = T` argument can be used to combine the no trend and no estimate colors into one color and label if desired.  In this case, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made. 
+Four colors are used to define increasing, decreasing, no trend, or no estimate.  The `cmbn` argument can be used to combine the no trend and no estimate colors into one color and label.  Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made. 
 
-```{r, fig.height = 4, fig.width = 9, echo = T}
+```{r, fig.height = 5, fig.width = 9, echo = T}
 show_mettrndseason(mod, metfun = mean, doystr = 90, doyend = 180, ylab = "Chlorophyll-a (ug/L)", win = 5, justify = 'left', cmbn = T)
 ```
 
