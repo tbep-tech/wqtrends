@@ -10,7 +10,8 @@ show_prdseries(
   alpha = 0.7,
   base_size = 11,
   xlim = NULL,
-  ylim = NULL
+  ylim = NULL,
+  col = "brown"
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ show_prdseries(
 \item{xlim}{optional numeric vector of length two for x-axis limits}
 
 \item{ylim}{optional numeric vector of length two for y-axis limits}
+
+\item{col}{optional chr string for line color}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object
