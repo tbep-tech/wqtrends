@@ -5,7 +5,7 @@ test_that("Checking anlz_prdday", {
     .[1:4] %>% 
     round(1)
   
-  expect_equal(result, c(4, 4, 3.9, 3.9))
+  expect_equal(result, c(6.3, 6.3, 6.3, 6.3))
   
 })
 

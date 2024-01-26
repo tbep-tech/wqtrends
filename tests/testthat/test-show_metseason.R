@@ -1,6 +1,6 @@
 test_that("Checking show_metseason class", {
   
-  result <- show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)')
+  result <- show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019, ylab = 'Chlorophyll-a (ug/L)')
   
   expect_is(result, 'ggplot')
   
@@ -8,7 +8,7 @@ test_that("Checking show_metseason class", {
 
 test_that("Checking show_metseason class, identity", {
   
-  result <- show_metseason(modident, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)')
+  result <- show_metseason(modident, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019, ylab = 'Chlorophyll-a (ug/L)')
   
   expect_is(result, 'ggplot')
   
@@ -16,7 +16,7 @@ test_that("Checking show_metseason class, identity", {
 
 test_that("Checking show_metseason class, max as metfun", {
   
-  result <- show_metseason(modident, metfun = max, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)', nsim = 5)
+  result <- show_metseason(modident, metfun = max, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019, ylab = 'Chlorophyll-a (ug/L)', nsim = 5)
   
   expect_is(result, 'ggplot')
   
@@ -32,7 +32,7 @@ test_that("Checking show_metseason class, yrstr or yrend as NULL", {
 
 test_that("Checking show_metseason class, yromit included", {
   
-  result <- show_metseason(modident, metfun = max, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)', nsim = 5, yromit = 2015)
+  result <- show_metseason(modident, metfun = max, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019, ylab = 'Chlorophyll-a (ug/L)', nsim = 5, yromit = 2015)
   
   expect_is(result, 'ggplot')
   
@@ -40,7 +40,7 @@ test_that("Checking show_metseason class, yromit included", {
 
 test_that("Checking show_metseason class with useave = T", {
   
-  result <- show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2000, yrend = 2017, ylab = 'Chlorophyll-a (ug/L)', useave = T)
+  result <- show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019, ylab = 'Chlorophyll-a (ug/L)', useave = T)
   
   expect_is(result, 'ggplot')
   

@@ -5,7 +5,7 @@ test_that("Checking anlz_prd", {
     .[1:4] %>% 
     round(1)
   
-  expect_equal(result, c(`1` = 2.8, `2` = 2.5, `3` = 2.3, `4` = 2.1))
+  expect_equal(result, c(`1` = 6.6, `2` = 6.6, `3` = 6.6, `4` = 6.7))
   
 })
 
@@ -16,7 +16,7 @@ test_that("Checking anlz_prd, annual = T", {
     .[1:4] %>% 
     round(1)
   
-  expect_equal(result, c(`1` = 2.8, `2` = 2.5, `3` = 2.3, `4` = 2.1))
+  expect_equal(result, c(`1` = 6.6, `2` = 6.6, `3` = 6.6, `4` = 6.7))
   
 })
 

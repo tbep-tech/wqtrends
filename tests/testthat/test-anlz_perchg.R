@@ -1,6 +1,6 @@
 test_that("Checking anlz_perchg", {
   
-  result <- anlz_perchg(mod, baseyr = 1990, testyr = 2016) 
+  result <- anlz_perchg(mod, baseyr = 2016, testyr = 2019) 
   
   expect_equal(nrow(result), 1)
   
