@@ -1,6 +1,6 @@
 ##  Resubmission
 
-This is a version update to v1.4.2.
+This is a resubmission of a version update to reduce runtime for tests.
 
 ## Test environments
 
