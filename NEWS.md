@@ -1,3 +1,12 @@
+# wqtrends 1.4.2
+
+* `show_trndseason()` has option `usearrow` to plot points as up or down arrows for trend direction
+* `show_metseason()` no longer returns ambiguous error if `yrstr` or `yrend` are `NULL`
+* `show_mettrndseason()` function added to plot trend and seasonal metrics in a single plot
+* All `show_*()` functions no longer have serif base font
+* Added `col` argument for line color to `show_prdseries()`
+* Added GitHub URLs to DESCRIPTION
+
 # wqtrends 1.4.1
 
 * Initial CRAN submission.
