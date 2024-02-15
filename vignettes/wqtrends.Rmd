@@ -1,13 +1,11 @@
 ---
-title: "Introduction to wqtrends"
-author: "Marcus Beck"
-date: "`r Sys.Date()`"
+title: "Getting started"
 output: 
   rmarkdown::html_vignette:
     toc: true
 bibliography: refs.bib 
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{Getting started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
