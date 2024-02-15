@@ -168,12 +168,6 @@ As before, adding an argument for `metfun` to `show_trndseason()` will plot resu
 show_trndseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, maximum')
 ```
 
-For additional visual clarity, the significant results in `show_trndseason()` can be shown with different shapes indicating the direction of the trend using `usearrow = T`. This may be useful if the direction of significant trends near the zero line are difficult to determine (not in the below example).
-
-```{r, fig.height = 5, fig.width = 9, echo = T}
-show_trndseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, justify = 'left', win = 5, ylab = 'Chl. change/yr, maximum', usearrow = T)
-```
-
 The results supplied by `show_trndseason()` can be extended to multiple window widths by stacking the results into a single plot.  Below, results for window widths from 5 to 15 years are shown using the `show_sumtrndseason()` function for a selected seasonal range using a left-justified window. This function only works with average seasonal metrics due to long processing times with other metrics.  To retrieve the results in tabular form, use `anlz_sumtrndseason()`.  
 
 ```{r, fig.height = 7, fig.width = 9, echo = T}
