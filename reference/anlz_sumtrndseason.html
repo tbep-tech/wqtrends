@@ -59,7 +59,8 @@
 <span>  doystr <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  doyend <span class="op">=</span> <span class="fl">364</span>,</span>
 <span>  justify <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"center"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span>,</span>
-<span>  win <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">15</span></span>
+<span>  win <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>,</span>
+<span>  yromit <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -84,6 +85,10 @@
 <dt>win</dt>
 <dd><p>numeric vector indicating number of years to use for the trend window</p></dd>
 
+
+<dt>yromit</dt>
+<dd><p>optional numeric vector for years to omit from the plot, see details</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -93,7 +98,8 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function is a wrapper to <code><a href="anlz_trndseason.html">anlz_trndseason</a></code> to loop across values in <code>win</code>, using <code>useave = TRUE</code> for quicker calculation of average seasonal metrics.  It does not work with any other seasonal metric calculations.</p>
+    <p>The optional <code>yromit</code> vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.</p>
+<p>This function is a wrapper to <code><a href="anlz_trndseason.html">anlz_trndseason</a></code> to loop across values in <code>win</code>, using <code>useave = TRUE</code> for quicker calculation of average seasonal metrics.  It does not work with any other seasonal metric calculations.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

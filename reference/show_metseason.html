@@ -149,7 +149,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Setting <code>yrstr</code> or <code>yrend</code> to <code>NULL</code> will suppress plotting of the trend line for the meta-analysis regression model.</p>
-<p>The optional <code>omityr</code> vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.</p>
+<p>The optional <code>yromit</code> vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.</p>
 <p>Set <code>useave = T</code> to speed up calculations if <code>metfun = mean</code>.  This will use <code><a href="anlz_avgseason.html">anlz_avgseason</a></code> to estimate the seasonal summary metrics using a non-stochastic equation.</p>
     </div>
 
@@ -176,8 +176,8 @@
 <span class="r-plt img"><img src="show_metseason-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>     </span></span>
 <span class="r-in"><span><span class="co"># omit years from the analysis</span></span></span>
-<span class="r-in"><span><span class="fu">show_metseason</span><span class="op">(</span><span class="va">mod</span>, doystr <span class="op">=</span> <span class="fl">90</span>, doyend <span class="op">=</span> <span class="fl">180</span>, yrstr <span class="op">=</span> <span class="fl">2015</span>, yrend <span class="op">=</span> <span class="fl">2019</span>,</span></span>
-<span class="r-in"><span>     yromit <span class="op">=</span> <span class="fl">2018</span>, ylab <span class="op">=</span> <span class="st">'Chlorophyll-a (ug/L)'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">show_metseason</span><span class="op">(</span><span class="va">mod</span>, doystr <span class="op">=</span> <span class="fl">90</span>, doyend <span class="op">=</span> <span class="fl">180</span>, yrstr <span class="op">=</span> <span class="fl">2016</span>, yrend <span class="op">=</span> <span class="fl">2019</span>,</span></span>
+<span class="r-in"><span>     yromit <span class="op">=</span> <span class="fl">2017</span>, ylab <span class="op">=</span> <span class="st">'Chlorophyll-a (ug/L)'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="show_metseason-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }      </span></span></span>
 </code></pre></div>

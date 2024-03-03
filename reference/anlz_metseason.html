@@ -54,7 +54,15 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">anlz_metseason</span><span class="op">(</span><span class="va">mod</span>, metfun <span class="op">=</span> <span class="va">mean</span>, doystr <span class="op">=</span> <span class="fl">1</span>, doyend <span class="op">=</span> <span class="fl">364</span>, nsim <span class="op">=</span> <span class="fl">10000</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">anlz_metseason</span><span class="op">(</span></span>
+<span>  <span class="va">mod</span>,</span>
+<span>  metfun <span class="op">=</span> <span class="va">mean</span>,</span>
+<span>  doystr <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  doyend <span class="op">=</span> <span class="fl">364</span>,</span>
+<span>  nsim <span class="op">=</span> <span class="fl">10000</span>,</span>
+<span>  yromit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,6 +85,10 @@
 
 <dt>nsim</dt>
 <dd><p>numeric indicating number of random draws for simulating uncertainty</p></dd>
+
+
+<dt>yromit</dt>
+<dd><p>optional numeric vector for years to omit from the output</p></dd>
 
 
 <dt>...</dt>
