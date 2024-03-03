@@ -48,10 +48,13 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
   yrrng <- range(trndseason$yr, na.rm = T)
 
   # shape and factor vectors
-  pshp <- c(21, 21, 21)
   pfct <- c('Increasing', 'Decreasing', 'No trend')
+  pshp <- c(21, 21, 21)
   pcol <- c('tomato1', 'deepskyblue3', 'black')
   pfil <- c('tomato1', 'deepskyblue3', 'white')
+  names(pcol) <- pfct
+  names(pfil) <- pfct
+  names(pshp) <- pfct
   
   # to plot, no NA
   toplo <- trndseason %>% 
@@ -64,7 +67,7 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
       pval = factor(pval, levels = pfct)
       ) %>% 
     na.omit()
-  
+
   if(type == 'log10' & mod$trans == 'log10'){
     
     ttl <- paste0('Annual log-slopes (+/- 95%) for seasonal trends: ', strt, '-',  ends)
@@ -100,7 +103,7 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
       ggplot2::scale_color_manual(values = pcol, drop = FALSE)
     
   }
-  
+
   p <- p + 
     ggplot2::geom_point(ggplot2::aes(shape = pval), size = 3, na.rm = TRUE) +
     ggplot2::scale_fill_manual(values = pfil, drop = FALSE) +
