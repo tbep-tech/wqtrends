@@ -14,6 +14,7 @@ show_trndseason(
   win = 5,
   ylab,
   nsim = 10000,
+  yromit = NULL,
   useave = FALSE,
   base_size = 11,
   xlim = NULL,
@@ -39,6 +40,8 @@ show_trndseason(
 \item{ylab}{chr string for y-axis label}
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
+
+\item{yromit}{optional numeric vector for years to omit from the output}
 
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
 

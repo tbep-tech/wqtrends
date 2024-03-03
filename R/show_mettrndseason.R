@@ -19,6 +19,8 @@
 #' 
 #' Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The names and the colors can be changed using the \code{nms} and \code{cols} arguments, respectively.  The \code{cmbn} argument can be used to combine the no trend and no estimate colors into one color and label. Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made.
 #' 
+#' The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
+#' 
 #' @concept show
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
@@ -39,8 +41,8 @@
 show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5, nsim = 1e4, useave = FALSE, yromit = NULL, ylab, width = 0.9, size = 3, nms = NULL, cols = NULL, cmbn = F, base_size = 11, xlim = NULL, ylim = NULL, ...){
   
   # get seasonal metrics and trends
-  trndseason <- anlz_trndseason(mod = mod, metfun, doystr = doystr, doyend = doyend, justify = justify, win = win, useave = useave)
-  
+  trndseason <- anlz_trndseason(mod = mod, metfun, doystr = doystr, doyend = doyend, justify = justify, win = win, useave = useave, yromit = yromit)
+
   # handle nms and cols args if not combine (keep no trend and no estimate)
   if(!cmbn){
     
@@ -88,11 +90,6 @@ show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, jus
   
   names(cols) <- nms
   
-  # omit years if yromit provided
-  if(!is.null(yromit))
-    trndseason <- trndseason %>% 
-      dplyr::filter(!yr %in% yromit)
-  
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
   strt <- paste(lubridate::month(dts[1], label = T, abbr = T), lubridate::day(dts[1]))
@@ -104,11 +101,11 @@ show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, jus
   subttl <- paste0('Points colored by trend for ', win, '-year, ', justify, '-justified window')
   
   toplo <- trndseason
-  
+
   # plot output
   p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = bt_met)) + 
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'black', width = width) +
-    ggplot2::geom_point(ggplot2::aes(fill = trnd), pch = 21, color = 'black', size = size) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'black', width = width, na.rm = TRUE) +
+    ggplot2::geom_point(ggplot2::aes(fill = trnd), pch = 21, color = 'black', size = size, na.rm = TRUE) +
     ggplot2::theme_bw(base_size = base_size) +
     ggplot2::scale_fill_manual(values = cols, drop = F) +
     ggplot2::theme(

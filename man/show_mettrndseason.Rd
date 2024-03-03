@@ -75,6 +75,8 @@ Plot seasonal metrics and rates of change
 The plot is the same as that returned by \code{\link{show_metseason}} with the addition of points for the seasonal metrics colored by the trends estimated from \code{\link{anlz_trndseason}} for the specified window and justification.  
 
 Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The names and the colors can be changed using the \code{nms} and \code{cols} arguments, respectively.  The \code{cmbn} argument can be used to combine the no trend and no estimate colors into one color and label. Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made.
+
+The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 }
 \examples{
 library(dplyr)

@@ -9,7 +9,8 @@ anlz_sumtrndseason(
   doystr = 1,
   doyend = 364,
   justify = c("center", "left", "right"),
-  win = 5:15
+  win = 5:15,
+  yromit = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ anlz_sumtrndseason(
 \item{justify}{chr string indicating the justification for the trend window}
 
 \item{win}{numeric vector indicating number of years to use for the trend window}
+
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
 }
 \value{
 A data frame of slope estimates and p-values for each year
@@ -30,6 +33,8 @@ A data frame of slope estimates and p-values for each year
 Estimate seasonal rates of change based on average estimates for multiple window widths
 }
 \details{
+The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
+
 This function is a wrapper to \code{\link{anlz_trndseason}} to loop across values in \code{win}, using \code{useave = TRUE} for quicker calculation of average seasonal metrics.  It does not work with any other seasonal metric calculations.
 }
 \examples{

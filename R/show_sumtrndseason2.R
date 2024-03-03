@@ -3,6 +3,7 @@
 #' Plot seasonal rates of change in quarters based on average estimates for multiple window widths
 #' 
 #' @param mod input model object as returned by \code{\link{anlz_gam}}
+#' @param yromit optional numeric vector for years to omit from the plot, see details
 #' @param justify chr string indicating the justification for the trend window
 #' @param win numeric vector indicating number of years to use for the trend window
 #' @param txtsz numeric for size of text labels inside the plot
@@ -15,6 +16,8 @@
 #' @concept show
 #'
 #' @details This function is similar to \code{\link{show_sumtrndseason}} but results are grouped into seasonal quarters as four separate plots with a combined color scale.
+#' 
+#' The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 #' 
 #' @family show
 #' 
@@ -29,7 +32,7 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_sumtrndseason2(mod, justify = 'center', win = 2:3)
-show_sumtrndseason2 <- function(mod, justify = c('center', 'left', 'right'), 
+show_sumtrndseason2 <- function(mod, yromit = NULL, justify = c('center', 'left', 'right'), 
                                win = 5:15, txtsz = 6, cols = c('lightblue', 'lightgreen'), 
                                base_size = 11){
   
@@ -41,13 +44,13 @@ show_sumtrndseason2 <- function(mod, justify = c('center', 'left', 'right'),
   seas <- c('Jan - Mar', 'Apr - Jun', 'Jul - Sep' , 'Oct - Dec')
 
   # get ests across all window widths and quarters
-  res1 <- anlz_sumtrndseason(mod, doystr = 1, doyend = 90, justify = justify, win = win) %>% 
+  res1 <- anlz_sumtrndseason(mod, doystr = 1, doyend = 90, justify = justify, win = win, yromit = yromit) %>% 
     dplyr::mutate(seas = seas[1])
-  res2 <- anlz_sumtrndseason(mod, doystr = 91, doyend = 181, justify = justify, win = win) %>% 
+  res2 <- anlz_sumtrndseason(mod, doystr = 91, doyend = 181, justify = justify, win = win, yromit = yromit) %>% 
     dplyr::mutate(seas = seas[2])
-  res3 <- anlz_sumtrndseason(mod, doystr = 182, doyend = 273, justify = justify, win = win) %>% 
+  res3 <- anlz_sumtrndseason(mod, doystr = 182, doyend = 273, justify = justify, win = win, yromit = yromit) %>% 
     dplyr::mutate(seas = seas[3])
-  res4 <- anlz_sumtrndseason(mod, doystr = 274, doyend = 365, justify = justify, win = win) %>% 
+  res4 <- anlz_sumtrndseason(mod, doystr = 274, doyend = 365, justify = justify, win = win, yromit = yromit) %>% 
     dplyr::mutate(seas = seas[4])
   
   res <- dplyr::bind_rows(res1, res2, res3, res4) %>% 
@@ -66,8 +69,8 @@ show_sumtrndseason2 <- function(mod, justify = c('center', 'left', 'right'),
     )
 
   p <- ggplot2::ggplot(toplo, ggplot2::aes(x = yr, y = win, fill = yrcoef)) +
-    ggplot2::geom_tile(color = 'black') + 
-    ggplot2::geom_text(ggplot2::aes(label = psig), size = txtsz, vjust = 0.5) + 
+    ggplot2::geom_tile(color = 'black', na.rm = TRUE) + 
+    ggplot2::geom_text(ggplot2::aes(label = psig), size = txtsz, vjust = 0.5, na.rm = TRUE) + 
     ggplot2::facet_wrap(~seas, ncol = 1) +
     ggplot2::scale_x_continuous(expand = c(0, 0)) + 
     ggplot2::scale_y_continuous(expand = c(0, 0), breaks = win) +

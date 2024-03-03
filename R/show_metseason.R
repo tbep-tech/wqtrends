@@ -26,7 +26,7 @@
 #' 
 #' Setting \code{yrstr} or \code{yrend} to \code{NULL} will suppress plotting of the trend line for the meta-analysis regression model.
 #' 
-#' The optional \code{omityr} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
+#' The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 #' 
 #' Set \code{useave = T} to speed up calculations if \code{metfun = mean}.  This will use \code{\link{anlz_avgseason}} to estimate the seasonal summary metrics using a non-stochastic equation.
 #' 
@@ -52,8 +52,8 @@
 #'      ylab = 'Chlorophyll-a (ug/L)')
 #'      
 #' # omit years from the analysis
-#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2015, yrend = 2019,
-#'      yromit = 2018, ylab = 'Chlorophyll-a (ug/L)')
+#' show_metseason(mod, doystr = 90, doyend = 180, yrstr = 2016, yrend = 2019,
+#'      yromit = 2017, ylab = 'Chlorophyll-a (ug/L)')
 #' }      
 show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr = 2000, yrend = 2019, yromit = NULL, ylab, width = 0.9, size = 1.5, nsim = 1e4, useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
   
@@ -63,17 +63,12 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   # make sure user wants average and useave
   if(!chk & useave)
     stop('Specify metfun = mean if useave = T')
-  
+
   # estimate metrics
   if(useave)
-    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend)
+    metseason <- anlz_avgseason(mod, doystr = doystr, doyend = doyend, yromit = yromit)
   if(!useave)
-    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, ...)
-  
-  # omit years if yromit provided
-  if(!is.null(yromit))
-    metseason <- metseason %>% 
-      dplyr::filter(!yr %in% yromit)
+    metseason <- anlz_metseason(mod, metfun, doystr = doystr, doyend = doyend, nsim = nsim, yromit = yromit, ...)
 
   # transformation used
   trans <- mod$trans
@@ -93,8 +88,8 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   
   # plot output
   p <- ggplot2::ggplot(data = toplo1, ggplot2::aes(x = yr, y = bt_met)) + 
-    ggplot2::geom_point(colour = 'deepskyblue3', size = size) +
-    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3', width = width) +
+    ggplot2::geom_point(colour = 'deepskyblue3', size = size, na.rm = TRUE) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'deepskyblue3', width = width, na.rm = TRUE) +
     ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank()
@@ -104,8 +99,8 @@ show_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, yrstr =
   if(!is.null(yrstr) & !is.null(yrend)){
     
     # get mixmeta models
-    mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend, yromit = yromit)
-  
+    mixmet <- anlz_mixmeta(metseason, yrstr = yrstr, yrend = yrend)
+
     toplo2 <- data.frame(
       yr = seq(yrstr, yrend, length = 50)
       ) %>% 

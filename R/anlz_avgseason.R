@@ -5,6 +5,7 @@
 #' @param mod input model object as returned by \code{\link{anlz_gam}}
 #' @param doystr numeric indicating start Julian day for extracting averages
 #' @param doyend numeric indicating ending Julian day for extracting averages
+#' @param yromit optional numeric vector for years to omit from the output
 #'
 #' @return A data frame of period averages
 #' @export
@@ -22,7 +23,7 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' anlz_avgseason(mod, doystr = 90, doyend = 180)
-anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
+anlz_avgseason <- function(mod, doystr = 1, doyend = 364, yromit = NULL) {
   
   # transformation
   trans <- mod$trans
@@ -63,6 +64,11 @@ anlz_avgseason <- function(mod, doystr = 1, doyend = 364) {
     tibble::tibble() %>% 
     dplyr::mutate(dispersion = dispersion) %>% 
     dplyr::select(yr, met, se, bt_lwr, bt_upr, bt_met, dispersion)
+
+  # fill NA for yromit (do not remove)
+  if(!is.null(yromit))
+    out <- out %>% 
+      dplyr::mutate_at(dplyr::vars(-yr), ~ifelse(yr %in% yromit, NA, .)) 
   
   return(out)
   

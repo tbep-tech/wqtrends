@@ -6,6 +6,7 @@
 \usage{
 show_sumtrndseason2(
   mod,
+  yromit = NULL,
   justify = c("center", "left", "right"),
   win = 5:15,
   txtsz = 6,
@@ -15,6 +16,8 @@ show_sumtrndseason2(
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
+
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
 
 \item{justify}{chr string indicating the justification for the trend window}
 
@@ -34,6 +37,8 @@ Plot seasonal rates of change in quarters based on average estimates for multipl
 }
 \details{
 This function is similar to \code{\link{show_sumtrndseason}} but results are grouped into seasonal quarters as four separate plots with a combined color scale.
+
+The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 }
 \examples{
 library(dplyr)

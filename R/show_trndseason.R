@@ -28,13 +28,13 @@
 #'      ylab = 'Slope Chlorophyll-a (ug/L/yr)')
 show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type = c('log10', 'approx'), 
                             justify = c('left', 'right', 'center'), win = 5, ylab, nsim = 1e4,
-                            useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
+                            yromit = NULL, useave = FALSE, base_size = 11, xlim = NULL, ylim = NULL, ...) {
   
   justify <- match.arg(justify)
   type <- match.arg(type)
   
   # get slope trends
-  trndseason <- anlz_trndseason(mod = mod, metfun = metfun, doystr = doystr, doyend = doyend, justify = justify, win = win, nsim = nsim, useave = useave, ...) 
+  trndseason <- anlz_trndseason(mod = mod, metfun = metfun, doystr = doystr, doyend = doyend, justify = justify, win = win, nsim = nsim, yromit = yromit, useave = useave, ...) 
 
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
@@ -71,7 +71,7 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     
     p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
       ggplot2::geom_hline(yintercept = 0) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0) +
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0, na.rm = TRUE) +
       ggplot2::scale_color_manual(values = pcol, drop = FALSE)
  
   }
@@ -96,13 +96,13 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     
     p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
       ggplot2::geom_hline(yintercept = 0) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0) +
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0, na.rm = TRUE) +
       ggplot2::scale_color_manual(values = pcol, drop = FALSE)
     
   }
   
   p <- p + 
-    ggplot2::geom_point(ggplot2::aes(shape = pval), size = 3) +
+    ggplot2::geom_point(ggplot2::aes(shape = pval), size = 3, na.rm = TRUE) +
     ggplot2::scale_fill_manual(values = pfil, drop = FALSE) +
     ggplot2::scale_shape_manual(values = pshp, drop = FALSE) +
     ggplot2::scale_x_continuous(limits = yrrng) +

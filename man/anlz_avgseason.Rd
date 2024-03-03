@@ -4,7 +4,7 @@
 \alias{anlz_avgseason}
 \title{Extract period (seasonal) averages from fitted GAM}
 \usage{
-anlz_avgseason(mod, doystr = 1, doyend = 364)
+anlz_avgseason(mod, doystr = 1, doyend = 364, yromit = NULL)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
@@ -12,6 +12,8 @@ anlz_avgseason(mod, doystr = 1, doyend = 364)
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
 \item{doyend}{numeric indicating ending Julian day for extracting averages}
+
+\item{yromit}{optional numeric vector for years to omit from the output}
 }
 \value{
 A data frame of period averages

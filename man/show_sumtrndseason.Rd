@@ -8,6 +8,7 @@ show_sumtrndseason(
   mod,
   doystr = 1,
   doyend = 364,
+  yromit = NULL,
   justify = c("center", "left", "right"),
   win = 5:15,
   txtsz = 6,
@@ -21,6 +22,8 @@ show_sumtrndseason(
 \item{doystr}{numeric indicating start Julian day for extracting averages}
 
 \item{doyend}{numeric indicating ending Julian day for extracting averages}
+
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
 
 \item{justify}{chr string indicating the justification for the trend window}
 
@@ -40,6 +43,8 @@ Plot seasonal rates of change based on average estimates for multiple window wid
 }
 \details{
 This function plots output from \code{\link{anlz_sumtrndseason}}.
+
+The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 }
 \examples{
 library(dplyr)

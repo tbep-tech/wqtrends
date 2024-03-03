@@ -7,6 +7,7 @@
 #' @param doystr numeric indicating start Julian day for extracting averages
 #' @param doyend numeric indicating ending Julian day for extracting averages
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
+#' @param yromit optional numeric vector for years to omit from the output
 #' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
 #'
 #' @return A data frame of period metrics
@@ -27,7 +28,7 @@
 #'
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' anlz_metseason(mod, mean, doystr = 90, doyend = 180, nsim = 100)
-anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 1e4, ...) {
+anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 1e4, yromit = NULL, ...) {
 
   # transformation
   trans <- mod$trans
@@ -88,7 +89,12 @@ anlz_metseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, nsim = 
   mets$dispersion <- dispersion
   
   out <- mets
-  
+
+  # fill NA for yromit (do not remove)
+  if(!is.null(yromit))
+    out <- out %>% 
+      dplyr::mutate_at(dplyr::vars(-yr), ~ifelse(yr %in% yromit, NA, .)) 
+
   return(out)
   
 }
