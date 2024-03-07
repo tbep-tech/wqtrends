@@ -68,7 +68,7 @@
 <span>  width <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  nms <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  cols <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fils <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cmbn <span class="op">=</span> <span class="cn">F</span>,</span>
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -131,12 +131,12 @@
 <dd><p>optional character vector for trend names, see details</p></dd>
 
 
-<dt>cols</dt>
-<dd><p>optional character vector for point colors, see details</p></dd>
+<dt>fils</dt>
+<dd><p>optional character vector for the fill of interior point colors, see details</p></dd>
 
 
 <dt>cmbn</dt>
-<dd><p>logical indicating if the no trend and on estimate colors should be combined, see details</p></dd>
+<dd><p>logical indicating if the no trend and no estimate colors should be combined, see details</p></dd>
 
 
 <dt>base_size</dt>
@@ -164,7 +164,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The plot is the same as that returned by <code><a href="show_metseason.html">show_metseason</a></code> with the addition of points for the seasonal metrics colored by the trends estimated from <code><a href="anlz_trndseason.html">anlz_trndseason</a></code> for the specified window and justification.</p>
-<p>Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The names and the colors can be changed using the <code>nms</code> and <code>cols</code> arguments, respectively.  The <code>cmbn</code> argument can be used to combine the no trend and no estimate colors into one color and label. Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made.</p>
+<p>Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The names and the colors can be changed using the <code>nms</code> and <code>fils</code> arguments, respectively.  The <code>cmbn</code> argument can be used to combine the no trend and no estimate colors into one color and label. Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made.</p>
 <p>The optional <code>yromit</code> vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.</p>
     </div>
 
