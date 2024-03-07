@@ -8,8 +8,8 @@
 #' @param width numeric for width of error bars
 #' @param size numeric for point size
 #' @param nms optional character vector for trend names, see details
-#' @param cols optional character vector for point colors, see details
-#' @param cmbn logical indicating if the no trend and on estimate colors should be combined, see details
+#' @param fils optional character vector for the fill of interior point colors, see details
+#' @param cmbn logical indicating if the no trend and no estimate colors should be combined, see details
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' @param xlim optional numeric vector of length two for x-axis limits
 #' @param ylim optional numeric vector of length two for y-axis limits
@@ -17,7 +17,7 @@
 #' @details
 #' The plot is the same as that returned by \code{\link{show_metseason}} with the addition of points for the seasonal metrics colored by the trends estimated from \code{\link{anlz_trndseason}} for the specified window and justification.  
 #' 
-#' Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The names and the colors can be changed using the \code{nms} and \code{cols} arguments, respectively.  The \code{cmbn} argument can be used to combine the no trend and no estimate colors into one color and label. Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made.
+#' Four colors are used to define increasing, decreasing, no trend, or no estimate (i.e., too few points for the window).  The names and the colors can be changed using the \code{nms} and \code{fils} arguments, respectively.  The \code{cmbn} argument can be used to combine the no trend and no estimate colors into one color and label. Although this may be desired for aesthetic reasons, the colors and labels may be misleading with the default names since no trend is shown for points where no estimates were made.
 #' 
 #' The optional \code{yromit} vector can be used to omit years from the plot and trend assessment. This may be preferred if seasonal estimates for a given year have very wide confidence intervals likely due to limited data, which can skew the trend assessments.
 #' 
@@ -38,57 +38,57 @@
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_mettrndseason(mod, metfun = mean, doystr = 90, doyend = 180, justify = 'center', 
 #'   win = 4, ylab = 'Chlorophyll-a (ug/L)')
-show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5, nsim = 1e4, useave = FALSE, yromit = NULL, ylab, width = 0.9, size = 3, nms = NULL, cols = NULL, cmbn = F, base_size = 11, xlim = NULL, ylim = NULL, ...){
+show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, justify = c('center', 'left', 'right'), win = 5, nsim = 1e4, useave = FALSE, yromit = NULL, ylab, width = 0.9, size = 3, nms = NULL, fils = NULL, cmbn = F, base_size = 11, xlim = NULL, ylim = NULL, ...){
   
   # get seasonal metrics and trends
   trndseason <- anlz_trndseason(mod = mod, metfun, doystr = doystr, doyend = doyend, justify = justify, win = win, useave = useave, yromit = yromit)
 
-  # handle nms and cols args if not combine (keep no trend and no estimate)
+  # handle nms and fils args if not combine (keep no trend and no estimate)
   if(!cmbn){
     
     if(is.null(nms)) nms <- c("Increasing", "Decreasing", "No trend", "No estimate")
-    if(is.null(cols)) cols <- c('tomato1', 'deepskyblue3', 'white', 'darkgrey')
+    if(is.null(fils)) fils <- c('tomato1', 'deepskyblue3', 'white', 'darkgrey')
   
-    if(length(cols) != 4 | length(nms) != 4)
+    if(length(fils) != 4 | length(nms) != 4)
       stop('Four names or colors must be provided')
     
     # plot objects, add column for trend
     trndseason <- trndseason %>% 
       dplyr::mutate(
         trnd = dplyr::case_when(
-          yrcoef > 0 & pval < 0.05 ~ cols[1], 
-          yrcoef < 0 & pval < 0.05 ~ cols[2],
-          pval >= 0.05 ~ cols[3],
-          is.na(yrcoef) ~ cols[4]
+          yrcoef > 0 & pval < 0.05 ~ fils[1], 
+          yrcoef < 0 & pval < 0.05 ~ fils[2],
+          pval >= 0.05 ~ fils[3],
+          is.na(yrcoef) ~ fils[4]
         ), 
-        trnd = factor(trnd, levels = cols, labels = nms)
+        trnd = factor(trnd, levels = fils, labels = nms)
       )
     
   }
   
-  # handle nms and cols args if combine (combine no trend and no estimate)
+  # handle nms and fils args if combine (combine no trend and no estimate)
   if(cmbn){
     
     if(is.null(nms)) nms <- c("Increasing", "Decreasing", "No trend")
-    if(is.null(cols)) cols <- c('tomato1', 'deepskyblue3', 'white')
+    if(is.null(fils)) fils <- c('tomato1', 'deepskyblue3', 'white')
        
-    if(length(cols) != 3 | length(nms) != 3)
+    if(length(fils) != 3 | length(nms) != 3)
       stop('Three names or colors must be provided')
 
     # plot objects, add column for trend
     trndseason <- trndseason %>% 
       dplyr::mutate(
         trnd = dplyr::case_when(
-          yrcoef > 0 & pval < 0.05 ~ cols[1], 
-          yrcoef < 0 & pval < 0.05 ~ cols[2],
-          pval >= 0.05 | is.na(yrcoef) ~ cols[3]
+          yrcoef > 0 & pval < 0.05 ~ fils[1], 
+          yrcoef < 0 & pval < 0.05 ~ fils[2],
+          pval >= 0.05 | is.na(yrcoef) ~ fils[3]
         ), 
-        trnd = factor(trnd, levels = cols, labels = nms)
+        trnd = factor(trnd, levels = fils, labels = nms)
       )
     
   }
   
-  names(cols) <- nms
+  names(fils) <- nms
   
   # title
   dts <- as.Date(c(doystr, doyend), origin = as.Date("2000-12-31"))
@@ -107,7 +107,7 @@ show_mettrndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, jus
     ggplot2::geom_errorbar(ggplot2::aes(ymin = bt_lwr, ymax = bt_upr), colour = 'black', width = width, na.rm = TRUE) +
     ggplot2::geom_point(ggplot2::aes(fill = trnd), pch = 21, color = 'black', size = size, na.rm = TRUE) +
     ggplot2::theme_bw(base_size = base_size) +
-    ggplot2::scale_fill_manual(values = cols, drop = F) +
+    ggplot2::scale_fill_manual(values = fils, drop = F) +
     ggplot2::theme(
       axis.title.x = ggplot2::element_blank(), 
       legend.position = 'top'

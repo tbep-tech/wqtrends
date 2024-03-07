@@ -17,6 +17,9 @@ show_trndseason(
   yromit = NULL,
   useave = FALSE,
   base_size = 11,
+  nms = NULL,
+  fils = NULL,
+  cols = NULL,
   xlim = NULL,
   ylim = NULL,
   ...
@@ -46,6 +49,12 @@ show_trndseason(
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
+
+\item{nms}{optional character vector for trend names}
+
+\item{fils}{optional character vector for the fill of interior point colors}
+
+\item{cols}{optional character vector for confidence interval colors}
 
 \item{xlim}{optional numeric vector of length two for x-axis limits}
 
