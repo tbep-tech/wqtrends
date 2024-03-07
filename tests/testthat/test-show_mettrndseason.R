@@ -16,12 +16,12 @@ test_that("Checking show_mettrndseason class with cmbn as T", {
 
 test_that("show_mettrndseason throws an error if cols length is not 4 for cmbn as F", {
 
-  expect_error(show_mettrndseason(mod, cols = c('red', 'blue'), nsim = 10), "Four names or colors must be provided")
+  expect_error(show_mettrndseason(mod, fils = c('red', 'blue'), nsim = 10), "Four names or colors must be provided")
   
 })
 
 test_that("show_mettrndseason throws an error if cols length is not 3 for cmbn as T", {
   
-  expect_error(show_mettrndseason(mod, cols = c('red', 'blue'), cmbn = T, nsim = 10), "Three names or colors must be provided")
+  expect_error(show_mettrndseason(mod, fils = c('red', 'blue'), cmbn = T, nsim = 10), "Three names or colors must be provided")
   
 })
