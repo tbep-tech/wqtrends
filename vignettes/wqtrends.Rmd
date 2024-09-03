@@ -143,6 +143,13 @@ Adding an argument for `metfun` to `show_metseason()` will plot results and tren
 show_metseason(mod, metfun = max, nsim = 100, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017, ylab = "Chlorophyll-a (ug/L)")
 ```
 
+For convenience, the `anlz_sumstats()` function returns a list of summary statistics for the GAM and associated mixed-effect meta-analysis model.  This function can be useful for creating tabular results of the models.  The list output includes `mixmet` as a `mixmeta` object of the fitted mixed-effects meta-analysis trend model, `metseason` as a tibble object of the fitted seasonal metrics as returned by `anlz_metseason()` or `anlz_avgseason()`, `summary` of the `mixmet` object, and `coeffs` as a tibble object of the slope estimate coefficients from `mixmet`. An approximately linear slope estimate will be included as `slope.approx` in `coeffs` if `trans = 'log10'` for the GAM used in `mod`.
+
+```{r}
+anlz_sumstats(mod, metfun = mean, doystr = 90, doyend = 180, yrstr = 2006, yrend = 2017)
+```
+
+
 The seasonal estimates and mixed-effects meta-analysis regression can be used to estimate the rate of seasonal change across the time series.  For any given year and seasonal metric, a trend can be estimated within a specific window (i.e., `yrstr` and `yrend` arguments in `show_metseason()`).  This trend can be estimated for every year in the period of record to estimate the rate of change over time for the seasonal estimates.  
 
 The `anlz_trndseason()` function estimates the rate of change and the `show_trndseason()` function plots the results. For both, all inputs required for the `anlz_metseason()` function are required, in addition to the desired window width to evaluate for each year (`win`) and the justification for the window as `"left"`, `"right"`, or `"center"` from each year (`justify`).
