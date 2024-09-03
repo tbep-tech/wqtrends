@@ -46,7 +46,7 @@ show_trndseason(
 
 \item{yromit}{optional numeric vector for years to omit from the output}
 
-\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
+\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation, see details}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 

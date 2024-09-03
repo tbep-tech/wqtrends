@@ -41,7 +41,7 @@ show_mettrndseason(
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
-\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
+\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation, see details}
 
 \item{yromit}{optional numeric vector for years to omit from the plot, see details}
 

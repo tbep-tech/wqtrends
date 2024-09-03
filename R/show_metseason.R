@@ -13,7 +13,7 @@
 #' @param width numeric for width of error bars
 #' @param size numeric for point size
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
-#' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation
+#' @param useave logical indicating if \code{\link{anlz_avgseason}} is used for the seasonal metric calculation, see details
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' @param xlim optional numeric vector of length two for x-axis limits
 #' @param ylim optional numeric vector of length two for y-axis limits

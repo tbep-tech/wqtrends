@@ -46,7 +46,7 @@ show_metseason(
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
-\item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation}
+\item{useave}{logical indicating if \code{\link{anlz_avgseason}} is used for the seasonal metric calculation, see details}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 
