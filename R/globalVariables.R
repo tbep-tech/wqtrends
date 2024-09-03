@@ -3,5 +3,5 @@ globalVariables(c('%>%', '.', 'AIC', 'S', 'annvalue', 'met', 'bl', 'lwr', 'upr',
                   'xval', 'yr', 'yrcoef', 'appr_yrcoef', 'yrcoef_lwr', 'yrcoef_upr', 'dayCounts', 'data', 
                   'psig', 'trnd'))
                 
-#' @importFrom stats AIC as.formula coef coefficients lm na.exclude na.omit pt predict qnorm resid sd update
+#' @importFrom stats AIC as.formula coef coefficients lm na.exclude na.omit pnorm pt predict qnorm resid sd update
 NULL

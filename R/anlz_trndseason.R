@@ -11,7 +11,7 @@
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param yromit optional numeric vector for years to omit from the output
 #' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation, see details
-#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
+#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}
 #'
 #' @return A data frame of slope estimates and p-values for each year
 #' @export

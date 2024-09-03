@@ -45,6 +45,6 @@ tomod <- rawdat \%>\%
   
 mod <- anlz_gam(tomod, trans = 'log10')
 
-show_perchg(mod, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
+show_perchg(mod, baseyr = 1995, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
 }
 \concept{show}

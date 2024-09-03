@@ -36,7 +36,7 @@ anlz_trndseason(
 
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation, see details}
 
-\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}}
 }
 \value{
 A data frame of slope estimates and p-values for each year

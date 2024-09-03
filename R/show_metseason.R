@@ -17,7 +17,7 @@
 #' @param base_size numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}
 #' @param xlim optional numeric vector of length two for x-axis limits
 #' @param ylim optional numeric vector of length two for y-axis limits
-#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
+#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export

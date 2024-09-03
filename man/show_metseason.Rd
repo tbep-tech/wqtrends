@@ -54,7 +54,7 @@ show_metseason(
 
 \item{ylim}{optional numeric vector of length two for y-axis limits}
 
-\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

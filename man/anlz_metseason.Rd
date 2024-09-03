@@ -27,7 +27,7 @@ anlz_metseason(
 
 \item{yromit}{optional numeric vector for years to omit from the output}
 
-\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}}
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}}
 }
 \value{
 A data frame of period metrics

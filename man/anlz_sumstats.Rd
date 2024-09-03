@@ -39,7 +39,7 @@ anlz_sumstats(
 
 \item{useave}{logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation, see details}
 
-\item{...}{}
+\item{...}{additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}}
 }
 \value{
 A list object with named elements:

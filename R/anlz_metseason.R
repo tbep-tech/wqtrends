@@ -8,7 +8,7 @@
 #' @param doyend numeric indicating ending Julian day for extracting averages
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param yromit optional numeric vector for years to omit from the output
-#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE)}
+#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}
 #'
 #' @return A data frame of period metrics
 #' @export

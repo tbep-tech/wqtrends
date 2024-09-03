@@ -23,7 +23,7 @@
 #'   
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' 
-#' show_perchg(mod, baseyr = 1990, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
+#' show_perchg(mod, baseyr = 1995, testyr = 2016, ylab = 'Chlorophyll-a (ug/L)')
 show_perchg <- function(mod, baseyr, testyr, ylab, base_size = 11, xlim = NULL, ylim = NULL) {
   
   # get change estimates
@@ -71,7 +71,7 @@ show_perchg <- function(mod, baseyr, testyr, ylab, base_size = 11, xlim = NULL, 
   p <- ggplot2::ggplot() + 
     ggplot2::geom_rect(data = trndswn, ggplot2::aes(xmin = xmin, xmax = xmax, ymin = rctmn, ymax = Inf, group = yr, fill = bl), alpha = 0.7) +
     ggplot2::geom_point(data = moddat, ggplot2::aes(x = date, y = value), size = 0.5) +
-    ggplot2::geom_line(data = prds, ggplot2::aes(x = date, y = value), size = 0.75, alpha = 0.8) + 
+    ggplot2::geom_line(data = prds, ggplot2::aes(x = date, y = value), linewidth = 0.75, alpha = 0.8) + 
     ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::scale_fill_manual(values = c('lightblue', 'lightgreen')) +
     ggplot2::theme(

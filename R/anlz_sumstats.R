@@ -10,7 +10,7 @@
 #' @param nsim numeric indicating number of random draws for simulating uncertainty
 #' @param confint numeric from zero to one indicating confidence interval level for summarizing the mixed-effects meta-analysis model, see details
 #' @param useave logical indicating if \code{anlz_avgseason} is used for the seasonal metric calculation, see details
-#' @param ... 
+#' @param ... additional arguments passed to \code{metfun}, e.g., \code{na.rm = TRUE}
 #'
 #' @details This function is primarily for convenience to return summary statistics of a fitted GAM from \code{\link{anlz_gam}}. 
 #' 
@@ -64,11 +64,14 @@ anlz_sumstats <- function(mod,  metfun = mean, doystr = 1, doyend = 364, yrstr =
   # Summary of the mixmeta object 
   s <- summary(mixmet, ci.level = confint)
   
+  # zstat
+  z <- s$coefficients["yr","z"]
+  
   # Gather some key params in a convenient row of a tibble
   coeffs <- tibble::tibble(
       slope = s$coefficients["yr","Estimate"], # Original slope from summary.mixmeta
       slope.se = s$coefficients["yr","Std. Error"],
-      z = s$coefficients["yr","z"],
+      z = z,
       p = s$coefficients["yr","Pr(>|z|)"],
       likelihood = pnorm(abs(z)),
       ci.lb = s$coefficients["yr",5],
@@ -103,10 +106,11 @@ anlz_sumstats <- function(mod,  metfun = mean, doystr = 1, doyend = 364, yrstr =
     )
     
   }
-  
-  # Return the metseason results table
-  metseason <- metseason %>% 
-    filter(!yr %in% yromit)
+
+  # filter yromit if provided
+  if(!is.null(yromit))
+    metseason <- metseason %>% 
+       dplyr::filter(!yr %in% yromit)
   
   out <- list(mixmet = mixmet,
              metseason = metseason,
