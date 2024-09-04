@@ -1,13 +1,13 @@
 ##  Resubmission
 
-This is a resubmission of a version update to reduce runtime for tests.
+This is a minor version update 1.5.0.
 
 ## Test environments
 
-* ubuntu 22.04.4 (R 4.3.2, R 4.2.3, R devel)
-* macOS 12.6.7 (R 4.3.2)
-* win-builder [http://win-builder.r-project.org/](http://win-builder.r-project.org/) (R 4.3.2, R 4.2.3, R devel)
-* local Windows 10 install (R 4.3.1)
+* ubuntu 22.04.3 (on GitHub Actions), R release (4.4.1), devel, and old-release
+* macOS (on GitHub Actions), R 4.4.1
+* windows (on GitHub Actions), R 4.4.1
+* win-builder http://win-builder.r-project.org/ (devel and release)
 
 ## R CMD check results
 

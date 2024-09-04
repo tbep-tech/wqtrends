@@ -1,3 +1,11 @@
+# wqtrends 1.5.0
+
+* Added `anlz_sumstats()` function to return summary statistics from a GAM and mixed-effects meta-analysis trend model
+* `show_trndseason()` has `nms`, `fils`, and `cols` arguments for trend names in legend, interior fill of points, and color of confidence intervals
+* Fix bug for incorrect assignment of scale manual entries for color, fill, and shapes in `show_trndseason()`
+* Fix bug for incorrect use of `yromit` argument for removing years from plots and trend analysis
+* Removed `usearrow` option from `show_trndseason()` and replaced with item two above
+
 # wqtrends 1.4.2
 
 * `show_trndseason()` has option `usearrow` to plot points as up or down arrows for trend direction
