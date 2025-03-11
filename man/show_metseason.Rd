@@ -15,6 +15,8 @@ show_metseason(
   ylab,
   width = 0.9,
   size = 1.5,
+  seascol = "deepskyblue3",
+  trndcol = "pink",
   nsim = 10000,
   useave = FALSE,
   base_size = 11,
@@ -43,6 +45,10 @@ show_metseason(
 \item{width}{numeric for width of error bars}
 
 \item{size}{numeric for point size}
+
+\item{seascol}{chr string for color of the seasonal averages}
+
+\item{trndcol}{chr sting for color of the trend line}
 
 \item{nsim}{numeric indicating number of random draws for simulating uncertainty}
 
