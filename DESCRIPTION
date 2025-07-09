@@ -1,7 +1,7 @@
 Package: wqtrends
 Title: Assess Water Quality Trends with Generalized Additive Models
-Version: 1.5.0.9000
-Date: 2025-03-11
+Version: 1.5.1
+Date: 2025-07-09
 Authors@R: c(
     person(given = "Marcus",
       family = "Beck",
@@ -63,7 +63,7 @@ Imports:
 License: CC0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: <https://github.com/tbep-tech/wqtrends/>,
     <https://tbep-tech.github.io/wqtrends/>
 BugReports: https://github.com/tbep-tech/wqtrends/issues

@@ -1,3 +1,8 @@
+# wqtrends 1.5.1
+
+* Added `yromit` argument to `show_prddoy()`, `show_prdseason()`, and `show_prdseries()` to omit years from the plots
+* Added `seascol` and `trndcol` arguments to `show_metseason()` for changing the colors of the seasonal metric points and trend line, respectively 
+
 # wqtrends 1.5.0
 
 * Added `anlz_sumstats()` function to return summary statistics from a GAM and mixed-effects meta-analysis trend model

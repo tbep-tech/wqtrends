@@ -4,12 +4,21 @@
 \alias{show_prdseason}
 \title{Plot predictions for GAMs over time, by season}
 \usage{
-show_prdseason(mod, ylab, base_size = 11, xlim = NULL, ylim = NULL)
+show_prdseason(
+  mod,
+  ylab,
+  yromit = NULL,
+  base_size = 11,
+  xlim = NULL,
+  ylim = NULL
+)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{ylab}{chr string for y-axis label}
+
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
 
 \item{base_size}{numeric indicating base font size, passed to \code{\link[ggplot2]{theme_bw}}}
 

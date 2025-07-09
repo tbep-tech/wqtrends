@@ -20,10 +20,13 @@
 #'   
 #' mod <- anlz_gam(tomod, trans = 'log10')
 #' show_prdseason(mod, ylab = 'Chlorophyll-a (ug/L)')
-show_prdseason <- function(mod, ylab, base_size = 11, xlim = NULL, ylim = NULL){
+show_prdseason <- function(mod, ylab, yromit = NULL, base_size = 11, xlim = NULL, ylim = NULL){
   
   # get daily predictions, differs from anlz_prd
   prds <- anlz_prdday(mod)
+  
+  if(!is.null(yromit))
+    prds <- prds[!prds$yr %in% yromit, ]
   
   # get transformation
   trans <- unique(prds$trans)

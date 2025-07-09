@@ -7,6 +7,7 @@
 show_prdseries(
   mod,
   ylab,
+  yromit = NULL,
   alpha = 0.7,
   base_size = 11,
   xlim = NULL,
@@ -18,6 +19,8 @@ show_prdseries(
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
 
 \item{ylab}{chr string for y-axis label}
+
+\item{yromit}{optional numeric vector for years to omit from the plot, see details}
 
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
 
@@ -34,6 +37,9 @@ A \code{\link[ggplot2]{ggplot}} object
 }
 \description{
 Plot predictions for GAMs over time series
+}
+\details{
+The optional \code{yromit} vector can be used to omit years from the plot. This may be preferred if the predicted values from the model deviate substantially from other years likely due to missing data.
 }
 \examples{
 library(dplyr)
