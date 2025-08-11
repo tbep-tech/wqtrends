@@ -10,6 +10,7 @@ test_that("Checking show_series yromit argument works", {
   
   result <- show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)', yromit = 2016)
   
-  expect_false(2016 %in% result$data$yr)
+  chk <- result$data[result$data$yr == 2016, 'value',]
+  expect_true(all(is.na(chk)))
   
 })
