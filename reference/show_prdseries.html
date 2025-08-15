@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wqtrends</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,8 @@
 <span>  base_size <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col <span class="op">=</span> <span class="st">"brown"</span></span>
+<span>  col <span class="op">=</span> <span class="st">"brown"</span>,</span>
+<span>  minomit <span class="op">=</span> <span class="fl">8</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +88,10 @@
 <dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
 <dd><p>optional chr string for line color</p></dd>
 
+
+<dt id="arg-minomit">minomit<a class="anchor" aria-label="anchor" href="#arg-minomit"></a></dt>
+<dd><p>numeric indicating number of observations in the observed data to exclude it in the predicted series for a given year if provided to <code>yromit</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -95,6 +100,8 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The optional <code>yromit</code> vector can be used to omit years from the plot. This may be preferred if the predicted values from the model deviate substantially from other years likely due to missing data.</p>
+<p>The <code>yromit</code> argument behaves differently for this function compared to others because of a mismatch in the timestep for the predicted time series and the observed data. The function will attempt to find "bookends" in the observed data that match with the predicted time series for each year in <code>yromit</code>.  For example, if there is a gap in the observed data that spans multiple years and a single year value is included with <code>yromit</code> that is within the gap, the predicted time series will not be shown for the entire gap in the observed data even if additional years within the gap were not provided to <code>yromit</code>.</p>
+<p>Entire years where observed data are present can also be removed from the predicted time series if they exceed a minimum number of observations defined by <code>minomit</code>. For example, if a year has at least 8 observations and <code>yromit</code> includes that year, the predicted time series for that entire year will be removed.</p>
     </div>
 
     <div class="section level2">
