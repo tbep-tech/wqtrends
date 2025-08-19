@@ -32,10 +32,10 @@ test_that("Checking show_series yromit argument works", {
 
   # edge case model partial missing years
   tomod <- subset(rawdat, rawdat$station == 34 & rawdat$param == 'chl' & yr > 2014)
-  tomod <- subset(tomod, tomod$cont_year < 2016 | tomod$cont_year >= 2018.5)
+  tomod <- subset(tomod, tomod$cont_year < 2016 | tomod$cont_year >= 2018.6)
   mod <- anlz_gam(tomod, trans = 'log10')
 
-  result <- show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)', yromit = 2017)
+  result <- show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)', yromit = 2018)
 
   chk <- na.omit(result$data[result$data$yr == 2018, 'value',])
   expect_true(length(chk) > 0)
