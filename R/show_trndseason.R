@@ -82,7 +82,8 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     
     p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
       ggplot2::geom_hline(yintercept = 0) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0, na.rm = TRUE) +
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), 
+        width = 0, na.rm = TRUE, show.legend = TRUE) +
       ggplot2::scale_color_manual(values = cols, drop = FALSE)
  
   }
@@ -107,13 +108,14 @@ show_trndseason <- function(mod, metfun = mean, doystr = 1, doyend = 364, type =
     
     p <- ggplot2::ggplot(data = toplo, ggplot2::aes(x = yr, y = yrcoef, fill = pval)) + 
       ggplot2::geom_hline(yintercept = 0) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), width = 0, na.rm = TRUE) +
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = yrcoef_lwr, ymax = yrcoef_upr, color = pval), 
+        width = 0, na.rm = TRUE, show.legend = TRUE) +
       ggplot2::scale_color_manual(values = cols, drop = FALSE)
     
   }
 
   p <- p + 
-    ggplot2::geom_point(ggplot2::aes(shape = pval), size = 3, na.rm = TRUE) +
+    ggplot2::geom_point(ggplot2::aes(shape = pval), size = 3, na.rm = TRUE, show.legend = TRUE) +
     ggplot2::scale_fill_manual(values = fils, drop = FALSE) +
     ggplot2::scale_shape_manual(values = shps, drop = FALSE) +
     ggplot2::scale_x_continuous(limits = yrrng) +
