@@ -4,7 +4,14 @@
 \alias{show_prddoy}
 \title{Plot predictions for GAMs against day of year}
 \usage{
-show_prddoy(mod, ylab, yromit = NULL, size = 0.5, alpha = 1, base_size = 11)
+show_prddoy(
+  mod,
+  ylab,
+  yromit = NULL,
+  linewidth = 0.5,
+  alpha = 1,
+  base_size = 11
+)
 }
 \arguments{
 \item{mod}{input model object as returned by \code{\link{anlz_gam}}}
@@ -13,7 +20,7 @@ show_prddoy(mod, ylab, yromit = NULL, size = 0.5, alpha = 1, base_size = 11)
 
 \item{yromit}{optional numeric vector for years to omit from the plot, see details}
 
-\item{size}{numeric indicating line size}
+\item{linewidth}{numeric indicating line width}
 
 \item{alpha}{numeric from 0 to 1 indicating line transparency}
 
