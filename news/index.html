@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wqtrends</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,17 @@
       <small>Source: <a href="https://github.com/tbep-tech/wqtrends/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.2" id="wqtrends-152">wqtrends 1.5.2<a class="anchor" aria-label="anchor" href="#wqtrends-152"></a></h2>
+<ul><li>Fix to <code><a href="../reference/show_prdseries.html">show_prdseries()</a></code> when <code>yromit</code> argument is used to omit years from the plot, this creates a gap in the line for omitted years using <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">ggplot2::geom_path()</a></code>
+</li>
+<li>Added <code>minomit</code> argument to <code><a href="../reference/show_prdseries.html">show_prdseries()</a></code> to omit years with fewer than the specified number of observations from the plot, see documentation update for details</li>
+<li>Better testing for <code><a href="../reference/show_prdseries.html">show_prdseries()</a></code> with update to <code>yromit</code> argument</li>
+<li>Fix legends in <code><a href="../reference/show_mettrndseason.html">show_mettrndseason()</a></code> and <code><a href="../reference/show_trndseason.html">show_trndseason()</a></code> to correctly display guides.</li>
+<li>Changed deprecated <code>size</code> argument to <code>linewidth</code> for internal calls to <code>geom_line()</code> for ggplot2 v3.4.0 compatibility in <code><a href="../reference/show_prdseason.html">show_prdseason()</a></code> and <code><a href="../reference/show_prddoy.html">show_prddoy()</a></code> (issue <a href="https://github.com/tbep-tech/wqtrends/issues/7" class="external-link">#7</a>).</li>
+<li>
+<code><a href="../reference/show_prddoy.html">show_prddoy()</a></code> argument <code>size</code> changed to <code>linewidth</code> for line width (issue <a href="https://github.com/tbep-tech/wqtrends/issues/7" class="external-link">#7</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.1" id="wqtrends-151">wqtrends 1.5.1<a class="anchor" aria-label="anchor" href="#wqtrends-151"></a></h2><p class="text-muted">CRAN release: 2025-07-09</p>
 <ul><li>Added <code>yromit</code> argument to <code><a href="../reference/show_prddoy.html">show_prddoy()</a></code>, <code><a href="../reference/show_prdseason.html">show_prdseason()</a></code>, and <code><a href="../reference/show_prdseries.html">show_prdseries()</a></code> to omit years from the plots</li>

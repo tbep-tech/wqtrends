@@ -1,5 +1,34 @@
 # Changelog
 
+## wqtrends 1.5.2
+
+- Fix to
+  [`show_prdseries()`](https://tbep-tech.github.io/wqtrends/reference/show_prdseries.md)
+  when `yromit` argument is used to omit years from the plot, this
+  creates a gap in the line for omitted years using
+  [`ggplot2::geom_path()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
+- Added `minomit` argument to
+  [`show_prdseries()`](https://tbep-tech.github.io/wqtrends/reference/show_prdseries.md)
+  to omit years with fewer than the specified number of observations
+  from the plot, see documentation update for details
+- Better testing for
+  [`show_prdseries()`](https://tbep-tech.github.io/wqtrends/reference/show_prdseries.md)
+  with update to `yromit` argument
+- Fix legends in
+  [`show_mettrndseason()`](https://tbep-tech.github.io/wqtrends/reference/show_mettrndseason.md)
+  and
+  [`show_trndseason()`](https://tbep-tech.github.io/wqtrends/reference/show_trndseason.md)
+  to correctly display guides.
+- Changed deprecated `size` argument to `linewidth` for internal calls
+  to `geom_line()` for ggplot2 v3.4.0 compatibility in
+  [`show_prdseason()`](https://tbep-tech.github.io/wqtrends/reference/show_prdseason.md)
+  and
+  [`show_prddoy()`](https://tbep-tech.github.io/wqtrends/reference/show_prddoy.md)
+  (issue [\#7](https://github.com/tbep-tech/wqtrends/issues/7)).
+- [`show_prddoy()`](https://tbep-tech.github.io/wqtrends/reference/show_prddoy.md)
+  argument `size` changed to `linewidth` for line width (issue
+  [\#7](https://github.com/tbep-tech/wqtrends/issues/7)).
+
 ## wqtrends 1.5.1
 
 CRAN release: 2025-07-09

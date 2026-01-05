@@ -57,7 +57,7 @@ show_prdseries(
 - minomit:
 
   numeric indicating number of observations in the observed data to
-  exclude it in the predicted series for a given year if provided to
+  exclude in the predicted series for a given year if provided to
   `yromit`
 
 ## Value
