@@ -12,3 +12,4 @@
 ^\.github$
 ^_pkgdown\.yml$
 ^cran-comments\.md$
+^.vscode$

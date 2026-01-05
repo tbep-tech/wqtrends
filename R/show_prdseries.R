@@ -10,7 +10,7 @@
 #' @param xlim optional numeric vector of length two for x-axis limits
 #' @param ylim optional numeric vector of length two for y-axis limits
 #' @param col optional chr string for line color
-#' @param minomit numeric indicating number of observations in the observed data to exclude it in the predicted series for a given year if provided to \code{yromit}
+#' @param minomit numeric indicating number of observations in the observed data to exclude in the predicted series for a given year if provided to \code{yromit}
 #' 
 #' @return A \code{\link[ggplot2]{ggplot}} object
 #' @export

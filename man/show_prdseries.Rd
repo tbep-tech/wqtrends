@@ -33,7 +33,7 @@ show_prdseries(
 
 \item{col}{optional chr string for line color}
 
-\item{minomit}{numeric indicating number of observations in the observed data to exclude it in the predicted series for a given year if provided to \code{yromit}}
+\item{minomit}{numeric indicating number of observations in the observed data to exclude in the predicted series for a given year if provided to \code{yromit}}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object

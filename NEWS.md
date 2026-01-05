@@ -1,3 +1,12 @@
+# wqtrends 1.5.2
+
+* Fix to `show_prdseries()` when `yromit` argument is used to omit years from the plot, this creates a gap in the line for omitted years using `ggplot2::geom_path()`
+* Added `minomit` argument to `show_prdseries()` to omit years with fewer than the specified number of observations from the plot, see documentation update for details
+* Better testing for `show_prdseries()` with update to `yromit` argument
+* Fix legends in `show_mettrndseason()` and `show_trndseason()` to correctly display guides.
+* Changed deprecated `size` argument to `linewidth` for internal calls to `geom_line()` for ggplot2 v3.4.0 compatibility in `show_prdseason()` and `show_prddoy()` (issue #7).
+* `show_prddoy()` argument `size` changed to `linewidth` for line width (issue #7).
+
 # wqtrends 1.5.1
 
 * Added `yromit` argument to `show_prddoy()`, `show_prdseason()`, and `show_prdseries()` to omit years from the plots
