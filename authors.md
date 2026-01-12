@@ -20,7 +20,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/tbep-tech/wqtrends/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/tbep-tech/wqtrends/blob/v1.5.2/inst/CITATION)
 
 Beck, M.W., de Valpine, P., Murphy, R., Wren, I., Chelsky, A., Foley,
 M., Senn, D.B. (2022). “Multi-scale trend analysis of water quality

@@ -2,6 +2,8 @@
 
 ## wqtrends 1.5.2
 
+CRAN release: 2026-01-12
+
 - Fix to
   [`show_prdseries()`](https://tbep-tech.github.io/wqtrends/reference/show_prdseries.md)
   when `yromit` argument is used to omit years from the plot, this
