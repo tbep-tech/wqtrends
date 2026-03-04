@@ -118,7 +118,7 @@ show_prdseries <- function(mod, ylab, yromit = NULL, alpha = 0.7, base_size = 11
 
   p <- ggplot2::ggplot(prds, ggplot2::aes(x = date)) + 
     ggplot2::geom_point(data = moddat, ggplot2::aes(y = value), size = 0.5) +
-    ggplot2::geom_path(ggplot2::aes(y = value), size = 0.75, alpha = alpha, colour = col) + 
+    ggplot2::geom_path(ggplot2::aes(y = value), linewidth = 0.75, alpha = alpha, colour = col) +
     ggplot2::theme_bw(base_size = base_size) + 
     ggplot2::theme(
       legend.position = 'top', 
