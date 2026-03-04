@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   wqtrends: wqtrends.html
-last_built: 2026-01-12T15:22Z
+last_built: 2026-03-04T18:20Z
 urls:
   reference: https://tbep-tech.github.io/wqtrends/reference
   article: https://tbep-tech.github.io/wqtrends/articles

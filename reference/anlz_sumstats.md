@@ -127,7 +127,7 @@ anlz_sumstats(mod, metfun = mean, doystr = 90, doyend = 180, yrstr = 2016,
 #> 
 #> Fixed-effects coefficients:
 #> (Intercept)           yr  
-#>    -68.5797       0.0344  
+#>    -68.5800       0.0344  
 #> 
 #> 4 units, 1 outcome, 4 observations, 2 fixed and 1 random-effects parameters
 #>  logLik      AIC      BIC  
@@ -153,7 +153,7 @@ anlz_sumstats(mod, metfun = mean, doystr = 90, doyend = 180, yrstr = 2016,
 #> 
 #> Fixed-effects coefficients
 #>              Estimate  Std. Error        z  Pr(>|z|)   95%ci.lb  95%ci.ub   
-#> (Intercept)  -68.5797    132.4090  -0.5179    0.6045  -328.0966  190.9372   
+#> (Intercept)  -68.5800    132.4119  -0.5179    0.6045  -328.1026  190.9426   
 #> yr             0.0344      0.0656   0.5243    0.6001    -0.0942    0.1630   
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 

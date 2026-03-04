@@ -40,5 +40,5 @@ tomod <- rawdat %>%
 mod <- anlz_gam(tomod, trans = 'log10')
 anlz_smooth(mod)
 #>       smoother      edf   Ref.df        F p.value
-#> 1 s(cont_year) 218.9304 262.4483 4.788546       0
+#> 1 s(cont_year) 218.9304 262.4482 4.788546       0
 ```

@@ -113,14 +113,14 @@ anlz_smooth(mod)
 ```
 
     #>       smoother      edf   Ref.df        F p.value
-    #> 1 s(cont_year) 218.9304 262.4483 4.788546       0
+    #> 1 s(cont_year) 218.9304 262.4482 4.788546       0
 
 ``` r
 anlz_fit(mod)
 ```
 
     #>             AIC        GCV        R2
-    #> GCV.Cp -3.16689 0.07280572 0.6842621
+    #> GCV.Cp -3.16688 0.07280572 0.6842621
 
 The plotting functions show the results in different formats. If
 appropriate for the response variable, the model predictions are
@@ -284,11 +284,11 @@ anlz_mixmeta(metseason, yrstr = 2006, yrend = 2017)
     #> 
     #> Fixed-effects coefficients:
     #> (Intercept)           yr  
-    #>     69.0944      -0.0338  
+    #>     69.0965      -0.0338  
     #> 
     #> 12 units, 1 outcome, 12 observations, 2 fixed and 1 random-effects parameters
     #>   logLik       AIC       BIC  
-    #>   8.3048  -10.6096   -9.7018
+    #>   8.3047  -10.6094   -9.7017
 
 The
 [`show_metseason()`](https://tbep-tech.github.io/wqtrends/reference/show_metseason.md)
@@ -354,7 +354,7 @@ anlz_sumstats(mod, metfun = mean, doystr = 90, doyend = 180, yrstr = 2006, yrend
     #> 
     #> Fixed-effects coefficients:
     #> (Intercept)           yr  
-    #>     46.4014      -0.0226  
+    #>     46.4015      -0.0226  
     #> 
     #> 12 units, 1 outcome, 12 observations, 2 fixed and 1 random-effects parameters
     #>   logLik       AIC       BIC  
@@ -387,7 +387,7 @@ anlz_sumstats(mod, metfun = mean, doystr = 90, doyend = 180, yrstr = 2006, yrend
     #> 
     #> Fixed-effects coefficients
     #>              Estimate  Std. Error        z  Pr(>|z|)  95%ci.lb  95%ci.ub   
-    #> (Intercept)   46.4014     18.6384   2.4896    0.0128    9.8707   82.9321  *
+    #> (Intercept)   46.4015     18.6384   2.4896    0.0128    9.8708   82.9321  *
     #> yr            -0.0226      0.0093  -2.4385    0.0147   -0.0407   -0.0044  *
     #> ---
     #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
@@ -399,7 +399,7 @@ anlz_sumstats(mod, metfun = mean, doystr = 90, doyend = 180, yrstr = 2006, yrend
     #>     0.0533
     #> 
     #> Univariate Cochran Q-test for residual heterogeneity:
-    #> Q = 13.3900 (df = 10), p-value = 0.2027
+    #> Q = 13.3901 (df = 10), p-value = 0.2027
     #> I-square statistic = 25.3%
     #> 
     #> 12 units, 1 outcome, 12 observations, 2 fixed and 1 random-effects parameters

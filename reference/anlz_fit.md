@@ -39,5 +39,5 @@ tomod <- rawdat %>%
 mod <-  anlz_gam(tomod, trans = 'log10')
 anlz_fit(mod)
 #>             AIC        GCV        R2
-#> GCV.Cp -3.16689 0.07280572 0.6842621
+#> GCV.Cp -3.16688 0.07280572 0.6842621
 ```

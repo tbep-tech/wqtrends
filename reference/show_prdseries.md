@@ -99,8 +99,4 @@ tomod <- rawdat %>%
 mod <- anlz_gam(tomod, trans = 'log10')
 
 show_prdseries(mod, ylab = 'Chlorophyll-a (ug/L)')
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the wqtrends package.
-#>   Please report the issue at <https://github.com/tbep-tech/wqtrends/issues>.
 ```
